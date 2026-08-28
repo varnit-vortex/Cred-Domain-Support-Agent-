@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Pytest & Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & logs generated at runtime
+data/logs/*.jsonl
+data/checkpoints.sqlite*
+data/conversations/*.json
+data/chroma_db/
+
+# macOS system files
+.DS_Store
