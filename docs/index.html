@@ -560,6 +560,7 @@
       // Highlight Node 1 & 2
       setPipelineActive(1);
 
+      let data;
       try {
         const res = await fetch('/ask', {
           method: 'POST',
@@ -571,66 +572,182 @@
             api_key: currentApiKey || null
           })
         });
-        const data = await res.json();
-
-        // Update telemetry
-        const piiElem = document.getElementById('stat-pii');
-        if (data.guardrail_status.pii_detected) {
-          piiElem.innerHTML = '<span class="text-amber-400 font-bold">PII Masked</span>';
+        if (res.ok) {
+          data = await res.json();
         } else {
-          piiElem.innerHTML = '<span class="text-emerald-400 font-semibold">Clean Input</span>';
+          throw new Error('API server returned ' + res.status);
         }
-
-        const injElem = document.getElementById('stat-inj');
-        if (data.guardrail_status.prompt_injection_detected) {
-          injElem.innerHTML = '<span class="text-rose-400 font-bold">Blocked Injection</span>';
-        } else {
-          injElem.innerHTML = '<span class="text-emerald-400 font-semibold">Safe</span>';
-        }
-
-        // Highlight Node 3 & 4
-        setPipelineActive(4);
-
-        // Render Assistant Response
-        let badgeColor = 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-        if (data.intent === 'GUARDRAIL_BLOCKED') badgeColor = 'bg-rose-500/20 text-rose-400 border-rose-500/30';
-        if (data.intent === 'LOAN_STATUS') badgeColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-
-        const modelUsed = data.model_used || 'MOCK_LLM';
-
-        // Format Markdown newlines and bold in answer
-        const formattedAnswer = formatMarkdown(data.answer);
-
-        const assistantHtml = `
-          <div class="flex items-start space-x-3">
-            <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shrink-0 mt-1">
-              <i data-lucide="bot" class="w-5 h-5"></i>
-            </div>
-            <div class="flex-1 bg-slate-800/70 border border-slate-700/60 rounded-2xl rounded-tl-none p-4 text-sm leading-relaxed text-slate-200">
-              <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center space-x-2">
-                  <span class="font-semibold text-blue-400 text-xs">Cred Lending Assistant</span>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-400">${modelUsed}</span>
-                </div>
-                <span class="px-2 py-0.5 rounded text-[11px] font-mono border ${badgeColor}">${data.intent}</span>
-              </div>
-              <div class="text-slate-200 leading-relaxed text-xs sm:text-sm">${formattedAnswer}</div>
-              ${data.sources && data.sources.length ? `
-                <div class="mt-3 pt-2 border-t border-slate-700/50 flex flex-wrap gap-1.5 items-center">
-                  <span class="text-[11px] text-slate-400">Sources:</span>
-                  ${data.sources.map(s => `<span class="px-2 py-0.5 rounded bg-slate-900 text-blue-400 font-mono text-[11px] border border-slate-700">${s}</span>`).join('')}
-                </div>
-              ` : ''}
-            </div>
-          </div>
-        `;
-        log.insertAdjacentHTML('beforeend', assistantHtml);
-        log.scrollTop = log.scrollHeight;
-        lucide.createIcons();
-
       } catch (err) {
-        console.error(err);
+        console.log('Backend not available, running Client-Side Engine for GitHub Pages...', err);
+        data = await runClientSideAgent(query, provider, currentApiKey);
       }
+
+      // Update telemetry
+      const piiElem = document.getElementById('stat-pii');
+      if (data.guardrail_status.pii_detected) {
+        piiElem.innerHTML = '<span class="text-amber-400 font-bold">PII Masked</span>';
+      } else {
+        piiElem.innerHTML = '<span class="text-emerald-400 font-semibold">Clean Input</span>';
+      }
+
+      const injElem = document.getElementById('stat-inj');
+      if (data.guardrail_status.prompt_injection_detected) {
+        injElem.innerHTML = '<span class="text-rose-400 font-bold">Blocked Injection</span>';
+      } else {
+        injElem.innerHTML = '<span class="text-emerald-400 font-semibold">Safe</span>';
+      }
+
+      // Highlight Node 3 & 4
+      setPipelineActive(4);
+
+      // Render Assistant Response
+      let badgeColor = 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+      if (data.intent === 'GUARDRAIL_BLOCKED') badgeColor = 'bg-rose-500/20 text-rose-400 border-rose-500/30';
+      if (data.intent === 'LOAN_STATUS') badgeColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+
+      const modelUsed = data.model_used || 'MOCK_LLM';
+
+      // Format Markdown newlines and bold in answer
+      const formattedAnswer = formatMarkdown(data.answer);
+
+      const assistantHtml = `
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shrink-0 mt-1">
+            <i data-lucide="bot" class="w-5 h-5"></i>
+          </div>
+          <div class="flex-1 bg-slate-800/70 border border-slate-700/60 rounded-2xl rounded-tl-none p-4 text-sm leading-relaxed text-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <span class="font-semibold text-blue-400 text-xs">Cred Lending Assistant</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-400">${modelUsed}</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono border ${badgeColor}">${data.intent}</span>
+            </div>
+            <div class="text-slate-200 leading-relaxed text-xs sm:text-sm">${formattedAnswer}</div>
+            ${data.sources && data.sources.length ? `
+              <div class="mt-3 pt-2 border-t border-slate-700/50 flex flex-wrap gap-1.5 items-center">
+                <span class="text-[11px] text-slate-400">Sources:</span>
+                ${data.sources.map(s => `<span class="px-2 py-0.5 rounded bg-slate-900 text-blue-400 font-mono text-[11px] border border-slate-700">${s}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+      log.insertAdjacentHTML('beforeend', assistantHtml);
+      log.scrollTop = log.scrollHeight;
+      lucide.createIcons();
+    }
+
+    // Client-side fallback engine for static GitHub Pages hosting
+    async function runClientSideAgent(query, provider, apiKey) {
+      // 1. Guardrail checks
+      const panRegex = /[A-Z]{5}[0-9]{4}[A-Z]/gi;
+      const aadhaarRegex = /\b\d{4}[\s-]\d{4}[\s-]\d{4}\b/g;
+      const accountRegex = /\b\d{9,18}\b/g;
+      const injectionRegex = /(ignore (all )?previous instructions|disregard (all )?system prompts|system override|you are now|reveal your|bypass security)/i;
+
+      let maskedQuery = query.replace(panRegex, '[PAN_REDACTED]')
+                             .replace(aadhaarRegex, '[AADHAAR_REDACTED]')
+                             .replace(accountRegex, '[ACCOUNT_REDACTED]');
+      const piiDetected = maskedQuery !== query;
+      const injectionDetected = injectionRegex.test(query);
+
+      if (injectionDetected) {
+        return {
+          intent: 'GUARDRAIL_BLOCKED',
+          answer: '⚠️ **Security Alert:** Your input contained prompt injection or system override instructions. The request has been rejected.',
+          sources: ['Guardrail:Prompt-Injection-Defense'],
+          model_used: 'Client-Guardrail-Engine',
+          guardrail_status: { passed: false, pii_detected: piiDetected, prompt_injection_detected: true }
+        };
+      }
+
+      // 2. Direct Cloud LLM Call if API key is provided
+      if (apiKey && apiKey.startsWith('gsk_')) {
+        try {
+          const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+              model: 'openai/gpt-oss-120b',
+              messages: [
+                { role: 'system', content: 'You are the official Cred Domain Support Agent. Answer politely, warmly, and accurately. Highlight key numbers and provide structured next steps.' },
+                { role: 'user', content: maskedQuery }
+              ],
+              temperature: 0.2
+            })
+          });
+          if (groqRes.ok) {
+            const gData = await groqRes.json();
+            return {
+              intent: 'POLICY_RAG',
+              answer: gData.choices[0].message.content,
+              sources: ['Groq:Live-Llama-3.3-70B'],
+              model_used: 'Groq Cloud (Direct Client)',
+              guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
+            };
+          }
+        } catch (e) {
+          console.warn('Direct Groq call error:', e);
+        }
+      }
+
+      // 3. Loan status intent check
+      const loanMatch = query.match(/CRD-APP-\d{4}/i);
+      if (loanMatch) {
+        const appNum = loanMatch[0].toUpperCase();
+        const found = DATASET_RECORDS.find(r => r.id === appNum);
+        if (found) {
+          const isEscalated = found.score >= 0.65;
+          return {
+            intent: 'LOAN_STATUS',
+            answer: `📋 **Loan Application Status: ${found.id}**\n\n• **Category:** ${found.cat}\n• **Current Status:** **${found.status}**\n• **Loan Amount:** **₹${found.amt.toLocaleString()}**\n• **Aging:** **${found.days} days** since submission\n• **Fraud Review Active:** ${found.fraud ? '⚠️ YES' : 'No'}\n• **Escalation Score:** \`${found.score.toFixed(4)}\` / 1.00 (${isEscalated ? '🚨 ESCALATION RECOMMENDED' : '🟢 Standard Underwriting SLA'})\n\n**Assessment:** ${isEscalated ? 'Application requires immediate senior underwriter intervention due to fraud review flags and aging.' : 'Application operating within standard underwriting SLAs.'}`,
+            sources: [`DB:${found.id}`],
+            model_used: 'Client-Dataset-Engine',
+            guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
+          };
+        }
+      }
+
+      // 4. Grounded Knowledge Base Matching
+      const qLower = query.toLowerCase();
+      if (/hi|hello|hey|good\s*(morning|afternoon|evening)/i.test(qLower)) {
+        return {
+          intent: 'POLICY_RAG',
+          answer: '👋 **Hello! Welcome to Cred Domain Support.**\n\nI am your dedicated lending and banking operations assistant. I can assist you with:\n• **Lending Policies:** Personal, Home, Auto, Education, and Business loans\n• **Repayments & Fees:** NACH auto-debits, ₹500 bounce fee, and 2% penal interest\n• **Credit Cards:** Annual fee waiver threshold (₹1,50,000 spend)\n• **KYC Requirements:** PAN, Aadhaar biometric authentication, and business ITRs\n• **Fraud Disputes:** 72-hour zero-liability window\n• **Application Tracking:** Live status and escalation evaluation (e.g., `CRD-APP-1001`)\n\n*How may I assist you today?*',
+          sources: ['Cred:System-Welcome'],
+          model_used: 'Client-Rule-Engine',
+          guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
+        };
+      }
+
+      // Match 12 KB Docs
+      for (const doc of KB_DOCS) {
+        const titleWords = doc.title.toLowerCase().split(' ');
+        const matches = titleWords.filter(w => w.length > 3 && qLower.includes(w));
+        if (matches.length >= 1 || (qLower.includes('emi') && doc.id === 'KB-DOC-002') || (qLower.includes('kyc') && doc.id === 'KB-DOC-004') || (qLower.includes('prepay') && doc.id === 'KB-DOC-008') || (qLower.includes('balance') && doc.id === 'KB-DOC-009')) {
+          return {
+            intent: 'POLICY_RAG',
+            answer: `**${doc.title}** (${doc.id}):\n\n${doc.desc}\n\n• **Policy Topic:** \`${doc.topic}\`\n• **Compliance Authority:** Cred Risk & Compliance Underwriting\n\n*Please let me know if you need further details or loan tracking assistance!*`,
+            sources: [doc.id],
+            model_used: 'Client-RAG-Engine',
+            guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
+          };
+        }
+      }
+
+      // Default Fallback
+      return {
+        intent: 'POLICY_RAG',
+        answer: "I apologize, but the requested information is not covered in Cred's official lending and banking policy guidelines. Please feel free to ask about our loan eligibility criteria, EMI calculation rules, credit card fee waivers, KYC verification, or check application status (e.g. `CRD-APP-1001`)!",
+        sources: ['Guardrail:Fallback-Threshold'],
+        model_used: 'Client-Fallback-Engine',
+        guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
+      };
+    }
     }
 
     function setPipelineActive(step) {
