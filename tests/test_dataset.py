@@ -1,7 +1,3 @@
-"""
-Unit Tests for Loan Application Dataset Generation
-Track: Banking & FinTech (Cred)
-"""
 
 import pytest
 from dataset import (

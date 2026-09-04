@@ -1,7 +1,3 @@
-"""
-Unit Tests for LangGraph State Machine, Routing, and Conversation Memory
-Track: Banking & FinTech (Cred)
-"""
 
 import pytest
 from graph import run_agent

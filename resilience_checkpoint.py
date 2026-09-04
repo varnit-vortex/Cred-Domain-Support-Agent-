@@ -1,13 +1,3 @@
-"""
-SQLite Checkpointing and State Persistence Demonstration
-Track: Banking & FinTech (Cred)
-
-Demonstrates LangGraph graph execution resilience with SQLite checkpointer (`checkpoints.sqlite`):
-1. Runs initial graph execution through 2 nodes (Input Guardrail & Intent Router)
-2. Deliberately stops execution before subsequent nodes execute (via interrupt_before)
-3. Resumes the SAME thread ID from SQLite checkpoint
-4. Proves already-completed nodes are NOT re-executed by inspecting node execution counters
-"""
 
 import os
 import sqlite3
@@ -100,9 +90,6 @@ def node_4_output_guardrail(state: ResilientState) -> Dict[str, Any]:
 
 
 def demonstrate_sqlite_checkpointing(db_path: str = DB_PATH) -> None:
-    """
-    Demonstrates interruption and resume with persistent SQLite checkpointing.
-    """
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
     if os.path.exists(db_path):
         os.remove(db_path)

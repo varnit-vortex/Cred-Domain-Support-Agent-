@@ -1,7 +1,3 @@
-"""
-Pydantic Schemas and Structured Output Models
-Track: Banking & FinTech (Cred)
-"""
 
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field

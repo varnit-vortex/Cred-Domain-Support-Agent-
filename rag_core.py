@@ -1,16 +1,3 @@
-"""
-RAG Core Engine for Cred Domain Support Agent
-Track: Banking & FinTech (Cred)
-
-Features:
-- SentenceTransformers embedding pipeline (`all-MiniLM-L6-v2`) in offline/local mode
-- Dual ChromaDB collections:
-    1. `cred_fixed_collection`: Fixed-size window chunking (220 chars, 40 overlap)
-    2. `cred_sentence_collection`: Sentence-boundary chunking
-- Grounded query retrieval with cosine similarity scoring
-- Empirical fallback threshold calibration for 'I don't know' responses
-- Grounded answer generation under MOCK_LLM
-"""
 
 import os
 import shutil
@@ -69,9 +56,6 @@ class CredRAGCore:
             self.index_knowledge_base()
 
     def index_knowledge_base(self) -> None:
-        """
-        Chunks and indexes all knowledge base documents into both ChromaDB collections.
-        """
         chunked = chunk_all_documents(KNOWLEDGE_BASE_DOCS)
         fixed_chunks = chunked["fixed_chunks"]
         sentence_chunks = chunked["sentence_chunks"]
@@ -120,10 +104,6 @@ class CredRAGCore:
         strategy: str = "sentence",
         top_k: int = 3
     ) -> List[Dict[str, Any]]:
-        """
-        Retrieves top_k relevant chunks from the selected collection.
-        strategy: 'fixed' or 'sentence' (default: 'sentence')
-        """
         collection = self.sentence_collection if strategy == "sentence" else self.fixed_collection
         query_embedding = self.model.encode([query], convert_to_numpy=True).tolist()
 
@@ -164,9 +144,6 @@ class CredRAGCore:
         top_k: int = 3,
         threshold: float = 0.40
     ) -> Dict[str, Any]:
-        """
-        Grounded generation with calibrated similarity threshold under MOCK_LLM.
-        """
         chunks = self.retrieve(query, strategy=strategy, top_k=top_k)
         
         top_similarity = chunks[0]["similarity"] if chunks else 0.0
@@ -204,10 +181,6 @@ class CredRAGCore:
 
 
 def calibrate_fallback_threshold() -> Dict[str, Any]:
-    """
-    Measures top-1 cosine similarity for in-scope vs. out-of-scope queries
-    to empirically calibrate the 'I don't know' fallback threshold.
-    """
     rag = CredRAGCore(force_reindex=True)
 
     in_scope_queries = [

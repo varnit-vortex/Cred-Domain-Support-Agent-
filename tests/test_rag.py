@@ -1,7 +1,3 @@
-"""
-Unit Tests for RAG Core, Chunking, Embeddings, and Evaluations
-Track: Banking & FinTech (Cred)
-"""
 
 import pytest
 from knowledge_base import KNOWLEDGE_BASE_DOCS

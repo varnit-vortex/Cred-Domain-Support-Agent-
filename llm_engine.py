@@ -1,11 +1,3 @@
-"""
-Universal LLM Engine: Real LLMs + Local Pipelines + Deterministic Mode
-Track: Banking & FinTech (Cred)
-
-Persona:
-- Highly polite, professional, empathetic, and knowledgeable Cred Banking Assistant.
-- Full awareness of Cred lending policies, application tracking, safety guardrails, and general queries.
-"""
 
 import os
 import json
@@ -55,9 +47,6 @@ POLITE_SYSTEM_PROMPT = (
 
 
 def handle_conversational_query(query: str) -> Optional[str]:
-    """
-    Handles standard conversational intents (greetings, help, intro, suggested questions) politely.
-    """
     clean = query.strip()
     if GREETING_PATTERNS.match(clean) or clean.lower() in ["hi", "hello", "hey"]:
         return (
@@ -93,9 +82,6 @@ def handle_conversational_query(query: str) -> Optional[str]:
 
 
 def call_groq_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
-    """
-    Invokes Groq's high-speed inference API synchronously.
-    """
     try:
         from groq import Groq
         active_key = api_key or DEFAULT_GROQ_KEY
@@ -135,9 +121,6 @@ def call_groq_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
 
 
 def call_openai_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
-    """
-    Invokes OpenAI Chat Completions API synchronously (gpt-4o-mini).
-    """
     try:
         with httpx.Client(timeout=20.0) as client:
             res = client.post(
@@ -164,9 +147,6 @@ def call_openai_api_sync(prompt: str, system: str, api_key: str) -> Optional[str
 
 
 def call_gemini_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
-    """
-    Invokes Google Gemini API synchronously (gemini-1.5-flash).
-    """
     try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
         with httpx.Client(timeout=20.0) as client:
@@ -189,9 +169,6 @@ def call_gemini_api_sync(prompt: str, system: str, api_key: str) -> Optional[str
 
 
 def synthesize_smart_mock_answer(query: str, retrieved_chunks: List[Dict[str, Any]], sources: List[str]) -> str:
-    """
-    Synthesizes a clean, polite, structured policy answer under MOCK_LLM mode.
-    """
     if not retrieved_chunks:
         return (
             "I apologize, but I don't have that specific information in Cred's official lending and banking policy guidelines. "
@@ -325,9 +302,6 @@ def generate_response_sync(
     provider: str = "groq",
     api_key: Optional[str] = None
 ) -> Dict[str, Any]:
-    """
-    Generates response synchronously using Real Groq LLM (default) or specified provider with polite persona.
-    """
     # 1. Handle conversational greetings / help
     conv_ans = handle_conversational_query(query)
     if conv_ans:

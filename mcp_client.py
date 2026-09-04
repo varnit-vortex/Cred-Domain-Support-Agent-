@@ -1,11 +1,3 @@
-"""
-Standalone MCP Client for Cred Lending Operations
-Track: Banking & FinTech (Cred)
-
-Connects to the Cred FastMCP server, lists available tools,
-and executes tool calls for multiple loan application records.
-Prints standardized MCP responses.
-"""
 
 import asyncio
 import json
@@ -15,10 +7,6 @@ from mcp_server import mcp_server
 
 
 async def run_mcp_client_demonstration(record_ids: List[str] = None) -> None:
-    """
-    Connects to the MCP server and invokes `check_loan_application_status`
-    for multiple record IDs.
-    """
     if record_ids is None:
         record_ids = ["CRD-APP-1001", "CRD-APP-1002", "CRD-APP-1004", "CRD-APP-9999"]
 

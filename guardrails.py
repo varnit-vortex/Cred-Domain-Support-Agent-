@@ -1,14 +1,3 @@
-"""
-Input and Output Guardrails for Cred Domain Support Agent
-Track: Banking & FinTech (Cred)
-
-Implements:
-1. Input-side Guardrail:
-   - Fixed-format PII Masking (PAN Card, Aadhaar Card, Bank Account Numbers)
-   - Prompt Injection & Jailbreak Detection
-2. Output-side Guardrail:
-   - Groundedness Verification (prevents hallucination and enforces context consistency)
-"""
 
 import re
 from typing import Dict, Any, Tuple
@@ -34,10 +23,6 @@ PROMPT_INJECTION_REGEX = re.compile('|'.join(PROMPT_INJECTION_PATTERNS), re.IGNO
 
 
 def mask_fixed_format_pii(text: str) -> Tuple[str, bool]:
-    """
-    Masks fixed-format PII fields (PAN, Aadhaar, Bank Account Numbers).
-    Returns (masked_text, pii_detected).
-    """
     masked = text
     pii_found = False
 
@@ -60,16 +45,10 @@ def mask_fixed_format_pii(text: str) -> Tuple[str, bool]:
 
 
 def detect_prompt_injection(text: str) -> bool:
-    """
-    Detects known prompt injection, jailbreak, or system override attempts.
-    """
     return bool(PROMPT_INJECTION_REGEX.search(text))
 
 
 def apply_input_guardrails(query: str) -> Dict[str, Any]:
-    """
-    Executes full input-side guardrail evaluation.
-    """
     # Check prompt injection first
     injection_detected = detect_prompt_injection(query)
     if injection_detected:
@@ -98,10 +77,6 @@ def verify_output_groundedness(
     retrieved_chunks: list,
     similarity_threshold: float = 0.31
 ) -> Dict[str, Any]:
-    """
-    Output-side guardrail: Ensures generated response does not hallucinate
-    and is supported by retrieved context.
-    """
     if not retrieved_chunks:
         return {
             "passed": False,

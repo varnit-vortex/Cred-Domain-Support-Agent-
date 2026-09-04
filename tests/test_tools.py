@@ -1,7 +1,3 @@
-"""
-Unit Tests for Loan Status Lookup and Escalation Scoring
-Track: Banking & FinTech (Cred)
-"""
 
 import pytest
 from tools import check_loan_application_status, calculate_escalation_score, ESCALATION_THRESHOLD

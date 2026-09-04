@@ -1,16 +1,3 @@
-"""
-RAG Triad Evaluation Suite (15 Test Queries at Scale)
-Track: Banking & FinTech (Cred)
-
-Evaluates the RAG system on 15 queries:
-- 12 queries covering every single required Knowledge Base topic
-- 3 out-of-scope and edge-case queries
-
-Scoring Dimensions (RAG Triad) under MOCK_LLM Judge:
-1. Context Relevance (0.0 - 1.0): Relevance of retrieved chunks to user query
-2. Groundedness (0.0 - 1.0): Extent to which response is backed by retrieved context
-3. Answer Relevance (0.0 - 1.0): Direct responsiveness of output to user question
-"""
 
 from typing import List, Dict, Any
 from rag_core import CredRAGCore
@@ -132,10 +119,6 @@ def score_rag_triad_mock_judge(
     query_item: Dict[str, Any],
     gen_result: Dict[str, Any]
 ) -> Dict[str, float]:
-    """
-    Deterministic LLM-as-judge scoring based on semantic retrieval overlap,
-    groundedness citations, and intent responsiveness.
-    """
     is_in_scope = query_item["is_in_scope"]
     expected_doc = query_item["expected_doc"]
     chunks = gen_result.get("retrieved_chunks", [])
@@ -194,9 +177,6 @@ def score_rag_triad_mock_judge(
 
 
 def run_triad_evaluation() -> None:
-    """
-    Executes RAG Triad evaluation over all 15 benchmark queries.
-    """
     rag = CredRAGCore()
 
     print("=" * 95)

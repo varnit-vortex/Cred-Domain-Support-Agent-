@@ -1,17 +1,3 @@
-"""
-LangGraph Agent for Cred Domain Support
-Track: Banking & FinTech (Cred)
-
-Graph Architecture:
-- StateGraph with 5 specialized nodes:
-  1. input_guardrail_node: Fixed PII masking & injection defense
-  2. intent_router_node: Query classification & entity extraction
-  3. rag_agent_node: Grounded retrieval & answer generation (Policy RAG with MOCK_LLM or Real LLM)
-  4. loan_agent_node: Application lookup & escalation scoring
-  5. output_guardrail_node: Groundedness check, structured schema validation, & memory persistence
-- Conditional Edge:
-  intent_router_node -> [rag_agent_node, loan_agent_node, output_guardrail_node]
-"""
 
 import re
 from typing import TypedDict, List, Dict, Any, Optional
@@ -268,9 +254,6 @@ def output_guardrail_node(state: AgentState) -> Dict[str, Any]:
 
 
 def build_cred_agent_graph() -> StateGraph:
-    """
-    Constructs and compiles the 5-node LangGraph StateGraph.
-    """
     workflow = StateGraph(AgentState)
 
     # Add all 5 nodes
@@ -311,9 +294,6 @@ def run_agent(
     provider: str = "mock",
     api_key: Optional[str] = None
 ) -> Dict[str, Any]:
-    """
-    Runs an end-to-end query through the compiled LangGraph agent.
-    """
     app = build_cred_agent_graph()
     initial_state: AgentState = {
         "query": query,

@@ -1,11 +1,3 @@
-"""
-Chunking Strategies for Cred Knowledge Base
-Track: Banking & FinTech (Cred)
-
-Implements two distinct chunking strategies:
-1. Fixed-size chunking with overlap (character-based with token/word awareness)
-2. Sentence-based chunking (natural linguistic sentence boundaries)
-"""
 
 import re
 from typing import List, Dict, Any
@@ -17,9 +9,6 @@ def chunk_fixed_size(
     overlap: int = 40,
     doc_meta: Dict[str, Any] = None
 ) -> List[Dict[str, Any]]:
-    """
-    Splits text into fixed-size character windows with a defined overlap.
-    """
     if doc_meta is None:
         doc_meta = {}
 
@@ -58,9 +47,6 @@ def chunk_sentence_based(
     text: str,
     doc_meta: Dict[str, Any] = None
 ) -> List[Dict[str, Any]]:
-    """
-    Splits text into natural linguistic sentences.
-    """
     if doc_meta is None:
         doc_meta = {}
 
@@ -90,10 +76,6 @@ def chunk_sentence_based(
 def chunk_all_documents(
     documents: List[Dict[str, Any]]
 ) -> Dict[str, List[Dict[str, Any]]]:
-    """
-    Chunks all input documents across both strategies.
-    Returns a dictionary with 'fixed_chunks' and 'sentence_chunks'.
-    """
     fixed_chunks: List[Dict[str, Any]] = []
     sentence_chunks: List[Dict[str, Any]] = []
 

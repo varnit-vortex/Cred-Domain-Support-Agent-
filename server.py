@@ -1,15 +1,3 @@
-"""
-FastAPI Deployment Backend & Structured PII-Safe JSONL Logging
-Track: Banking & FinTech (Cred)
-
-Endpoints:
-- GET  / : Interactive Web Dashboard & Chat UI for Google Chrome / Web Browsers
-- POST /ask: End-to-end query answering via LangGraph agent
-- POST /loan-status: Direct loan application lookup & escalation assessment
-- POST /add-document: Dynamic knowledge base document ingestion & indexing
-- GET  /health: Service health and system metadata
-- GET  /docs: Interactive OpenAPI Swagger documentation
-"""
 
 import os
 import time
@@ -44,9 +32,6 @@ LOG_FILE = os.path.join(LOG_DIR, "api_traces.jsonl")
 
 
 def append_structured_log(log_entry: Dict[str, Any]) -> None:
-    """
-    Appends a sanitized structured log entry to the JSON-Lines trace log.
-    """
     os.makedirs(LOG_DIR, exist_ok=True)
     with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
@@ -128,9 +113,6 @@ if os.path.exists(STATIC_DIR):
 
 @app.get("/", response_class=FileResponse)
 def serve_home():
-    """
-    Serves the modern Cred Domain Support interactive web frontend.
-    """
     if os.path.exists(INDEX_HTML):
         return FileResponse(INDEX_HTML)
     return {"message": "Cred Domain Support Agent API. Visit /docs for OpenAPI specifications."}
@@ -138,9 +120,6 @@ def serve_home():
 
 @app.get("/health")
 def health_check() -> Dict[str, Any]:
-    """
-    Health check endpoint returning system status and configuration.
-    """
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
@@ -152,9 +131,6 @@ def health_check() -> Dict[str, Any]:
 
 @app.post("/ask", response_model=AgentResponse)
 def ask_agent(req: AskRequest) -> AgentResponse:
-    """
-    Main conversational endpoint: routes through LangGraph StateGraph.
-    """
     try:
         response_dict = run_agent(
             query=req.query,
@@ -169,9 +145,6 @@ def ask_agent(req: AskRequest) -> AgentResponse:
 
 @app.post("/loan-status", response_model=LoanApplicationStatusResponse)
 def get_loan_status(req: LoanStatusRequest) -> LoanApplicationStatusResponse:
-    """
-    Direct lookup endpoint for loan application status and escalation score.
-    """
     result = check_loan_application_status(req.record_id)
     if not result.get("found"):
         raise HTTPException(status_code=404, detail=result.get("error", "Application not found."))
@@ -191,9 +164,6 @@ def get_loan_status(req: LoanStatusRequest) -> LoanApplicationStatusResponse:
 
 @app.post("/add-document")
 def add_knowledge_document(req: AddDocumentRequest) -> Dict[str, Any]:
-    """
-    Dynamic document ingestion endpoint: chunks and updates ChromaDB vector store.
-    """
     rag = get_rag_core()
     meta = {
         "doc_id": req.doc_id,

@@ -1,21 +1,3 @@
-"""
-Cred Knowledge Base Authoring & Management
-Track: Banking & FinTech (Cred)
-
-Contains 12 authoritative banking policy documents (2-5 sentences each) covering:
-1. Loan eligibility criteria by loan type
-2. EMI calculation rules
-3. Credit-card fee structure
-4. KYC document requirements
-5. Fraud-dispute resolution process
-6. Account-closure process
-7. Interest-rate slabs
-8. Prepayment-penalty rules
-9. Minimum-balance requirements
-10. Credit-score impact factors
-11. Joint-account rules
-12. NRI-account eligibility
-"""
 
 import os
 import json
@@ -147,9 +129,6 @@ KNOWLEDGE_BASE_DOCS: List[Dict[str, Any]] = [
 
 
 def export_knowledge_base_files(export_dir: str = "data/knowledge_base") -> None:
-    """
-    Exports the knowledge base documents to JSON and markdown files.
-    """
     os.makedirs(export_dir, exist_ok=True)
     
     # Export full JSON

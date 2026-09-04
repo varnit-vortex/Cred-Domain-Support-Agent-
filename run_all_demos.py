@@ -1,13 +1,3 @@
-"""
-Master Demonstration Script for Cred Domain Support Agent Capstone
-Track: Banking & FinTech (Cred)
-
-Runs all capstone tasks and prints structured transcripts demonstrating:
-- Part 1: Dataset validation, RAG fallback threshold calibration, chunking strategy evaluation (Precision@3 / Recall@3)
-- Part 2: Tool escalation scoring, LangGraph conditional routing, conversation memory isolation, guardrails (PII masking, injection blocking, groundedness)
-- Part 3: FastAPI endpoints & structured PII-safe JSONL logging, 15-query RAG Triad evaluation at scale
-- Part 4: FastMCP tool calls, SQLite checkpoint interruption and resumption, exponential backoff retries, per-node timeouts, global graph timeouts
-"""
 
 import sys
 import os

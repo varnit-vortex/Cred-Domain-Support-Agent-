@@ -1,13 +1,3 @@
-"""
-Chunking Strategy Evaluation (Precision@3 and Recall@3)
-Track: Banking & FinTech (Cred)
-
-Compares Fixed-Size-with-Overlap vs. Sentence-Based Chunking at the Parent Document Level:
-- Retrieves top 3 chunks for 5 evaluation queries from each ChromaDB collection
-- Maps chunks to unique parent doc_ids (deduplication)
-- Computes Precision@3 and Recall@3 with explicit per-query arithmetic
-- Produces comparative metrics and formal deployment recommendation
-"""
 
 import os
 from typing import List, Dict, Any, Set
@@ -48,9 +38,6 @@ def evaluate_strategy(
     strategy: str,
     top_k: int = 3
 ) -> Dict[str, Any]:
-    """
-    Evaluates a chunking strategy at the document level.
-    """
     strategy_name = "Sentence-Based Chunking" if strategy == "sentence" else "Fixed-Size Overlap Chunking"
     results = []
 
@@ -127,9 +114,6 @@ def evaluate_strategy(
 
 
 def compare_both_strategies() -> None:
-    """
-    Runs evaluation on both chunking collections and outputs comparative recommendation.
-    """
     rag = CredRAGCore()
 
     fixed_eval = evaluate_strategy(rag, strategy="fixed", top_k=3)

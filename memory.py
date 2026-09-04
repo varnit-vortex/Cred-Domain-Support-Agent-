@@ -1,10 +1,3 @@
-"""
-Persistent Conversation Memory Manager
-Track: Banking & FinTech (Cred)
-
-Persists multi-turn conversation exchanges to JSON files on disk.
-Enables conversation continuity across turns and demonstrates isolation for fresh sessions.
-"""
 
 import os
 import json
@@ -24,9 +17,6 @@ class ConversationMemory:
         return os.path.join(self.storage_dir, f"{safe_id}.json")
 
     def load_history(self, session_id: str) -> List[Dict[str, Any]]:
-        """
-        Loads the chronological turn history for a session ID.
-        """
         path = self._get_file_path(session_id)
         if not os.path.exists(path):
             return []
@@ -46,10 +36,6 @@ class ConversationMemory:
         answer: str,
         extra_metadata: Optional[Dict[str, Any]] = None
     ) -> int:
-        """
-        Appends a new turn to the session history on disk.
-        Returns the updated turn count.
-        """
         path = self._get_file_path(session_id)
         turns = self.load_history(session_id)
         
@@ -78,9 +64,6 @@ class ConversationMemory:
         return turn_number
 
     def clear_history(self, session_id: str) -> bool:
-        """
-        Resets / deletes the session history.
-        """
         path = self._get_file_path(session_id)
         if os.path.exists(path):
             os.remove(path)
@@ -88,16 +71,10 @@ class ConversationMemory:
         return False
 
     def get_turn_count(self, session_id: str) -> int:
-        """
-        Returns the current number of completed turns for a session.
-        """
         return len(self.load_history(session_id))
 
 
 def demonstrate_memory() -> None:
-    """
-    Demonstrates state carried across a multi-turn conversation and a separate fresh session.
-    """
     mem = ConversationMemory()
 
     session_active = "session_customer_101"

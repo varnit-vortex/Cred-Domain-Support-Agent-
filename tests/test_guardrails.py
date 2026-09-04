@@ -1,7 +1,3 @@
-"""
-Unit Tests for Input/Output Guardrails
-Track: Banking & FinTech (Cred)
-"""
 
 import pytest
 from guardrails import (

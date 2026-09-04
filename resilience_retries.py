@@ -1,16 +1,3 @@
-"""
-Timeouts and Exponential Backoff Retries Demonstration
-Track: Banking & FinTech (Cred)
-
-Demonstrates:
-1. Exponential Backoff Retry Policy:
-   - Configured with: max_attempts=4, initial_interval=0.05s, max_interval=0.50s, backoff_factor=2.0, jitter=True.
-   - Recovers from simulated transient failures (fails first 2 calls, succeeds on 3rd).
-2. Per-Node Timeout:
-   - Enforces a 0.20s per-node deadline on a slow external database/API call; raises clean error without hanging.
-3. Global Graph Timeout:
-   - Enforces a 0.35s end-to-end deadline on entire graph execution; cleanly aborts upon overrun.
-"""
 
 import time
 import random
@@ -42,9 +29,6 @@ async def execute_with_retry_and_timeout(
     node_timeout: Optional[float] = None,
     **kwargs
 ) -> Any:
-    """
-    Executes an async or sync callable with exponential backoff retries and per-node timeout.
-    """
     cfg = retry_config or RetryConfig()
     delay = cfg.initial_interval
     last_exception = None

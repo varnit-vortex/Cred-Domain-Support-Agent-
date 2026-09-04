@@ -1,7 +1,3 @@
-"""
-Unit Tests for FastMCP, SQLite Checkpointing, Retries, and Timeouts
-Track: Banking & FinTech (Cred)
-"""
 
 import pytest
 import asyncio

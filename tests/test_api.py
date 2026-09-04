@@ -1,7 +1,3 @@
-"""
-Unit Tests for FastAPI Deployment and Structured Logging
-Track: Banking & FinTech (Cred)
-"""
 
 import os
 import json

@@ -1,21 +1,3 @@
-"""
-Cred Domain Support Agent - Loan Application Dataset Generator
-Track: Banking & FinTech (Cred)
-
-Design Choices & Parameters:
-- Random Seed: 42 (ensures exact deterministic reproducibility across runs)
-- Dataset Size: 50 records (satisfies the >= 40 records requirement)
-- Categories: Personal Loan, Home Loan, Auto Loan, Education Loan, Business Loan
-- Statuses: Submitted, Under Review, Approved, Rejected, Disbursed
-- Loan Amount Reasoning: INR ranges reflect standard Indian retail and commercial lending brackets:
-  Personal Loan (₹50k-₹1.5M for unsecured personal credit),
-  Home Loan (₹1.5M-₹15M for residential mortgages),
-  Auto Loan (₹300k-₹3M for two-wheeler to luxury four-wheeler financing),
-  Education Loan (₹200k-₹5M for domestic and international higher education),
-  and Business Loan (₹500k-₹10M for MSME working capital and equipment financing).
-- Recency: days_since_created between 0 and 30 days.
-- Fraud Review Flagging: Calibrated probability resulting in 18.0% fraud review rate (strictly within 10%-30% threshold).
-"""
 
 import random
 from typing import List, Dict, Any
@@ -50,9 +32,6 @@ AMOUNT_RANGES = {
 
 
 def generate_loan_dataset(num_records: int = 50, seed: int = RANDOM_SEED) -> List[Dict[str, Any]]:
-    """
-    Generates a deterministic dataset of loan applications.
-    """
     rng = random.Random(seed)
     records = []
 
@@ -97,9 +76,6 @@ LOAN_APPLICATIONS: List[Dict[str, Any]] = generate_loan_dataset(50, RANDOM_SEED)
 
 
 def validate_and_report_dataset(records: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """
-    Validates dataset structural rules and prints the statistical breakdown.
-    """
     total_records = len(records)
     cat_counts = {cat: 0 for cat in CATEGORIES}
     status_counts = {st: 0 for st in STATUSES}
