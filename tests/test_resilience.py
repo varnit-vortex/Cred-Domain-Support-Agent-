@@ -1,3 +1,12 @@
+# ==============================================================================
+# File: tests/test_resilience.py
+# What this file does in plain English:
+# This test suite checks our system's fault-tolerance and robustness:
+# 1. MCP tool round-trips over the Model Context Protocol.
+# 2. SQLite checkpointing and interruption resumption without duplicate work.
+# 3. Exponential backoff retries when external network calls fail temporarily.
+# 4. Per-node timeouts when external services hang.
+# ==============================================================================
 
 import pytest
 import asyncio
@@ -33,6 +42,7 @@ def test_mcp_client_tool_call():
     asyncio.run(run_test())
 
 
+# Test: Verifies resuming an interrupted workflow from SQLite checkpoint skips finished nodes
 def test_sqlite_checkpoint_resumption(tmp_path):
     test_db = str(tmp_path / "test_cp.sqlite")
     demonstrate_sqlite_checkpointing(db_path=test_db)

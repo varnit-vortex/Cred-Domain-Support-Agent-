@@ -1,3 +1,10 @@
+# ==============================================================================
+# File: mcp_client.py
+# What this file does in plain English:
+# While mcp_server.py is the server, this file is the MCP Client!
+# It connects to the MCP server, discovers what tools are available,
+# and executes tool calls using standard MCP JSON-RPC protocol messages.
+# ==============================================================================
 
 import asyncio
 import json
@@ -6,6 +13,10 @@ from fastmcp.client import Client
 from mcp_server import mcp_server
 
 
+# Function: run_mcp_client_demonstration
+# What it does:
+# Connects to our FastMCP server, lists all registered tools, and tests calling
+# 'check_loan_application_status' for several sample loan IDs.
 async def run_mcp_client_demonstration(record_ids: List[str] = None) -> None:
     if record_ids is None:
         record_ids = ["CRD-APP-1001", "CRD-APP-1002", "CRD-APP-1004", "CRD-APP-9999"]

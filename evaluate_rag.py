@@ -1,3 +1,14 @@
+# ==============================================================================
+# File: evaluate_rag.py
+# What this file does in plain English:
+# How do we know if our chunking and retrieval system actually works well?
+# We test it! This file runs an automated evaluation comparing our two chunking strategies:
+# 1. Sentence-Based Chunking
+# 2. Fixed-Size Overlap Chunking
+# We measure two industry-standard metrics:
+# - Precision@3: Out of the top 3 snippets retrieved, what fraction was actually relevant?
+# - Recall@3: Did we successfully retrieve the correct answer document?
+# ==============================================================================
 
 import os
 from typing import List, Dict, Any, Set
@@ -33,6 +44,18 @@ EVAL_QUERIES = [
 ]
 
 
+# Function: evaluate_strategy
+# What it does:
+# Tests a specific chunking strategy against our 5 ground-truth benchmark questions,
+# measuring document-level Precision@3 and Recall@3.
+#
+# Parameters:
+# - rag: The initialized CredRAGCore instance.
+# - strategy: 'sentence' or 'fixed'.
+# - top_k: How many chunks to retrieve per question (defaults to 3).
+#
+# Returns:
+# A dictionary summarizing mean precision and recall percentages.
 def evaluate_strategy(
     rag: CredRAGCore,
     strategy: str,

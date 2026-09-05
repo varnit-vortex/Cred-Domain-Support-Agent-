@@ -1,3 +1,12 @@
+# ==============================================================================
+# File: knowledge_base.py
+# What this file does in plain English:
+# This file serves as Cred's official rulebook and policy library!
+# It contains 12 authoritative banking policy documents covering everything from
+# loan eligibility and interest rates to EMI bounce fees and fraud reporting.
+# When a customer asks a policy question, our AI agent searches these documents
+# to formulate a 100% accurate, grounded answer without making things up.
+# ==============================================================================
 
 import os
 import json
@@ -128,6 +137,13 @@ KNOWLEDGE_BASE_DOCS: List[Dict[str, Any]] = [
 ]
 
 
+# Function: export_knowledge_base_files
+# What it does:
+# This utility function exports our 12 policy documents out to real disk files:
+# both as one big JSON file and as individual Markdown (.md) files for each policy.
+#
+# Parameters:
+# - export_dir: Directory folder path where files should be written.
 def export_knowledge_base_files(export_dir: str = "data/knowledge_base") -> None:
     os.makedirs(export_dir, exist_ok=True)
     

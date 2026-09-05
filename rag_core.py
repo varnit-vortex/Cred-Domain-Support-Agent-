@@ -1,3 +1,15 @@
+# ==============================================================================
+# File: rag_core.py
+# What this file does in plain English:
+# This is the heart of our Retrieval-Augmented Generation (RAG) system!
+# Computers cannot understand the meaning of human words directly. So, we use a
+# small AI model (SentenceTransformer) that converts words into lists of numbers
+# called "embeddings" or "vectors".
+# When two sentences mean similar things, their numbers are very close together in space!
+# This file manages ChromaDB (our vector database) to store all our policy chunks,
+# find the closest matching policy when a customer asks a question, and ensure the
+# answers we generate are strictly grounded in real company policy.
+# ==============================================================================
 
 import os
 import shutil
@@ -21,6 +33,14 @@ CHROMA_PERSIST_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "d
 _EMBEDDING_MODEL = None
 
 
+# Function: get_embedding_model
+# What it does:
+# Loads our lightweight AI embedding model ('all-MiniLM-L6-v2').
+# It acts as a singleton (meaning we load it into computer memory only once
+# and reuse it everywhere to keep things fast and conserve RAM).
+#
+# Returns:
+# A SentenceTransformer model ready to turn text into vectors.
 def get_embedding_model() -> SentenceTransformer:
     global _EMBEDDING_MODEL
     if _EMBEDDING_MODEL is None:
@@ -31,7 +51,15 @@ def get_embedding_model() -> SentenceTransformer:
     return _EMBEDDING_MODEL
 
 
+# Class: CredRAGCore
+# What it represents:
+# Think of this class as our digital head librarian.
+# It controls the ChromaDB database, holds our embedding model, and knows how
+# to search through policy chunks or formulate grounded answers for users.
 class CredRAGCore:
+    # Method: __init__
+    # Initializes our vector database connection on disk and creates two separate
+    # collections (drawers): one for fixed-size text chunks and one for sentence chunks.
     def __init__(self, persist_dir: str = CHROMA_PERSIST_DIR, force_reindex: bool = False):
         self.persist_dir = persist_dir
         self.model = get_embedding_model()
@@ -55,6 +83,9 @@ class CredRAGCore:
         if self.fixed_collection.count() == 0 or self.sentence_collection.count() == 0:
             self.index_knowledge_base()
 
+    # Method: index_knowledge_base
+    # Takes all 12 policy documents, slices them into chunks using both chunking
+    # strategies, converts each chunk into numbers (embeddings), and saves them in ChromaDB.
     def index_knowledge_base(self) -> None:
         chunked = chunk_all_documents(KNOWLEDGE_BASE_DOCS)
         fixed_chunks = chunked["fixed_chunks"]
@@ -98,6 +129,17 @@ class CredRAGCore:
                 ids=ids
             )
 
+    # Method: retrieve
+    # Searches our database for the top-K policy snippets that best match the user's question.
+    # It turns the question into a vector, measures cosine distance, and returns the best chunks.
+    #
+    # Parameters:
+    # - query: The user's question string.
+    # - strategy: Which chunks to search ('sentence' or 'fixed').
+    # - top_k: How many top matching chunks to return (defaults to 3).
+    #
+    # Returns:
+    # A list of chunk dictionaries sorted from highest similarity to lowest.
     def retrieve(
         self,
         query: str,
@@ -137,6 +179,20 @@ class CredRAGCore:
 
         return retrieved
 
+    # Method: generate_grounded_answer
+    # Retrieves relevant policy chunks and writes an answer strictly from them.
+    # If the similarity score is below our safety threshold, it returns a polite
+    # fallback: "I don't know: The requested information is not covered in Cred's policy."
+    # This completely eliminates AI hallucinations!
+    #
+    # Parameters:
+    # - query: The user's question.
+    # - strategy: Chunking strategy to use (defaults to 'sentence').
+    # - top_k: Number of chunks to retrieve (defaults to 3).
+    # - threshold: Minimum similarity needed to accept an answer (defaults to 0.40).
+    #
+    # Returns:
+    # A dictionary containing the answer, sources, and verification status.
     def generate_grounded_answer(
         self,
         query: str,
@@ -180,6 +236,14 @@ class CredRAGCore:
         }
 
 
+# Function: calibrate_fallback_threshold
+# What it does:
+# An experiment that tests real banking questions versus silly unrelated questions
+# (like cooking recipes or soccer games). It mathematically finds the best threshold
+# number separating valid policy questions from out-of-scope questions!
+#
+# Returns:
+# A dictionary containing score ranges and the recommended threshold (e.g. 0.31).
 def calibrate_fallback_threshold() -> Dict[str, Any]:
     rag = CredRAGCore(force_reindex=True)
 

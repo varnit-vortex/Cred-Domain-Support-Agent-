@@ -1,3 +1,12 @@
+# ==============================================================================
+# File: evaluate_rag_triad.py
+# What this file does in plain English:
+# In modern AI systems, the "RAG Triad" is the gold standard for testing quality:
+# 1. Context Relevance: Did our search engine find snippets that actually answer the question?
+# 2. Groundedness: Did the AI state facts directly from the policy without hallucinating?
+# 3. Answer Relevance: Does the generated response directly address the user's intent?
+# This file tests 15 diverse queries (12 in-scope banking topics + 3 out-of-scope traps).
+# ==============================================================================
 
 from typing import List, Dict, Any
 from rag_core import CredRAGCore

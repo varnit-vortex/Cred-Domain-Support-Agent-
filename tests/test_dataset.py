@@ -1,54 +1,72 @@
+# ==============================================================================
+# File: tests/test_dataset.py
+# What this file does in plain English:
+# This test suite verifies our mock dataset generator (dataset.py).
+# It checks that our factory produces at least 40 records (we produce 50),
+# covers all 5 loan categories, includes all 5 status stages, and keeps the
+# fraud review rate strictly within the calibrated 10% to 30% band.
+# ==============================================================================
 
 import pytest
 from dataset import (
+    generate_loan_dataset,
+    validate_and_report_dataset,
     LOAN_APPLICATIONS,
     CATEGORIES,
     STATUSES,
-    AMOUNT_RANGES,
-    validate_and_report_dataset,
-    generate_loan_dataset
+    AMOUNT_RANGES
 )
 
 
+# Test: Verifies total dataset size is at least 40 records (we generate 50)
 def test_dataset_size():
-    assert len(LOAN_APPLICATIONS) >= 40, f"Expected >= 40 records, got {len(LOAN_APPLICATIONS)}"
+    assert len(LOAN_APPLICATIONS) >= 40
+    assert len(LOAN_APPLICATIONS) == 50
 
 
+# Test: Verifies all 5 loan categories are represented with at least 3 records each
 def test_category_coverage_and_counts():
-    cat_counts = {cat: 0 for cat in CATEGORIES}
+    counts = {cat: 0 for cat in CATEGORIES}
     for app in LOAN_APPLICATIONS:
-        assert app["category"] in CATEGORIES, f"Invalid category: {app['category']}"
-        cat_counts[app["category"]] += 1
+        counts[app["category"]] += 1
 
-    for cat, count in cat_counts.items():
-        assert count >= 3, f"Category '{cat}' has fewer than 3 records: {count}"
+    for cat, cnt in counts.items():
+        assert cnt >= 3, f"Category '{cat}' has fewer than 3 records: {cnt}"
 
 
+# Test: Verifies all 5 statuses (Submitted, Approved, etc.) appear at least once
 def test_status_coverage_and_counts():
-    status_counts = {st: 0 for st in STATUSES}
+    counts = {st: 0 for st in STATUSES}
     for app in LOAN_APPLICATIONS:
-        assert app["status"] in STATUSES, f"Invalid status: {app['status']}"
-        status_counts[app["status"]] += 1
+        counts[app["status"]] += 1
 
-    for st, count in status_counts.items():
-        assert count >= 1, f"Status '{st}' has 0 records"
+    for st, cnt in counts.items():
+        assert cnt >= 1, f"Status '{st}' has 0 records"
 
 
+# Test: Verifies fraud review rate stays in the required 10% to 30% band (calibrated 14%)
 def test_fraud_review_rate_band():
-    fraud_count = sum(1 for app in LOAN_APPLICATIONS if app["flagged_for_fraud_review"])
-    fraud_pct = (fraud_count / len(LOAN_APPLICATIONS)) * 100.0
-    assert 10.0 <= fraud_pct <= 30.0, f"Fraud review rate {fraud_pct:.2f}% is outside [10%, 30%]"
+    total = len(LOAN_APPLICATIONS)
+    fraud_count = sum(1 for a in LOAN_APPLICATIONS if a["flagged_for_fraud_review"])
+    fraud_pct = (fraud_count / total) * 100
+
+    assert 10.0 <= fraud_pct <= 30.0, f"Fraud rate {fraud_pct:.2f}% is outside [10%, 30%]"
+    assert fraud_count == 7
+    assert round(fraud_pct, 2) == 14.00
 
 
+# Test: Verifies loan amounts fall within realistic financial bounds and aging is 0-30 days
 def test_loan_amount_ranges_and_recency():
     for app in LOAN_APPLICATIONS:
         cat = app["category"]
-        min_amt, max_amt = AMOUNT_RANGES[cat]
-        assert min_amt <= app["loan_amount_inr"] <= max_amt, f"Loan amount ₹{app['loan_amount_inr']} out of range for {cat}"
-        assert 0 <= app["days_since_created"] <= 30, f"Days since created {app['days_since_created']} out of [0, 30]"
+        amt = app["loan_amount_inr"]
+        min_allowed, max_allowed = AMOUNT_RANGES[cat]
+        assert min_allowed <= amt <= max_allowed, f"Amount {amt} out of range for {cat}"
+        assert 0 <= app["days_since_created"] <= 30
 
 
+# Test: Verifies the validation report helper function runs and passes assertions
 def test_dataset_validation_function():
-    report = validate_and_report_dataset(LOAN_APPLICATIONS)
-    assert report["total_records"] >= 40
-    assert 10.0 <= report["fraud_percentage"] <= 30.0
+    summary = validate_and_report_dataset(LOAN_APPLICATIONS)
+    assert summary["total_records"] == 50
+    assert summary["fraud_count"] == 7

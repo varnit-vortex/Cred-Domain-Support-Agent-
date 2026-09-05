@@ -1,3 +1,11 @@
+# ==============================================================================
+# File: tests/test_rag.py
+# What this file does in plain English:
+# This test suite checks our Knowledge Base and RAG search engine (rag_core.py).
+# It verifies that all 12 policy documents exist, tests both chunking methods,
+# checks that vector retrieval finds matching policies, and tests that fallback
+# works when questions are out of scope.
+# ==============================================================================
 
 import pytest
 from knowledge_base import KNOWLEDGE_BASE_DOCS
@@ -6,6 +14,7 @@ from rag_core import CredRAGCore, calibrate_fallback_threshold
 from evaluate_rag import evaluate_strategy, EVAL_QUERIES
 
 
+# Test: Verifies all 12 required policy documents exist with non-empty content
 def test_knowledge_base_doc_count_and_content():
     assert len(KNOWLEDGE_BASE_DOCS) >= 12
     required_topics = [
@@ -19,6 +28,7 @@ def test_knowledge_base_doc_count_and_content():
         assert req_t in existing_topics, f"Missing required topic: {req_t}"
 
 
+# Test: Verifies fixed-size and sentence-based chunking generate valid text chunks
 def test_chunking_strategies_generation():
     chunked = chunk_all_documents(KNOWLEDGE_BASE_DOCS)
     fixed = chunked["fixed_chunks"]
@@ -34,6 +44,7 @@ def test_chunking_strategies_generation():
     assert sentence[0]["strategy"] == "sentence_based"
 
 
+# Test: Verifies ChromaDB retrieves high similarity for in-scope and low for out-of-scope
 def test_rag_retrieval_and_threshold_separation():
     rag = CredRAGCore()
     
@@ -49,6 +60,7 @@ def test_rag_retrieval_and_threshold_separation():
     assert out_scope_res[0]["similarity"] < 0.30
 
 
+# Test: Verifies answers cite policy documents and fall back to 'I don't know' when out of scope
 def test_grounded_generation_and_fallback():
     rag = CredRAGCore()
 
@@ -65,6 +77,7 @@ def test_grounded_generation_and_fallback():
     assert "I don't know" in out_scope_ans["answer"]
 
 
+# Test: Verifies Precision@3 and Recall@3 evaluation runs on our benchmark questions
 def test_chunking_evaluation_precision_and_recall():
     rag = CredRAGCore()
     eval_sentence = evaluate_strategy(rag, strategy="sentence", top_k=3)

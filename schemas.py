@@ -1,8 +1,22 @@
+# ==============================================================================
+# File: schemas.py
+# What this file does in plain English:
+# Think of this file as the official blueprints and forms of our application.
+# In Python, we use Pydantic models (classes inheriting from BaseModel) to make
+# sure that any data coming in from the user or going out from our API has the
+# exact right format, types, and structure. If someone sends text where a number
+# is expected, Pydantic catches it immediately before anything can break!
+# ==============================================================================
 
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 
 
+# Class: GuardrailStatus
+# What it represents:
+# This is like a security inspection report card. It tracks whether the user's
+# question passed all safety checks, whether any private personal data (like a PAN or
+# Aadhaar number) was sanitized, and whether any prompt injection tricks were blocked.
 class GuardrailStatus(BaseModel):
     passed: bool = Field(description="Whether the query passed guardrail inspection")
     pii_detected: bool = Field(default=False, description="Whether fixed-format PII was detected")
@@ -12,6 +26,11 @@ class GuardrailStatus(BaseModel):
     rejection_reason: Optional[str] = Field(default=None, description="Reason for rejection if blocked")
 
 
+# Class: LoanApplicationStatusResponse
+# What it represents:
+# This is the structured report card for a single loan application.
+# It cleanly bundles the application's ID, category, approval status, amount,
+# aging days, fraud flag, and computed senior underwriter escalation score.
 class LoanApplicationStatusResponse(BaseModel):
     record_id: str = Field(description="Loan application record identifier")
     category: str = Field(description="Loan category")
@@ -24,6 +43,11 @@ class LoanApplicationStatusResponse(BaseModel):
     escalation_reason: str = Field(description="Explanation of escalation rationale")
 
 
+# Class: AgentResponse
+# What it represents:
+# This is the master envelope that our AI agent sends back to the frontend or user.
+# It holds the original question, the sanitized question, what intent was detected,
+# the final answer text, policy citations, loan details (if any), and security audit info.
 class AgentResponse(BaseModel):
     query: str = Field(description="Original user query")
     sanitized_query: str = Field(description="PII-masked query")
@@ -37,6 +61,10 @@ class AgentResponse(BaseModel):
     model_used: Optional[str] = Field(default="MOCK_LLM (Deterministic)", description="Underlying model generator")
 
 
+# Class: AskRequest
+# What it represents:
+# This is the incoming package when a user or client sends a question to POST /ask.
+# It holds the query string, optional session identifier, and optional model choice.
 class AskRequest(BaseModel):
     query: str = Field(..., json_schema_extra={"example": "What are the KYC documents required for a loan?"})
     session_id: Optional[str] = Field(default="session-001", json_schema_extra={"example": "session-001"})
@@ -44,11 +72,19 @@ class AskRequest(BaseModel):
     api_key: Optional[str] = Field(default=None, json_schema_extra={"example": None})
 
 
+# Class: LoanStatusRequest
+# What it represents:
+# This is a focused request body when someone specifically wants to check
+# an application ID (like CRD-APP-1001) through the POST /loan-status endpoint.
 class LoanStatusRequest(BaseModel):
     record_id: str = Field(..., json_schema_extra={"example": "CRD-APP-1001"})
     session_id: Optional[str] = Field(default="session-001", json_schema_extra={"example": "session-001"})
 
 
+# Class: AddDocumentRequest
+# What it represents:
+# This schema defines the structure required to add a brand new policy document
+# into our vector knowledge base dynamically at runtime via the API.
 class AddDocumentRequest(BaseModel):
     doc_id: str = Field(..., json_schema_extra={"example": "KB-DOC-013"})
     title: str = Field(..., json_schema_extra={"example": "Digital Gold Lending Policy"})

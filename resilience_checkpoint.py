@@ -1,3 +1,13 @@
+# ==============================================================================
+# File: resilience_checkpoint.py
+# What this file does in plain English:
+# What happens if a server crashes right in the middle of a complex multi-step workflow?
+# In traditional systems, all progress is lost and you have to start over from scratch!
+# This file demonstrates LangGraph's SQLite Checkpointing:
+# After every single step (node), the entire state is safely saved into a local SQLite database.
+# If the system is interrupted, it can resume from the exact last saved checkpoint
+# without repeating steps that already completed successfully!
+# ==============================================================================
 
 import os
 import sqlite3
@@ -13,6 +23,9 @@ from rag_core import CredRAGCore
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "checkpoints.sqlite")
 
 
+# Class: ResilientState
+# What it represents:
+# The state dictionary tracked across our checkpointer demonstration workflow.
 class ResilientState(TypedDict):
     query: str
     session_id: str
@@ -33,6 +46,8 @@ NODE_CALL_COUNTERS = {
 }
 
 
+# Function: node_1_input_guardrail
+# Step 1: Sanitizes PII and increments call counter.
 def node_1_input_guardrail(state: ResilientState) -> Dict[str, Any]:
     NODE_CALL_COUNTERS["node_1_input_guardrail"] += 1
     call_num = NODE_CALL_COUNTERS["node_1_input_guardrail"]
@@ -49,6 +64,8 @@ def node_1_input_guardrail(state: ResilientState) -> Dict[str, Any]:
     }
 
 
+# Function: node_2_intent_router
+# Step 2: Determines routing intent.
 def node_2_intent_router(state: ResilientState) -> Dict[str, Any]:
     NODE_CALL_COUNTERS["node_2_intent_router"] += 1
     call_num = NODE_CALL_COUNTERS["node_2_intent_router"]
@@ -61,6 +78,8 @@ def node_2_intent_router(state: ResilientState) -> Dict[str, Any]:
     }
 
 
+# Function: node_3_rag_execution
+# Step 3: Executes RAG retrieval.
 def node_3_rag_execution(state: ResilientState) -> Dict[str, Any]:
     NODE_CALL_COUNTERS["node_3_rag_execution"] += 1
     call_num = NODE_CALL_COUNTERS["node_3_rag_execution"]
@@ -78,6 +97,8 @@ def node_3_rag_execution(state: ResilientState) -> Dict[str, Any]:
     }
 
 
+# Function: node_4_output_guardrail
+# Step 4: Final output verification.
 def node_4_output_guardrail(state: ResilientState) -> Dict[str, Any]:
     NODE_CALL_COUNTERS["node_4_output_guardrail"] += 1
     call_num = NODE_CALL_COUNTERS["node_4_output_guardrail"]
@@ -89,6 +110,11 @@ def node_4_output_guardrail(state: ResilientState) -> Dict[str, Any]:
     }
 
 
+# Function: demonstrate_sqlite_checkpointing
+# What it does:
+# Demonstrates interruption and resumption:
+# Phase 1 runs Nodes 1 & 2 and stops.
+# Phase 2 resumes using the same thread ID: Nodes 1 & 2 are skipped, and Nodes 3 & 4 finish!
 def demonstrate_sqlite_checkpointing(db_path: str = DB_PATH) -> None:
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
     if os.path.exists(db_path):

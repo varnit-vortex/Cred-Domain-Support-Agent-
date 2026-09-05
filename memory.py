@@ -1,21 +1,44 @@
+# ==============================================================================
+# File: memory.py
+# What this file does in plain English:
+# Imagine chatting with a support agent who forgets what you said 10 seconds ago!
+# That would be super frustrating. This file gives our AI agent a persistent memory notebook.
+# Every conversation is assigned a unique `session_id`. Each time you send a message
+# and the bot responds, this file records that "turn" into a JSON file stored on disk.
+# That way, the bot remembers previous context and can handle multi-turn conversations!
+# ==============================================================================
 
 import os
 import json
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
+# Folder where conversation JSON files are stored on disk
 CONVERSATIONS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "conversations")
 
 
+# Class: ConversationMemory
+# What it represents:
+# Think of this class as a filing cabinet for customer chats.
+# Each customer session gets its own clean JSON file inside `data/conversations/`.
+# It provides simple methods to load past turns, save new turns, or clear history.
 class ConversationMemory:
+
+    # Method: __init__
+    # Sets up the memory manager and makes sure the storage directory exists on disk.
     def __init__(self, storage_dir: str = CONVERSATIONS_DIR):
         self.storage_dir = storage_dir
         os.makedirs(self.storage_dir, exist_ok=True)
 
+    # Method: _get_file_path
+    # Cleans the session ID so it's safe to use as a filename on your computer.
     def _get_file_path(self, session_id: str) -> str:
         safe_id = "".join([c for c in session_id if c.isalnum() or c in ("-", "_")])
         return os.path.join(self.storage_dir, f"{safe_id}.json")
 
+    # Method: load_history
+    # Reads the JSON file for a given session and returns the list of all past turns.
+    # If the session is brand new, it simply returns an empty list [].
     def load_history(self, session_id: str) -> List[Dict[str, Any]]:
         path = self._get_file_path(session_id)
         if not os.path.exists(path):
@@ -27,6 +50,11 @@ class ConversationMemory:
         except Exception:
             return []
 
+    # Method: save_turn
+    # Writes a brand new conversational exchange into the session's JSON file.
+    # It records: turn number, current timestamp, what the user asked,
+    # what the bot answered, and what intent was detected.
+    # Returns the new total turn count number.
     def save_turn(
         self,
         session_id: str,
@@ -63,6 +91,8 @@ class ConversationMemory:
 
         return turn_number
 
+    # Method: clear_history
+    # Deletes the session JSON file from disk to reset conversation history.
     def clear_history(self, session_id: str) -> bool:
         path = self._get_file_path(session_id)
         if os.path.exists(path):
@@ -70,10 +100,17 @@ class ConversationMemory:
             return True
         return False
 
+    # Method: get_turn_count
+    # Returns how many back-and-forth turns have happened in this session so far.
     def get_turn_count(self, session_id: str) -> int:
         return len(self.load_history(session_id))
 
 
+# Function: demonstrate_memory
+# What it does:
+# This demo function simulates two users: one having a multi-turn chat,
+# and another fresh user. It proves that conversation turns are saved correctly
+# and that conversations don't accidentally leak between different users!
 def demonstrate_memory() -> None:
     mem = ConversationMemory()
 

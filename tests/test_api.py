@@ -1,3 +1,11 @@
+# ==============================================================================
+# File: tests/test_api.py
+# What this file does in plain English:
+# This test suite checks our FastAPI web server (server.py).
+# It tests our GET /health probe, POST /ask endpoint, POST /loan-status endpoint,
+# dynamic document addition, and verifies that PII in request bodies is masked
+# before being written to disk logs!
+# ==============================================================================
 
 import os
 import json
@@ -6,11 +14,13 @@ from fastapi.testclient import TestClient
 from server import app, LOG_FILE
 
 
-@pytest.fixture
+# Fixture: Creates a FastAPI TestClient for simulating HTTP requests
+@pytest.fixture(scope="module")
 def client():
     return TestClient(app)
 
 
+# Test: Checks GET /health returns 200 OK and healthy status
 def test_health_endpoint(client):
     response = client.get("/health")
     assert response.status_code == 200
@@ -19,6 +29,7 @@ def test_health_endpoint(client):
     assert data["track"] == "Banking & FinTech (Cred)"
 
 
+# Test: Checks POST /ask answers policy questions and returns valid AgentResponse
 def test_ask_endpoint_policy_query(client):
     payload = {
         "query": "What are the KYC documents required for verification?",
@@ -32,6 +43,7 @@ def test_ask_endpoint_policy_query(client):
     assert "X-Trace-ID" in response.headers
 
 
+# Test: Checks POST /loan-status returns structured loan details and escalation score
 def test_loan_status_endpoint(client):
     payload = {
         "record_id": "CRD-APP-1001",
@@ -44,6 +56,7 @@ def test_loan_status_endpoint(client):
     assert 0.0 <= data["escalation_score"] <= 1.0
 
 
+# Test: Checks POST /knowledge-base/documents dynamically adds and indexes new policies
 def test_add_document_endpoint(client):
     payload = {
         "doc_id": "KB-DOC-TEST-99",
@@ -58,6 +71,7 @@ def test_add_document_endpoint(client):
     assert data["doc_id"] == "KB-DOC-TEST-99"
 
 
+# Test: Checks that our middleware masks PII before writing trace logs to disk
 def test_structured_logging_masks_pii(client):
     # Submit request containing raw PAN and Aadhaar
     raw_pan = "ABCDE9999Z"

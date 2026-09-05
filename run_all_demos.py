@@ -1,3 +1,11 @@
+# ==============================================================================
+# File: run_all_demos.py
+# What this file does in plain English:
+# This is our master demonstration runner!
+# It executes every single major component of our Cred Domain Support Agent project
+# in chronological order: dataset generation, knowledge base export, chunking comparisons,
+# RAG retrieval, guardrails, LangGraph orchestration, memory, MCP, and resilience!
+# ==============================================================================
 
 import sys
 import os

@@ -1,3 +1,12 @@
+# ==============================================================================
+# File: server.py
+# What this file does in plain English:
+# This file is our web server built with FastAPI!
+# When you open the application in Google Chrome or send an API request from
+# an external system, this file receives the HTTP requests.
+# It serves our modern FinTech dashboard HTML, exposes API endpoints (/ask, /loan-status, /health),
+# and automatically writes PII-safe audit logs to disk for compliance and security!
+# ==============================================================================
 
 import os
 import time
@@ -31,6 +40,12 @@ LOG_DIR = os.path.join(BASE_DIR, "data", "logs")
 LOG_FILE = os.path.join(LOG_DIR, "api_traces.jsonl")
 
 
+# Function: append_structured_log
+# What it does:
+# Appends a single JSON log line to our audit log file (api_traces.jsonl).
+#
+# Parameters:
+# - log_entry: A dictionary containing trace ID, timestamp, endpoint, latency, etc.
 def append_structured_log(log_entry: Dict[str, Any]) -> None:
     os.makedirs(LOG_DIR, exist_ok=True)
     with open(LOG_FILE, "a", encoding="utf-8") as f:
@@ -38,6 +53,10 @@ def append_structured_log(log_entry: Dict[str, Any]) -> None:
 
 
 @asynccontextmanager
+# Function: lifespan
+# Manages server startup and shutdown.
+# When the server boots up, it warms up our ChromaDB vector database so the first
+# user question doesn't experience any cold-start delay.
 async def lifespan(app: FastAPI):
     # Startup: ensure RAG core initialized
     os.makedirs(LOG_DIR, exist_ok=True)
@@ -63,6 +82,10 @@ app.add_middleware(
 
 
 @app.middleware("http")
+# Function: structured_logging_middleware
+# Middleware that wraps every incoming HTTP request.
+# Measures execution time in milliseconds, automatically masks any PII in the request body,
+# logs the event in JSONL format, and adds an x-trace-id header to the response.
 async def structured_logging_middleware(request: Request, call_next):
     trace_id = str(uuid.uuid4())
     start_time = time.perf_counter()

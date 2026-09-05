@@ -1,8 +1,32 @@
+# ==============================================================================
+# File: chunking.py
+# What this file does in plain English:
+# When an AI looks for answers in long documents, reading an entire 10-page book
+# at once is slow and imprecise. Instead, we chop ("chunk") the text into bite-sized
+# pieces so the AI can find the exact sentence or paragraph that answers the question.
+# This file implements two different chunking strategies so we can compare them:
+# 1. Fixed-size windows with overlapping words (so sentences aren't chopped mid-thought).
+# 2. Sentence-based chunking (splitting cleanly at periods and question marks).
+# ==============================================================================
 
 import re
 from typing import List, Dict, Any
 
 
+# Function: chunk_fixed_size
+# What it does:
+# Imagine taking a ruler and cutting text into fixed character lengths (e.g. 220 characters).
+# To make sure we don't accidentally chop a word or key phrase right down the middle,
+# we use an "overlap" window (e.g. 40 characters) that carries over into the next chunk.
+#
+# Parameters:
+# - text: The full document content string to chop up.
+# - chunk_size: How many characters long each chunk should be (defaults to 220).
+# - overlap: How many characters to repeat between adjacent chunks (defaults to 40).
+# - doc_meta: Extra info like document ID and title to attach to each chunk.
+#
+# Returns:
+# A list of chunk dictionaries with their chunk IDs, texts, and positions.
 def chunk_fixed_size(
     text: str,
     chunk_size: int = 220,
@@ -43,6 +67,18 @@ def chunk_fixed_size(
     return chunks
 
 
+# Function: chunk_sentence_based
+# What it does:
+# Unlike the fixed ruler approach, this function respects human language!
+# It searches for punctuation marks (. ! ?) followed by spaces to break the text
+# into complete, natural sentences. Each sentence becomes its own clean chunk.
+#
+# Parameters:
+# - text: The document content to split into sentences.
+# - doc_meta: Metadata like document ID and topic to attach to each sentence.
+#
+# Returns:
+# A list of chunk dictionaries where each chunk contains one full sentence.
 def chunk_sentence_based(
     text: str,
     doc_meta: Dict[str, Any] = None
@@ -73,6 +109,16 @@ def chunk_sentence_based(
     return chunks
 
 
+# Function: chunk_all_documents
+# What it does:
+# This helper function takes our entire library of knowledge base documents
+# and processes all of them through BOTH chunking strategies in one go.
+#
+# Parameters:
+# - documents: A list of policy document dictionaries from knowledge_base.py.
+#
+# Returns:
+# A dictionary with two keys: 'fixed_chunks' and 'sentence_chunks'.
 def chunk_all_documents(
     documents: List[Dict[str, Any]]
 ) -> Dict[str, List[Dict[str, Any]]]:

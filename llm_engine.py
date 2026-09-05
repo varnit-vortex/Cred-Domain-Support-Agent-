@@ -1,3 +1,15 @@
+# ==============================================================================
+# File: llm_engine.py
+# What this file does in plain English:
+# This file is our AI voice and language synthesizer!
+# It decides how our agent actually formulates answers:
+# 1. If someone says "hi" or asks "what can you do?", it greets them warmly.
+# 2. If a user provided an API key (like Groq, OpenAI, or Gemini), it can call
+#    real cloud models like Llama-3.3-70B to generate fluid, conversational answers.
+# 3. If there is NO internet or NO API key, it has a built-in deterministic rule engine
+#    that crafts clean, perfectly formatted answers directly from retrieved policy text.
+# That way, our agent works flawlessly both online and completely offline!
+# ==============================================================================
 
 import os
 import json
@@ -46,6 +58,17 @@ POLITE_SYSTEM_PROMPT = (
 )
 
 
+# Function: handle_conversational_query
+# What it does:
+# Checks if the user's message is a greeting (like 'hello', 'good morning') or a help
+# request ('what can you do?'). If so, it returns a warm, helpful welcome message
+# listing what topics the agent can assist with.
+#
+# Parameters:
+# - query: The raw question string from the user.
+#
+# Returns:
+# A friendly response string if matched, or None if it's a specific banking inquiry.
 def handle_conversational_query(query: str) -> Optional[str]:
     clean = query.strip()
     if GREETING_PATTERNS.match(clean) or clean.lower() in ["hi", "hello", "hey"]:
@@ -81,6 +104,18 @@ def handle_conversational_query(query: str) -> Optional[str]:
     return None
 
 
+# Function: call_groq_api_sync
+# What it does:
+# Sends the prompt and policy context over the internet to Groq's high-speed cloud LLMs
+# (such as Llama-3.3-70B) to generate a response in real-time.
+#
+# Parameters:
+# - prompt: The user query and retrieved policy text formatted as instructions.
+# - system: The persona and rules instructing the model to be polite and accurate.
+# - api_key: The user's private Groq API key (starts with 'gsk_').
+#
+# Returns:
+# The generated text from the model, or None if the network call failed.
 def call_groq_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
     try:
         from groq import Groq
@@ -120,6 +155,17 @@ def call_groq_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
         return None
 
 
+# Function: call_openai_api_sync
+# What it does:
+# Connects to OpenAI's API (gpt-4o-mini) to generate a response if the user chooses OpenAI.
+#
+# Parameters:
+# - prompt: User inquiry + context.
+# - system: System prompt guidelines.
+# - api_key: OpenAI API key.
+#
+# Returns:
+# Generated text string or None on failure.
 def call_openai_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
     try:
         with httpx.Client(timeout=20.0) as client:
@@ -146,6 +192,17 @@ def call_openai_api_sync(prompt: str, system: str, api_key: str) -> Optional[str
     return None
 
 
+# Function: call_gemini_api_sync
+# What it does:
+# Connects to Google's Gemini API (gemini-1.5-flash) if the user selects Gemini.
+#
+# Parameters:
+# - prompt: User inquiry + context.
+# - system: System prompt guidelines.
+# - api_key: Google Gemini API key.
+#
+# Returns:
+# Generated text string or None on failure.
 def call_gemini_api_sync(prompt: str, system: str, api_key: str) -> Optional[str]:
     try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
@@ -168,6 +225,20 @@ def call_gemini_api_sync(prompt: str, system: str, api_key: str) -> Optional[str
     return None
 
 
+# Function: synthesize_smart_mock_answer
+# What it does:
+# This is our deterministic local offline answer engine!
+# It doesn't need internet or API keys. It examines which policy was retrieved,
+# extracts the key facts (like bounce fees ₹500, interest rates, KYC rules),
+# formats them into clean bullet points with bold highlights, and adds a polite closing.
+#
+# Parameters:
+# - query: The user's question.
+# - retrieved_chunks: The policy snippets found in our knowledge base.
+# - sources: The IDs of the policy documents cited.
+#
+# Returns:
+# A structured, polite, 100% grounded Markdown answer.
 def synthesize_smart_mock_answer(query: str, retrieved_chunks: List[Dict[str, Any]], sources: List[str]) -> str:
     if not retrieved_chunks:
         return (
@@ -294,6 +365,24 @@ def synthesize_smart_mock_answer(query: str, retrieved_chunks: List[Dict[str, An
     return f"**According to Cred Policy ({sources_str}):**\n\n{combined_text}{closing_courtesy}"
 
 
+# Function: generate_response_sync
+# What it does:
+# This is the master coordinator for generating answers:
+# 1. Checks for casual greetings or help requests.
+# 2. If a cloud API key is configured and not forced mock, calls the real cloud LLM.
+# 3. Checks if the context similarity passes the minimum threshold. If not, triggers fallback.
+# 4. Otherwise, uses the deterministic synthesizer to craft a safe, grounded response.
+#
+# Parameters:
+# - query: User's question string.
+# - retrieved_chunks: Matching policy chunks from ChromaDB.
+# - sources: List of document IDs (e.g. ['KB-DOC-001']).
+# - similarity_threshold: Minimum score required to accept policy context.
+# - provider: Which model provider to use ('mock', 'groq', 'openai', etc.).
+# - api_key: Optional API key string.
+#
+# Returns:
+# A dictionary containing the answer text, groundedness status, and model used.
 def generate_response_sync(
     query: str,
     retrieved_chunks: List[Dict[str, Any]],

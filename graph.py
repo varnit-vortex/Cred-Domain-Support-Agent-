@@ -1,3 +1,15 @@
+# ==============================================================================
+# File: graph.py
+# What this file does in plain English:
+# This file is the orchestrator and traffic controller of our AI system!
+# We use LangGraph (a framework for building stateful multi-step AI agents).
+# Think of this like a factory assembly line:
+# - Step 1 (Input Guardrail): Checks for private data (PII) and malicious prompts.
+# - Step 2 (Intent Router): Decides where the question should go (Loan Lookup or Policy Search).
+# - Step 3 (Specialist Agent): Either fetches the loan status or searches the policy library.
+# - Step 4 (Output Guardrail & Memory): Checks that the answer is grounded and saves it to history.
+# Every step updates a shared notebook called "AgentState" that moves along the conveyor belt!
+# ==============================================================================
 
 import re
 from typing import TypedDict, List, Dict, Any, Optional
@@ -14,6 +26,12 @@ from llm_engine import generate_response_sync
 LOAN_ID_PATTERN = re.compile(r'\bCRD-APP-\d{4}\b', re.IGNORECASE)
 
 
+# Class: AgentState
+# What it represents:
+# This is our shared clipboard or notebook.
+# As the customer's request moves from one worker (node) to the next along the assembly line,
+# each worker reads this state and writes their updates into it (e.g., sanitized query,
+# detected intent, retrieved chunks, and the final answer).
 class AgentState(TypedDict):
     query: str
     session_id: str
@@ -36,6 +54,8 @@ _RAG_CORE = None
 _MEMORY = None
 
 
+# Function: get_rag_core
+# Helper function that creates our RAGCore library manager once and shares it everywhere.
 def get_rag_core() -> CredRAGCore:
     global _RAG_CORE
     if _RAG_CORE is None:
@@ -43,6 +63,8 @@ def get_rag_core() -> CredRAGCore:
     return _RAG_CORE
 
 
+# Function: get_memory
+# Helper function that provides access to our conversation memory manager.
 def get_memory() -> ConversationMemory:
     global _MEMORY
     if _MEMORY is None:
@@ -51,6 +73,16 @@ def get_memory() -> ConversationMemory:
 
 
 # Node 1: Input Guardrail
+# Function: input_guardrail_node (Node 1)
+# What it does:
+# The first stop on the assembly line!
+# It scrubs sensitive personal numbers (PAN, Aadhaar) and blocks malicious prompt injections.
+#
+# Parameters:
+# - state: Current shared agent state dictionary.
+#
+# Returns:
+# Updates for the state: 'sanitized_query' and 'guardrail_status'.
 def input_guardrail_node(state: AgentState) -> Dict[str, Any]:
     query = state.get("query", "")
     guard_res = apply_input_guardrails(query)
@@ -62,6 +94,18 @@ def input_guardrail_node(state: AgentState) -> Dict[str, Any]:
 
 
 # Node 2: Intent Router
+# Function: intent_router_node (Node 2)
+# What it does:
+# The traffic cop!
+# It inspects the sanitized query. If safety guardrails were tripped, it routes to blocked.
+# If it sees a loan application ID (like CRD-APP-1001), it routes to LOAN_STATUS.
+# Otherwise, it routes to POLICY_RAG for policy questions.
+#
+# Parameters:
+# - state: Current shared agent state.
+#
+# Returns:
+# State update with the detected 'intent'.
 def intent_router_node(state: AgentState) -> Dict[str, Any]:
     guard_status = state.get("guardrail_status", {})
     if not guard_status.get("passed", True):
@@ -78,6 +122,9 @@ def intent_router_node(state: AgentState) -> Dict[str, Any]:
 
 
 # Routing conditional function
+# Function: route_intent
+# Conditional routing edge function.
+# Tells LangGraph which path to take after the Intent Router node.
 def route_intent(state: AgentState) -> str:
     intent = state.get("intent", "POLICY_RAG")
     if intent == "GUARDRAIL_BLOCKED":
@@ -89,6 +136,17 @@ def route_intent(state: AgentState) -> str:
 
 
 # Node 3: Policy RAG Agent
+# Function: rag_agent_node (Node 3A)
+# What it does:
+# The policy research specialist!
+# When a customer asks about loan rules or interest rates, this node retrieves the
+# matching policy snippets from ChromaDB and synthesizes an authoritative answer.
+#
+# Parameters:
+# - state: Current shared agent state.
+#
+# Returns:
+# Updates containing 'raw_answer', 'retrieved_chunks', and 'sources'.
 def rag_agent_node(state: AgentState) -> Dict[str, Any]:
     rag = get_rag_core()
     query = state.get("sanitized_query", "")
@@ -116,6 +174,17 @@ def rag_agent_node(state: AgentState) -> Dict[str, Any]:
 
 
 # Node 4: Loan Status Agent
+# Function: loan_agent_node (Node 3B)
+# What it does:
+# The loan underwriting specialist!
+# Looks up the specific application in our database, calculates the escalation risk score,
+# and generates a detailed status report for the customer.
+#
+# Parameters:
+# - state: Current shared agent state.
+#
+# Returns:
+# Updates containing 'raw_answer', 'loan_details', and 'sources'.
 def loan_agent_node(state: AgentState) -> Dict[str, Any]:
     sanitized = state.get("sanitized_query", "")
     match = LOAN_ID_PATTERN.search(sanitized)
@@ -170,6 +239,17 @@ def loan_agent_node(state: AgentState) -> Dict[str, Any]:
 
 
 # Node 5: Output Guardrail & Structured Formatter
+# Function: output_guardrail_node (Node 4)
+# What it does:
+# The final inspection station!
+# Verifies that the answer is grounded in real policy, saves the complete turn
+# to conversation memory on disk, and bundles everything into our final AgentResponse schema.
+#
+# Parameters:
+# - state: Current shared agent state.
+#
+# Returns:
+# Final state updates with 'final_response' and 'turn_count'.
 def output_guardrail_node(state: AgentState) -> Dict[str, Any]:
     intent = state.get("intent", "POLICY_RAG")
     guard_status = state.get("guardrail_status", {})
@@ -288,6 +368,20 @@ def build_cred_agent_graph() -> StateGraph:
     return workflow.compile()
 
 
+# Function: run_agent
+# What it does:
+# The main front-door function called by our web server!
+# Takes a user question, packages it into initial state, runs it through the LangGraph
+# pipeline, and returns the final validated response dictionary.
+#
+# Parameters:
+# - query: User's question string.
+# - session_id: Conversation session identifier (defaults to 'default_session').
+# - provider: Model provider ('mock', 'groq', 'openai', etc.).
+# - api_key: Optional API key.
+#
+# Returns:
+# A dictionary conforming to the AgentResponse schema.
 def run_agent(
     query: str,
     session_id: str = "demo_session",

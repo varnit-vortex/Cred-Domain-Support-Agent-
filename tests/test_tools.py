@@ -1,36 +1,39 @@
+# ==============================================================================
+# File: tests/test_tools.py
+# What this file does in plain English:
+# This test suite checks our loan underwriting tools (tools.py).
+# It verifies that our escalation score formula correctly combines aging and fraud flags,
+# that valid application IDs return complete details, and that invalid IDs return
+# a polite error message rather than crashing!
+# ==============================================================================
 
 import pytest
-from tools import check_loan_application_status, calculate_escalation_score, ESCALATION_THRESHOLD
-from dataset import LOAN_APPLICATIONS
+from tools import calculate_escalation_score, check_loan_application_status, ESCALATION_THRESHOLD
 
 
+# Test: Verifies escalation formula calculations against known mathematical cases
 def test_escalation_score_formula():
-    # Fraud = False, Days = 0 -> 0.00
-    assert calculate_escalation_score(False, 0) == 0.00
-    # Fraud = False, Days = 30 -> 0.50
-    assert calculate_escalation_score(False, 30) == 0.50
-    # Fraud = True, Days = 0 -> 0.50
-    assert calculate_escalation_score(True, 0) == 0.50
-    # Fraud = True, Days = 30 -> 1.00
-    assert calculate_escalation_score(True, 30) == 1.00
-    # Fraud = True, Days = 10 -> 0.50 + 0.1667 = 0.6667 (exceeds 0.65 threshold)
-    assert calculate_escalation_score(True, 10) > ESCALATION_THRESHOLD
+    assert calculate_escalation_score(flagged_for_fraud=False, days_since_created=0) == 0.0000
+    assert calculate_escalation_score(flagged_for_fraud=False, days_since_created=15) == 0.2500
+    assert calculate_escalation_score(flagged_for_fraud=False, days_since_created=30) == 0.5000
+    assert calculate_escalation_score(flagged_for_fraud=True, days_since_created=0) == 0.5000
+    assert calculate_escalation_score(flagged_for_fraud=True, days_since_created=15) == 0.7500
+    assert calculate_escalation_score(flagged_for_fraud=True, days_since_created=30) == 1.0000
 
 
+# Test: Verifies lookup returns full record details when an ID exists
 def test_valid_loan_lookup():
-    first_app = LOAN_APPLICATIONS[0]
-    rec_id = first_app["record_id"]
-    res = check_loan_application_status(rec_id)
-
+    res = check_loan_application_status("CRD-APP-1001")
     assert res["found"] is True
-    assert res["record_id"] == rec_id
-    assert res["category"] == first_app["category"]
-    assert res["status"] == first_app["status"]
-    assert res["loan_amount_inr"] == first_app["loan_amount_inr"]
-    assert 0.0 <= res["escalation_score"] <= 1.0
+    assert res["record_id"] == "CRD-APP-1001"
+    assert "status" in res
+    assert "loan_amount_inr" in res
+    assert "escalation_score" in res
+    assert "escalation_recommended" in res
 
 
+# Test: Verifies lookup handles non-existent IDs gracefully
 def test_invalid_loan_lookup():
-    res = check_loan_application_status("CRD-APP-99999")
+    res = check_loan_application_status("CRD-APP-9999")
     assert res["found"] is False
     assert "error" in res

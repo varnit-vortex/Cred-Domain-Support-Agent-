@@ -1,3 +1,12 @@
+# ==============================================================================
+# File: tests/test_functional_e2e.py
+# What this file does in plain English:
+# This is our master End-to-End (E2E) functional test suite!
+# It tests real customer journeys: warm conversational greetings, guidance on features,
+# testing all 12 banking policies with expected keywords, testing standard loan status,
+# high-risk fraud escalations, non-existent loans, full PII redaction, prompt injection
+# defense, multi-turn memory incrementing, and the web dashboard endpoint.
+# ==============================================================================
 
 import os
 import json
@@ -184,6 +193,7 @@ def test_multi_turn_turn_incrementing_and_isolation():
 # SCENARIO 6: FastAPI Web Dashboard & Endpoint Serving
 # ============================================================================
 
+# Test: Checks root dashboard HTML is served and contains required branding
 def test_fastapi_dashboard_and_endpoints(client):
     # Test GET /
     root_res = client.get("/")

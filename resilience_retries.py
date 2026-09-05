@@ -1,3 +1,13 @@
+# ==============================================================================
+# File: resilience_retries.py
+# What this file does in plain English:
+# In real-world banking networks, temporary glitches happen (e.g. WiFi hiccups,
+# credit bureau timeouts, server reboots). If a call fails on attempt 1, you shouldn't
+# immediately crash!
+# This file implements Exponential Backoff with Jitter:
+# If a network call fails, it waits a short moment, tries again, waits a bit longer,
+# and retries up to 4 times. It also enforces per-node timeouts so slow queries don't hang!
+# ==============================================================================
 
 import time
 import random
@@ -6,6 +16,9 @@ import inspect
 from typing import Dict, Any, Callable, Optional
 
 
+# Class: RetryConfig
+# What it represents:
+# Configuration settings for retry policies: max attempts, initial delay, backoff factor, and jitter.
 class RetryConfig:
     def __init__(
         self,
@@ -22,6 +35,14 @@ class RetryConfig:
         self.jitter = jitter
 
 
+# Function: execute_with_retry_and_timeout
+# What it does:
+# Wraps any function call with automatic exponential backoff retries and strict timeout limits.
+#
+# Parameters:
+# - operation: The Python function or coroutine to execute.
+# - retry_config: Retry parameters (attempts, delays).
+# - node_timeout: Maximum seconds allowed before triggering TimeoutError.
 async def execute_with_retry_and_timeout(
     operation: Callable[..., Any],
     *args,
