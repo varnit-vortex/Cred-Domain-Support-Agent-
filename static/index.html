@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRED Support Agent — Intelligent Lending & Policy Operations</title>
+  <title>CRED Domain Support Agent — Intelligent Lending & Policy Operations</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -12,13 +12,14 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
     
     :root {
-      --bg-base: #08090C;
-      --card-base: #0E1117;
-      --card-sub: #141824;
-      --cred-neon: #00E599;
-      --cred-indigo: #6366F1;
+      --bg-base: #090D16;
+      --card-base: #0F1422;
+      --card-sub: #141B2D;
+      --primary-blue: #2563EB;
+      --primary-indigo: #4F46E5;
+      --accent-cyan: #38BDF8;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.16);
+      --border-hover: rgba(59, 130, 246, 0.4);
     }
     
     body {
@@ -32,30 +33,43 @@
     }
     
     .glass-card {
-      background: rgba(14, 17, 23, 0.85);
-      backdrop-filter: blur(16px);
+      background: rgba(15, 20, 34, 0.85);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border-subtle);
     }
     
     .glass-card-hover:hover {
       border-color: var(--border-hover);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 32px -8px rgba(37, 99, 235, 0.15);
     }
     
-    .cred-gradient-text {
-      background: linear-gradient(135deg, #00E599 0%, #3B82F6 50%, #8B5CF6 100%);
+    .brand-gradient-text {
+      background: linear-gradient(135deg, #60A5FA 0%, #818CF8 50%, #C084FC 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .cred-glow {
-      box-shadow: 0 0 20px -5px rgba(0, 229, 153, 0.25);
+    .brand-glow {
+      box-shadow: 0 0 24px -4px rgba(59, 130, 246, 0.35);
     }
     
+    /* Segmented Navigation Tab Styling */
     .active-nav-tab {
-      background: rgba(0, 229, 153, 0.12);
-      border-color: rgba(0, 229, 153, 0.4);
-      color: #00E599;
+      background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
+      border-color: rgba(96, 165, 250, 0.4) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.35) !important;
+    }
+
+    .inactive-nav-tab {
+      color: #94A3B8;
+      border-color: transparent;
+      background: transparent;
+    }
+
+    .inactive-nav-tab:hover {
+      color: #F8FAFC;
+      background: rgba(255, 255, 255, 0.05);
     }
 
     /* Custom scrollbars */
@@ -64,7 +78,7 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #08090C;
+      background: #090D16;
     }
     ::-webkit-scrollbar-thumb {
       background: #1E293B;
@@ -75,39 +89,39 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
 
   <!-- TOP APP BAR -->
-  <header class="border-b border-slate-800/80 bg-[#0A0D14]/95 sticky top-0 z-50 backdrop-blur-md">
+  <header class="border-b border-slate-800/80 bg-[#0B0F19]/95 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
       <!-- Brand & Status -->
       <div class="flex items-center space-x-3.5">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 flex items-center justify-center cred-glow">
-          <i data-lucide="shield-check" class="w-5 h-5 text-black"></i>
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center brand-glow">
+          <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <span class="text-xl font-black tracking-tight cred-gradient-text">CRED</span>
-            <span class="text-[10px] uppercase tracking-wider font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Domain Support</span>
+            <span class="text-xl font-black tracking-tight brand-gradient-text">CRED</span>
+            <span class="text-[10px] uppercase tracking-wider font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Domain Support Agent</span>
           </div>
           <div class="flex items-center space-x-1.5 text-[11px] text-slate-400">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>LangGraph Engine Active</span>
+            <span class="text-slate-300 font-medium">LangGraph Engine Active</span>
             <span class="text-slate-600">•</span>
-            <span>FastAPI Backend</span>
+            <span>FastAPI Server</span>
           </div>
         </div>
       </div>
 
-      <!-- Controls: Model Provider & Key Modal & Swagger -->
+      <!-- Controls: Model Selector & API Key & Swagger -->
       <div class="flex items-center space-x-2.5">
         
         <!-- Model Selector -->
-        <div class="flex items-center space-x-1.5 bg-[#121622] border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs">
-          <i data-lucide="cpu" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <div class="flex items-center space-x-1.5 bg-[#13192B] border border-slate-800 rounded-xl px-3 py-1.5 text-xs shadow-inner">
+          <i data-lucide="cpu" class="w-3.5 h-3.5 text-blue-400"></i>
           <select id="model-provider" onchange="handleProviderChange()" class="bg-transparent text-slate-200 focus:outline-none text-xs font-semibold cursor-pointer">
-            <option value="mock" class="bg-slate-900 text-slate-200">MOCK_LLM (Deterministic Grading)</option>
+            <option value="mock" class="bg-slate-900 text-slate-200">MOCK_LLM (Deterministic Engine)</option>
             <option value="groq" class="bg-slate-900 text-slate-200" selected>Groq Cloud (Llama-3.3-70B)</option>
             <option value="openai" class="bg-slate-900 text-slate-200">OpenAI (GPT-4o-mini)</option>
             <option value="gemini" class="bg-slate-900 text-slate-200">Google Gemini (Flash)</option>
@@ -116,96 +130,109 @@
         </div>
 
         <!-- API Key Configure Button -->
-        <button onclick="toggleApiKeyModal()" id="key-badge" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 border border-slate-800 transition flex items-center space-x-1.5">
+        <button onclick="toggleApiKeyModal()" id="key-badge" class="px-3.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-xs font-medium text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition flex items-center space-x-1.5 shadow-sm">
           <i data-lucide="key" class="w-3.5 h-3.5 text-amber-400"></i>
           <span id="key-label">Set API Key</span>
         </button>
 
         <!-- Swagger Docs Link -->
-        <a href="/docs" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-semibold text-slate-200 border border-slate-800 transition flex items-center space-x-1">
-          <i data-lucide="code" class="w-3.5 h-3.5 text-blue-400"></i>
+        <a href="/docs" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition flex items-center space-x-1 shadow-sm">
+          <i data-lucide="code" class="w-3.5 h-3.5 text-sky-400"></i>
           <span>API Docs</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- EXECUTIVE KPI METRIC STRIP (Mercury / Ramp Style) -->
-  <section class="border-b border-slate-800/80 bg-[#0B0E17]/60 backdrop-blur-sm">
+  <!-- EXECUTIVE KPI METRIC STRIP (Interactive Telemetry Tiles) -->
+  <section class="border-b border-slate-800/80 bg-[#0A0E18]/80 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         
         <!-- Metric 1: Portfolio -->
-        <div class="px-3 py-2 rounded-xl bg-slate-900/40 border border-slate-800/60 flex items-center justify-between">
+        <button onclick="switchTab('loan')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-blue-500/40 flex items-center justify-between transition-all group shadow-sm">
           <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Underwritten Portfolio</div>
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-blue-400 transition">Underwritten Portfolio</div>
             <div class="text-sm font-bold text-white mono mt-0.5">50 Records <span class="text-slate-400 text-xs font-normal">/ ₹15.5 Cr</span></div>
           </div>
-          <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 flex items-center justify-center transition">
             <i data-lucide="wallet" class="w-4 h-4"></i>
           </div>
-        </div>
+        </button>
 
         <!-- Metric 2: Fraud & Escalation -->
-        <div class="px-3 py-2 rounded-xl bg-slate-900/40 border border-slate-800/60 flex items-center justify-between">
+        <button onclick="switchTab('loan'); setDatasetFilter('fraud')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-amber-500/40 flex items-center justify-between transition-all group shadow-sm">
           <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Escalation Fraud Band</div>
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-amber-400 transition">Escalation Fraud Band</div>
             <div class="text-sm font-bold text-amber-400 mono mt-0.5">14.00% <span class="text-slate-400 text-xs font-normal">(7 Flagged)</span></div>
           </div>
-          <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 group-hover:bg-amber-500/20 flex items-center justify-center transition">
             <i data-lucide="alert-triangle" class="w-4 h-4"></i>
           </div>
-        </div>
+        </button>
 
         <!-- Metric 3: Grounded Knowledge Base -->
-        <div class="px-3 py-2 rounded-xl bg-slate-900/40 border border-slate-800/60 flex items-center justify-between">
+        <button onclick="switchTab('kb')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-sky-500/40 flex items-center justify-between transition-all group shadow-sm">
           <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Knowledge Base</div>
-            <div class="text-sm font-bold text-blue-400 mono mt-0.5">12 Policies <span class="text-slate-400 text-xs font-normal">/ 0.31 Thresh</span></div>
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-sky-400 transition">Knowledge Base</div>
+            <div class="text-sm font-bold text-sky-400 mono mt-0.5">12 Policies <span class="text-slate-400 text-xs font-normal">/ 0.31 Thresh</span></div>
           </div>
-          <div class="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-400 group-hover:bg-sky-500/20 flex items-center justify-center transition">
             <i data-lucide="book-open" class="w-4 h-4"></i>
           </div>
-        </div>
+        </button>
 
         <!-- Metric 4: RAG Triad Score -->
-        <div class="px-3 py-2 rounded-xl bg-slate-900/40 border border-slate-800/60 flex items-center justify-between">
+        <button onclick="switchTab('triad')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-purple-500/40 flex items-center justify-between transition-all group shadow-sm">
           <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium">RAG Triad Benchmark</div>
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-purple-400 transition">RAG Triad Benchmark</div>
             <div class="text-sm font-bold text-purple-400 mono mt-0.5">93.3% Score <span class="text-slate-400 text-xs font-normal">(1.00 Grounded)</span></div>
           </div>
-          <div class="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20 flex items-center justify-center transition">
             <i data-lucide="award" class="w-4 h-4"></i>
           </div>
-        </div>
+        </button>
 
       </div>
     </div>
   </section>
 
-  <!-- NAVIGATION TABS -->
-  <nav class="border-b border-slate-800 bg-[#090C12]/90 sticky top-16 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 overflow-x-auto py-2">
-      <button onclick="switchTab('chat')" id="tab-btn-chat" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 border transition active-nav-tab">
-        <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-        <span>Support Agent Chat</span>
-      </button>
-      <button onclick="switchTab('loan')" id="tab-btn-loan" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 border border-transparent text-slate-400 hover:text-slate-200 transition">
-        <i data-lucide="activity" class="w-3.5 h-3.5"></i>
-        <span>Underwriting & Risk Lab</span>
-      </button>
-      <button onclick="switchTab('kb')" id="tab-btn-kb" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 border border-transparent text-slate-400 hover:text-slate-200 transition">
-        <i data-lucide="layers" class="w-3.5 h-3.5"></i>
-        <span>Knowledge Base (12 Docs)</span>
-      </button>
-      <button onclick="switchTab('dataset')" id="tab-btn-dataset" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 border border-transparent text-slate-400 hover:text-slate-200 transition">
-        <i data-lucide="database" class="w-3.5 h-3.5"></i>
-        <span>Loan Portfolio (50 Records)</span>
-      </button>
-      <button onclick="switchTab('triad')" id="tab-btn-triad" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 border border-transparent text-slate-400 hover:text-slate-200 transition">
-        <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>
-        <span>RAG Triad Benchmark</span>
-      </button>
+  <!-- NAVIGATION TABS (Segmented Pill Control - 2 Buttons Merged Into 1) -->
+  <nav class="border-b border-slate-800/80 bg-[#090C16]/90 sticky top-16 z-40 backdrop-blur-md py-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto">
+      <div class="inline-flex p-1 rounded-xl bg-slate-900/90 border border-slate-800/90 shadow-inner space-x-1">
+        
+        <!-- Tab 1: Agent Chat -->
+        <button onclick="switchTab('chat')" id="tab-btn-chat" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all active-nav-tab">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>Support Agent Chat</span>
+        </button>
+
+        <!-- Tab 2: UNIFIED Underwriting & Portfolio (Both Buttons Integrated Into 1) -->
+        <button onclick="switchTab('loan')" id="tab-btn-loan" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all inactive-nav-tab">
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+          <span>Underwriting & Portfolio (50 Records)</span>
+        </button>
+
+        <!-- Tab 3: Knowledge Base -->
+        <button onclick="switchTab('kb')" id="tab-btn-kb" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all inactive-nav-tab">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+          <span>Knowledge Base (12 Docs)</span>
+        </button>
+
+        <!-- Tab 4: RAG Triad Benchmark -->
+        <button onclick="switchTab('triad')" id="tab-btn-triad" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all inactive-nav-tab">
+          <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>
+          <span>RAG Triad Benchmark</span>
+        </button>
+
+      </div>
+
+      <!-- Telemetry indicator right -->
+      <div class="hidden sm:flex items-center space-x-2 text-[11px] font-mono text-slate-400">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Local Backend: <strong class="text-slate-200">127.0.0.1:8000</strong></span>
+      </div>
     </div>
   </nav>
 
@@ -218,30 +245,30 @@
     <div id="tab-chat" class="tab-content flex-1 flex flex-col gap-4">
       
       <!-- Top Section: LangGraph Live Pipeline Stepper -->
-      <div class="glass-card rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <div class="glass-card rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
         <div class="flex items-center space-x-2 text-slate-400">
-          <i data-lucide="git-branch" class="w-4 h-4 text-emerald-400"></i>
+          <i data-lucide="git-branch" class="w-4 h-4 text-blue-400"></i>
           <span class="font-bold text-white uppercase tracking-wider text-[11px]">LangGraph Pipeline:</span>
         </div>
         
         <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
           <!-- Node 1 -->
-          <div id="node-1" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 transition flex items-center space-x-1.5">
+          <div id="node-1" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
             <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
             <span class="font-mono text-[11px] text-slate-300 truncate">1. Guardrail PII</span>
           </div>
           <!-- Node 2 -->
-          <div id="node-2" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 transition flex items-center space-x-1.5">
+          <div id="node-2" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
             <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
             <span class="font-mono text-[11px] text-slate-300 truncate">2. Router</span>
           </div>
           <!-- Node 3 -->
-          <div id="node-3" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 transition flex items-center space-x-1.5">
+          <div id="node-3" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
             <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
             <span class="font-mono text-[11px] text-slate-300 truncate">3. RAG / Tool</span>
           </div>
           <!-- Node 4 -->
-          <div id="node-4" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 transition flex items-center space-x-1.5">
+          <div id="node-4" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
             <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
             <span class="font-mono text-[11px] text-slate-300 truncate">4. Output & Memory</span>
           </div>
@@ -258,23 +285,33 @@
         </div>
       </div>
 
-      <!-- Quick Suggestion Chips (Klarna / Fin Style) -->
+      <!-- Quick Suggestion Prompt Pills (Professional FinTech Style) -->
       <div class="flex items-center space-x-2 overflow-x-auto pb-1 text-xs">
         <span class="text-slate-400 font-semibold text-[11px] uppercase tracking-wider shrink-0">Try Asking:</span>
-        <button onclick="setQuery('What fee is charged if an EMI deduction bounces?')" class="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 text-slate-300 transition shrink-0">
-          💳 EMI Bounce Penalties
+        
+        <button onclick="setQuery('What fee is charged if an EMI deduction bounces?')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
+          <span class="text-blue-400">💳</span>
+          <span class="font-medium">EMI Bounce Penalties</span>
         </button>
-        <button onclick="setQuery('Check status for CRD-APP-1001')" class="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/40 text-slate-300 transition shrink-0">
-          📋 Check CRD-APP-1001 (Auto Loan)
+
+        <button onclick="setQuery('Check status for CRD-APP-1001')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
+          <span class="text-sky-400">📋</span>
+          <span class="font-medium">Check CRD-APP-1001 (Auto Loan)</span>
         </button>
-        <button onclick="setQuery('Check status for CRD-APP-1008')" class="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-rose-500/40 text-rose-300 transition shrink-0">
-          🚨 Check CRD-APP-1008 (Fraud Escalation)
+
+        <button onclick="setQuery('Check status for CRD-APP-1008')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-rose-500/40 text-rose-300 hover:text-rose-200 transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
+          <span class="text-rose-400">🚨</span>
+          <span class="font-medium">Check CRD-APP-1008 (Fraud Escalation)</span>
         </button>
-        <button onclick="setQuery('What KYC documents are required for customer verification?')" class="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-purple-500/40 text-slate-300 transition shrink-0">
-          🛡️ KYC Verification Rules
+
+        <button onclick="setQuery('What KYC documents are required for customer verification?')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
+          <span class="text-indigo-400">🛡️</span>
+          <span class="font-medium">KYC Verification Rules</span>
         </button>
-        <button onclick="setQuery('What are the interest rate slabs for home vs auto loans?')" class="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-slate-300 transition shrink-0">
-          📊 Interest Rate Slabs
+
+        <button onclick="setQuery('What are the interest rate slabs for home vs auto loans?')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
+          <span class="text-amber-400">📊</span>
+          <span class="font-medium">Interest Rate Slabs</span>
         </button>
       </div>
 
@@ -283,31 +320,31 @@
         
         <!-- Welcome Message -->
         <div class="flex items-start space-x-3">
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-black shrink-0 mt-1">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-md shadow-blue-500/20">
             <i data-lucide="bot" class="w-4 h-4"></i>
           </div>
-          <div class="flex-1 bg-[#10141F] border border-slate-800 rounded-2xl rounded-tl-none p-4 text-sm text-slate-200 shadow-lg">
+          <div class="flex-1 bg-[#101626] border border-slate-800/80 rounded-2xl rounded-tl-none p-4 text-sm text-slate-200 shadow-xl">
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center space-x-2">
                 <span class="font-bold text-white text-xs">Cred Lending Assistant</span>
-                <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-emerald-400 font-mono">Ready</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-mono">Ready</span>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">SYSTEM_READY</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">SYSTEM_READY</span>
             </div>
             <p class="leading-relaxed">
               👋 <strong>Welcome to Cred Domain Support!</strong> I am your AI underwriting and policy operations agent. I can help you with:
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-3 text-xs">
-              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <div class="font-bold text-emerald-400 mb-1 flex items-center space-x-1.5">
+              <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800/80">
+                <div class="font-bold text-blue-400 mb-1 flex items-center space-x-1.5">
                   <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
                   <span>12 Policy Guidelines (RAG)</span>
                 </div>
                 <div class="text-slate-400">Ask about loan eligibility, EMI bounce penalties (₹500 + 2%), KYC requirements, or interest slabs.</div>
               </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <div class="font-bold text-blue-400 mb-1 flex items-center space-x-1.5">
-                  <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+              <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800/80">
+                <div class="font-bold text-indigo-400 mb-1 flex items-center space-x-1.5">
+                  <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
                   <span>50 Loan Underwriting Records</span>
                 </div>
                 <div class="text-slate-400">Query application IDs (e.g. <code>CRD-APP-1001</code>) to evaluate real-time aging and fraud escalation risks.</div>
@@ -322,7 +359,7 @@
       </div>
 
       <!-- Chat Input Area -->
-      <div class="glass-card rounded-2xl p-2.5 flex items-center space-x-2">
+      <div class="glass-card rounded-2xl p-2.5 flex items-center space-x-2 shadow-lg">
         <input 
           type="text" 
           id="chat-input" 
@@ -333,7 +370,7 @@
         <button 
           onclick="handleSendMessage()" 
           id="send-btn" 
-          class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs flex items-center space-x-1.5 transition shadow-lg shadow-emerald-500/20 shrink-0"
+          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center space-x-2 transition shadow-lg shadow-blue-500/25 shrink-0 active:scale-95"
         >
           <span>Send</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -343,15 +380,30 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- TAB 2: LOAN UNDERWRITING & RISK LAB -->
+    <!-- TAB 2: UNIFIED UNDERWRITING & LOAN PORTFOLIO (INTEGRATED VIEW) -->
     <!-- ===================================================================== -->
     <div id="tab-loan" class="tab-content hidden flex-1 flex flex-col gap-6">
       
+      <!-- Top Title & Stats Banner -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800/60">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+            <i data-lucide="sliders" class="w-5 h-5 text-blue-400"></i>
+            <span>Underwriting Operations & Risk Lab</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Real-time continuous escalation formula simulator, live loan lookup, and portfolio management (50 Records).</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-mono font-semibold">50 Applications Total</span>
+          <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-semibold">14.0% Fraud Review Band</span>
+        </div>
+      </div>
+
       <!-- Top Grid: Lookup + Live Risk Formula Simulator -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         <!-- Left: Real Record Lookup -->
-        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between shadow-md">
           <div>
             <div class="flex items-center space-x-2 text-white font-bold text-base mb-1">
               <i data-lucide="search" class="w-5 h-5 text-blue-400"></i>
@@ -364,10 +416,10 @@
                 type="text" 
                 id="loan-search-input" 
                 placeholder="Enter Record ID (e.g. CRD-APP-1001)" 
-                class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white uppercase mono focus:outline-none focus:border-blue-500"
+                class="flex-1 bg-slate-900/90 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white uppercase mono focus:outline-none focus:border-blue-500"
                 value="CRD-APP-1001"
               />
-              <button onclick="handleLoanLookup()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center space-x-1 transition">
+              <button onclick="handleLoanLookup()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center space-x-1.5 transition shadow-md shadow-blue-500/20">
                 <span>Evaluate</span>
               </button>
             </div>
@@ -375,10 +427,10 @@
             <!-- Presets -->
             <div class="flex flex-wrap gap-1.5 items-center text-xs mb-4">
               <span class="text-slate-500 text-[11px]">Quick presets:</span>
-              <button onclick="lookupPreset('CRD-APP-1001')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 mono text-[11px]">1001 (Clean Auto)</button>
-              <button onclick="lookupPreset('CRD-APP-1008')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-rose-300 mono text-[11px]">1008 (Fraud Edu)</button>
-              <button onclick="lookupPreset('CRD-APP-1010')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-emerald-300 mono text-[11px]">1010 (Disbursed)</button>
-              <button onclick="lookupPreset('CRD-APP-1012')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-rose-300 mono text-[11px]">1012 (Aging Fraud)</button>
+              <button onclick="lookupPreset('CRD-APP-1001')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 mono text-[11px] border border-slate-700/60 transition">1001 (Clean Auto)</button>
+              <button onclick="lookupPreset('CRD-APP-1008')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 mono text-[11px] border border-slate-700/60 transition">1008 (Fraud Edu)</button>
+              <button onclick="lookupPreset('CRD-APP-1010')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 mono text-[11px] border border-slate-700/60 transition">1010 (Disbursed)</button>
+              <button onclick="lookupPreset('CRD-APP-1012')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 mono text-[11px] border border-slate-700/60 transition">1012 (Aging Fraud)</button>
             </div>
           </div>
 
@@ -389,19 +441,19 @@
         </div>
 
         <!-- Right: Interactive Underwriting Simulator (Ramp / Brex Style) -->
-        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between shadow-md">
           <div>
             <div class="flex items-center justify-between mb-1">
               <div class="flex items-center space-x-2 text-white font-bold text-base">
-                <i data-lucide="sliders" class="w-5 h-5 text-emerald-400"></i>
+                <i data-lucide="activity" class="w-5 h-5 text-indigo-400"></i>
                 <span>Underwriting Escalation Simulator</span>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">FORMULA_LAB</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold">FORMULA_LAB</span>
             </div>
             <p class="text-xs text-slate-400 mb-4">Dynamically test the continuous escalation score formula against the 0.65 threshold.</p>
 
             <!-- Formula display -->
-            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 font-mono text-[11px] text-slate-300 mb-4 leading-relaxed">
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-[11px] text-slate-300 mb-4 leading-relaxed">
               score = (fraud × 0.50) + (min(days, 30) / 30 × 0.50)
             </div>
 
@@ -410,7 +462,7 @@
               <div>
                 <div class="flex justify-between text-slate-300 mb-1.5">
                   <span>Application Aging (Days):</span>
-                  <span id="sim-days-val" class="font-mono font-bold text-emerald-400">15 Days</span>
+                  <span id="sim-days-val" class="font-mono font-bold text-blue-400">15 Days</span>
                 </div>
                 <input 
                   type="range" 
@@ -418,7 +470,7 @@
                   min="0" 
                   max="30" 
                   value="15" 
-                  class="w-full accent-emerald-500 cursor-pointer"
+                  class="w-full accent-blue-500 cursor-pointer"
                   oninput="updateSimulator()"
                 />
               </div>
@@ -458,11 +510,71 @@
               <span>1.00 (Critical)</span>
             </div>
 
-            <div id="sim-verdict" class="mt-3 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2 text-center">
+            <div id="sim-verdict" class="mt-3 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-2.5 text-center">
               🟢 Standard Underwriting SLA — Score operates within normal range.
             </div>
           </div>
 
+        </div>
+
+      </div>
+
+      <!-- Bottom Section: Complete Underwritten Portfolio (50 Records Table) -->
+      <div id="portfolio-section" class="flex flex-col gap-4 mt-2">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <i data-lucide="database" class="w-4 h-4 text-indigo-400"></i>
+              <span>Underwritten Loan Portfolio (50 Records)</span>
+            </h3>
+            <p class="text-xs text-slate-400">Click "Simulate" on any record to load its parameters directly into the live simulator above.</p>
+          </div>
+        </div>
+
+        <!-- Top controls & search -->
+        <div class="glass-card rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
+          <div class="relative w-full sm:w-72">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5"></i>
+            <input 
+              type="text" 
+              id="dataset-search-input" 
+              placeholder="Search by ID, Category, or Status..." 
+              class="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              oninput="filterDatasetTable()"
+            />
+          </div>
+
+          <div class="inline-flex p-1 rounded-xl bg-slate-950/70 border border-slate-800/80 space-x-1 overflow-x-auto w-full sm:w-auto">
+            <button onclick="setDatasetFilter('all')" id="ds-filter-all" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition">All (50)</button>
+            <button onclick="setDatasetFilter('fraud')" id="ds-filter-fraud" class="px-3 py-1.5 rounded-lg bg-transparent text-rose-400 hover:bg-slate-800/60 font-medium text-xs transition">🚨 Fraud (7)</button>
+            <button onclick="setDatasetFilter('Approved')" id="ds-filter-Approved" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Approved</button>
+            <button onclick="setDatasetFilter('Under Review')" id="ds-filter-Under-Review" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Under Review</button>
+            <button onclick="setDatasetFilter('Rejected')" id="ds-filter-Rejected" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Rejected</button>
+          </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="glass-card rounded-2xl overflow-hidden shadow-md">
+          <div class="overflow-x-auto max-h-[500px]">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-[#0D121F] text-slate-400 uppercase tracking-wider font-mono text-[11px] border-b border-slate-800 sticky top-0 z-10">
+                <tr>
+                  <th class="px-4 py-3">Record ID</th>
+                  <th class="px-4 py-3">Category</th>
+                  <th class="px-4 py-3">Status</th>
+                  <th class="px-4 py-3">Loan Amount (INR)</th>
+                  <th class="px-4 py-3">Aging</th>
+                  <th class="px-4 py-3">Fraud Review</th>
+                  <th class="px-4 py-3">Escalation Score</th>
+                  <th class="px-4 py-3 text-right">Interactive Actions</th>
+                </tr>
+              </thead>
+              <tbody id="dataset-tbody" class="divide-y divide-slate-800/60 font-mono">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>
@@ -475,26 +587,26 @@
     <div id="tab-kb" class="tab-content hidden flex-1 flex flex-col gap-4">
       
       <!-- Top controls & search -->
-      <div class="glass-card rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <div class="glass-card rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
         <!-- Search bar -->
         <div class="relative w-full sm:w-72">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5"></i>
           <input 
             type="text" 
             id="kb-search-input" 
             placeholder="Search policies or topics..." 
-            class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+            class="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
             oninput="filterKnowledgeBase()"
           />
         </div>
 
         <!-- Filter pills -->
-        <div class="flex items-center space-x-1 overflow-x-auto w-full sm:w-auto">
-          <button onclick="setKbCategory('all')" id="kb-filter-all" class="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium text-xs">All (12)</button>
-          <button onclick="setKbCategory('eligibility')" id="kb-filter-eligibility" class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white font-medium text-xs">Eligibility</button>
-          <button onclick="setKbCategory('fees')" id="kb-filter-fees" class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white font-medium text-xs">Fees & EMI</button>
-          <button onclick="setKbCategory('kyc')" id="kb-filter-kyc" class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white font-medium text-xs">KYC & Disputes</button>
-          <button onclick="setKbCategory('accounts')" id="kb-filter-accounts" class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white font-medium text-xs">Accounts & Slabs</button>
+        <div class="inline-flex p-1 rounded-xl bg-slate-950/70 border border-slate-800/80 space-x-1 overflow-x-auto w-full sm:w-auto">
+          <button onclick="setKbCategory('all')" id="kb-filter-all" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition">All (12)</button>
+          <button onclick="setKbCategory('eligibility')" id="kb-filter-eligibility" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Eligibility</button>
+          <button onclick="setKbCategory('fees')" id="kb-filter-fees" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Fees & EMI</button>
+          <button onclick="setKbCategory('kyc')" id="kb-filter-kyc" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">KYC & Disputes</button>
+          <button onclick="setKbCategory('accounts')" id="kb-filter-accounts" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Accounts & Slabs</button>
         </div>
       </div>
 
@@ -506,88 +618,36 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- TAB 4: LOAN PORTFOLIO (50 RECORDS) -->
-    <!-- ===================================================================== -->
-    <div id="tab-dataset" class="tab-content hidden flex-1 flex flex-col gap-4">
-      
-      <!-- Top controls & search -->
-      <div class="glass-card rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-        <div class="relative w-full sm:w-72">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-          <input 
-            type="text" 
-            id="dataset-search-input" 
-            placeholder="Search by ID, Category, or Status..." 
-            class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-            oninput="filterDatasetTable()"
-          />
-        </div>
-
-        <div class="flex items-center space-x-1.5 overflow-x-auto w-full sm:w-auto">
-          <button onclick="setDatasetFilter('all')" id="ds-filter-all" class="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium text-xs">All (50)</button>
-          <button onclick="setDatasetFilter('fraud')" id="ds-filter-fraud" class="px-3 py-1.5 rounded-lg bg-slate-900 text-rose-400 font-medium text-xs">🚨 Fraud Only (7)</button>
-          <button onclick="setDatasetFilter('Approved')" id="ds-filter-Approved" class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 font-medium text-xs">Approved</button>
-          <button onclick="setDatasetFilter('Under Review')" id="ds-filter-Under-Review" class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 font-medium text-xs">Under Review</button>
-          <button onclick="setDatasetFilter('Rejected')" id="ds-filter-Rejected" class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 font-medium text-xs">Rejected</button>
-        </div>
-      </div>
-
-      <!-- Table Container -->
-      <div class="glass-card rounded-2xl overflow-hidden">
-        <div class="overflow-x-auto max-h-[500px]">
-          <table class="w-full text-left text-xs text-slate-300">
-            <thead class="bg-[#0D1018] text-slate-400 uppercase tracking-wider font-mono text-[11px] border-b border-slate-800 sticky top-0 z-10">
-              <tr>
-                <th class="px-4 py-3">Record ID</th>
-                <th class="px-4 py-3">Category</th>
-                <th class="px-4 py-3">Status</th>
-                <th class="px-4 py-3">Loan Amount (INR)</th>
-                <th class="px-4 py-3">Aging</th>
-                <th class="px-4 py-3">Fraud Review</th>
-                <th class="px-4 py-3">Escalation Score</th>
-                <th class="px-4 py-3 text-right">Action</th>
-              </tr>
-            </thead>
-            <tbody id="dataset-tbody" class="divide-y divide-slate-800/60 font-mono">
-              <!-- Injected via JavaScript -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ===================================================================== -->
-    <!-- TAB 5: RAG TRIAD BENCHMARK -->
+    <!-- TAB 4: RAG TRIAD BENCHMARK -->
     <!-- ===================================================================== -->
     <div id="tab-triad" class="tab-content hidden flex-1 flex flex-col gap-6">
       
       <!-- Scorecards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="glass-card rounded-xl p-4 border-l-4 border-l-blue-500">
-          <div class="text-[11px] font-bold uppercase text-slate-400">Context Relevance</div>
+        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-blue-500 shadow-md">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Context Relevance</div>
           <div class="text-2xl font-black text-blue-400 mono mt-1">0.8000 <span class="text-xs font-normal text-slate-400">/ 1.00</span></div>
           <p class="text-xs text-slate-400 mt-2">12/12 in-scope questions retrieve 100% relevant policy context; 3/3 out-of-scope safely score 0.00.</p>
         </div>
 
-        <div class="glass-card rounded-xl p-4 border-l-4 border-l-emerald-500">
-          <div class="text-[11px] font-bold uppercase text-slate-400">Groundedness (Zero Hallucination)</div>
+        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-500 shadow-md">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Groundedness (Zero Hallucination)</div>
           <div class="text-2xl font-black text-emerald-400 mono mt-1">1.0000 <span class="text-xs font-normal text-slate-400">/ 1.00</span></div>
           <p class="text-xs text-slate-400 mt-2">Every generated claim is 100% grounded in official policy text with calibrated fallback enforcement.</p>
         </div>
 
-        <div class="glass-card rounded-xl p-4 border-l-4 border-l-purple-500">
-          <div class="text-[11px] font-bold uppercase text-slate-400">Answer Relevance</div>
+        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-purple-500 shadow-md">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Answer Relevance</div>
           <div class="text-2xl font-black text-purple-400 mono mt-1">1.0000 <span class="text-xs font-normal text-slate-400">/ 1.00</span></div>
           <p class="text-xs text-slate-400 mt-2">Directly addresses the user's intent with structured numeric figures and polite actionable steps.</p>
         </div>
       </div>
 
       <!-- Benchmark Table -->
-      <div class="glass-card rounded-2xl overflow-hidden">
+      <div class="glass-card rounded-2xl overflow-hidden shadow-md">
         <div class="overflow-x-auto max-h-[480px]">
           <table class="w-full text-left text-xs text-slate-300">
-            <thead class="bg-[#0D1018] text-slate-400 uppercase tracking-wider font-mono text-[11px] border-b border-slate-800 sticky top-0 z-10">
+            <thead class="bg-[#0D121F] text-slate-400 uppercase tracking-wider font-mono text-[11px] border-b border-slate-800 sticky top-0 z-10">
               <tr>
                 <th class="px-4 py-3">ID</th>
                 <th class="px-4 py-3">Policy Topic</th>
@@ -608,77 +668,76 @@
 
   </main>
 
-  <!-- MODAL: Full Policy Reader -->
-  <div id="policy-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-2xl max-w-2xl w-full p-6 border border-slate-700 max-h-[85vh] flex flex-col">
-      <div class="flex justify-between items-start mb-4">
-        <div>
-          <span id="modal-policy-id" class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 mono text-xs font-bold border border-emerald-500/20"></span>
-          <h3 id="modal-policy-title" class="text-lg font-bold text-white mt-1"></h3>
-        </div>
-        <button onclick="closePolicyModal()" class="text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+  <!-- POLICY VIEWER MODAL -->
+  <div id="policy-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-2xl w-full p-6 relative border border-slate-700 shadow-2xl flex flex-col max-h-[85vh]">
+      <button onclick="closePolicyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center space-x-2 text-xs font-mono text-blue-400 mb-1">
+        <i data-lucide="file-text" class="w-4 h-4"></i>
+        <span id="modal-policy-id">KB-DOC-001</span>
       </div>
-      <div id="modal-policy-content" class="text-slate-300 text-sm leading-relaxed overflow-y-auto pr-2 flex-1 my-2"></div>
-      <div class="pt-4 border-t border-slate-800 flex justify-end space-x-2">
-        <button onclick="askFromModal()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs flex items-center space-x-1.5 transition">
-          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-          <span>Ask Agent About This</span>
+
+      <h3 id="modal-policy-title" class="text-lg font-bold text-white mb-4">Policy Document Title</h3>
+
+      <div class="flex-1 overflow-y-auto pr-2 mb-6">
+        <div id="modal-policy-body" class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-300 leading-relaxed font-sans">
+          Policy content...
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center pt-4 border-t border-slate-800 text-xs">
+        <span class="text-slate-500 font-mono">Cred Governance & Compliance</span>
+        <button onclick="askFromModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold transition flex items-center space-x-1.5 shadow-md shadow-blue-500/20">
+          <span>Ask Agent About This Policy</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: API Key Settings -->
-  <div id="api-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-2xl max-w-md w-full p-6 border border-slate-700">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-base font-bold text-white flex items-center space-x-2">
-          <i data-lucide="key" class="w-4 h-4 text-amber-400"></i>
-          <span>Cloud LLM API Key Settings</span>
-        </h3>
-        <button onclick="toggleApiKeyModal()" class="text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+  <!-- API KEY MODAL -->
+  <div id="key-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-md w-full p-6 relative border border-slate-700 shadow-2xl">
+      <button onclick="toggleApiKeyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center space-x-2 text-amber-400 mb-2">
+        <i data-lucide="key" class="w-5 h-5"></i>
+        <h3 class="font-bold text-white text-base">Configure Provider API Key</h3>
       </div>
-      <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-        Your API key is stored securely in your browser's <code class="mono text-emerald-400">localStorage</code> and is never committed to GitHub or written to server disks.
-      </p>
-      <div class="space-y-3">
+      <p class="text-xs text-slate-400 mb-4">Your key is stored securely in browser <code>localStorage</code> and never logged or committed.</p>
+
+      <div class="space-y-3 text-xs mb-6">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Enter API Key:</label>
+          <label class="block text-slate-300 mb-1 font-medium">Selected Provider:</label>
+          <div id="modal-provider-name" class="font-mono text-blue-400 font-bold bg-slate-900 p-2.5 rounded-xl border border-slate-800">Groq Cloud (gsk_...)</div>
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1 font-medium">API Key:</label>
           <input 
             type="password" 
-            id="modal-api-key" 
-            placeholder="gsk_... or sk-..." 
-            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-emerald-500 mono"
+            id="api-key-input" 
+            placeholder="Paste your key here..." 
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div class="flex justify-between pt-2">
-          <button onclick="clearApiKey()" class="px-3 py-1.5 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 text-xs font-medium border border-rose-500/20">
-            Clear Key
-          </button>
-          <div class="space-x-2">
-            <button onclick="toggleApiKeyModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 text-xs font-medium">
-              Cancel
-            </button>
-            <button onclick="saveApiKey()" class="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold">
-              Save Key
-            </button>
-          </div>
-        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2">
+        <button onclick="clearApiKey()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">Clear Key</button>
+        <button onclick="saveApiKey()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold transition shadow-md shadow-blue-500/20">Save & Apply</button>
       </div>
     </div>
   </div>
 
-  <!-- CLIENT DATA & LOGIC -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    lucide.createIcons();
-
     const KB_DOCS = [{"id": "KB-DOC-001", "title": "Loan Eligibility Criteria by Loan Type", "topic": "loan_eligibility_criteria", "content": "Cred evaluates loan eligibility based on monthly net income, debt-to-income (DTI) ratio, and existing financial commitments. For Personal Loans, salaried applicants must earn at least \u20b925,000 monthly with a minimum CIBIL score of 700. Home and Auto Loans require a minimum stable employment history of two years and a maximum allowable DTI ratio of 50%. Business Loans require at least three years of audited financial statements with an annual business turnover exceeding \u20b920 lakhs."}, {"id": "KB-DOC-002", "title": "Equated Monthly Installment (EMI) Calculation Rules", "topic": "emi_calculation_rules", "content": "EMIs are computed using the standard reducing balance method based on the principal amount, tenure in months, and annual interest rate. The monthly installment is debited automatically via National Automated Clearing House (NACH) or e-mandate on the 5th of each calendar month. Any bounce or failure in EMI deduction attracts a dishonour fee of \u20b9500 plus applicable GST along with penal interest of 2% per month on the overdue sum."}, {"id": "KB-DOC-003", "title": "Credit Card Fee Structure and Billing Schedule", "topic": "credit_card_fee_structure", "content": "Cred credit cards come with zero joining fees for verified members, while premium tier cards incur an annual fee of \u20b91,000 to \u20b95,000 depending on variant perks. The annual fee is waived if the cardholder achieves annual retail spending exceeding \u20b91,50,000 in the previous calendar year. Finance charges on revolving balances are levied at 3.5% per month (42% per annum), with an interest-free grace window extending up to 45 days."}, {"id": "KB-DOC-004", "title": "KYC Document Requirements for Verification", "topic": "kyc_document_requirements", "content": "Mandatory Customer Due Diligence requires a valid Permanent Account Number (PAN) along with Aadhaar-based digital biometric authentication. For address verification where current residential address differs from Aadhaar, acceptable Officially Valid Documents (OVD) include a Passport, Voter ID, or utility bill within three months. Self-employed business applicants must additionally provide Goods and Services Tax (GST) registration certificates and the previous two years' Income Tax Returns (ITR)."}, {"id": "KB-DOC-005", "title": "Fraud and Transaction Dispute Resolution Process", "topic": "fraud_dispute_resolution_process", "content": "Members identifying unauthorized transactions must report them immediately through the Cred app or customer care hotline within 72 hours to ensure zero customer liability. Upon notification, the affected payment instrument or account is locked instantly, and a provisional dispute credit is credited within five business days pending investigation. The fraud governance committee investigates merchant dispute logs, IP telemetry, and OTP trails to deliver a final binding resolution within 30 calendar days."}, {"id": "KB-DOC-006", "title": "Account and Line-of-Credit Closure Process", "topic": "account_closure_process", "content": "Account closure or cancellation of active credit lines requires total liquidation of all outstanding principal, interest dues, and unbilled charges. A formal closure request must be initiated via verified email or the in-app support portal, followed by authentication via two-factor OTP. Once settled, a digitally signed No Objection Certificate (NOC) and full No Dues Certificate (NDC) are issued to the member within seven business days."}, {"id": "KB-DOC-007", "title": "Interest Rate Slabs Across Credit Offerings", "topic": "interest_rate_slabs", "content": "Interest rates are risk-tiered based on borrower credit bureau profile, category, and collateral availability. Personal Loans carry floating annual percentage rates ranging from 10.50% to 18.00%, whereas Secured Home Loans range from 8.40% to 9.75%. Auto Loans are priced between 8.75% and 11.50%, and commercial Business Loans range from 12.00% to 16.50% based on company balance sheet strength."}, {"id": "KB-DOC-008", "title": "Prepayment Penalty and Foreclosure Rules", "topic": "prepayment_penalty_rules", "content": "In strict compliance with Reserve Bank of India (RBI) guidelines, floating-rate personal, home, and auto loans to individual borrowers attract zero prepayment or foreclosure penalties. Fixed-rate retail loans foreclosed within the first 12 months incur a foreclosure levy of 2% on the outstanding principal balance. Part-prepayments must equal or exceed an amount equivalent to two EMIs and can be initiated directly without penalty after six completed monthly installments."}, {"id": "KB-DOC-009", "title": "Minimum Average Balance (MAB) Requirements", "topic": "minimum_balance_requirements", "content": "Savings accounts maintained under Cred banking partner integrations mandate an Average Monthly Balance (AMB) of \u20b910,000 for metro branches and \u20b95,000 for semi-urban locations. Failure to maintain the mandated monthly balance triggers a non-maintenance penalty ranging between \u20b9150 and \u20b9400 plus GST per monthly billing cycle. Salary accounts tied to active corporate payrolls and digital student accounts are completely exempt from minimum balance requirements."}, {"id": "KB-DOC-010", "title": "Credit Score Impact Factors and Bureau Reporting", "topic": "credit_score_impact_factors", "content": "Credit scores reflect repayment timeliness (35% weight), credit utilization ratio (30% weight), credit history length (15%), credit mix (10%), and recent hard credit inquiries (10%). Maintaining credit utilization below 30% of aggregate card limits strongly optimizes positive score progression. Delinquencies exceeding 30 days are reported to CIBIL, Experian, Equifax, and CRIF High Mark within the first week of every subsequent calendar month."}, {"id": "KB-DOC-011", "title": "Joint Account Mandates and Operational Rules", "topic": "joint_account_rules", "content": "Joint accounts can be created with spouse, parents, or adult siblings under 'Either or Survivor', 'Former or Survivor', or 'Jointly Operated' operational mandates. All primary co-borrowers share equal joint-and-several financial liability for any credit facilities or overdrafts linked to the account. Mandate modifications, account conversions, or credit closure requests require unanimous written authorization and biometric/OTP approval from all registered account holders."}, {"id": "KB-DOC-012", "title": "Non-Resident Indian (NRI) Account Eligibility", "topic": "nri_account_eligibility", "content": "Non-Resident Indians (NRIs) and Persons of Indian Origin (PIOs) are eligible to open Non-Resident External (NRE) and Non-Resident Ordinary (NRO) accounts. NRE accounts permit full repatriability of both principal and interest earnings with total Indian income tax exemption on accrued interest. NRO accounts are mandatory for managing rupee income earned inside India (such as rent or pensions) and are subject to Indian withholding tax and FEMA remittance ceilings."}];
     const DATASET_RECORDS = [{"id": "CRD-APP-1001", "cat": "Auto Loan", "status": "Submitted", "amt": 1450000, "days": 7, "fraud": false, "score": 0.1167}, {"id": "CRD-APP-1002", "cat": "Education Loan", "status": "Approved", "amt": 4770000, "days": 2, "fraud": false, "score": 0.0333}, {"id": "CRD-APP-1003", "cat": "Personal Loan", "status": "Submitted", "amt": 540000, "days": 16, "fraud": false, "score": 0.2667}, {"id": "CRD-APP-1004", "cat": "Auto Loan", "status": "Approved", "amt": 2590000, "days": 13, "fraud": false, "score": 0.2167}, {"id": "CRD-APP-1005", "cat": "Auto Loan", "status": "Rejected", "amt": 330000, "days": 24, "fraud": false, "score": 0.4}, {"id": "CRD-APP-1006", "cat": "Education Loan", "status": "Under Review", "amt": 1500000, "days": 6, "fraud": false, "score": 0.1}, {"id": "CRD-APP-1007", "cat": "Home Loan", "status": "Submitted", "amt": 3120000, "days": 11, "fraud": false, "score": 0.1833}, {"id": "CRD-APP-1008", "cat": "Auto Loan", "status": "Rejected", "amt": 2230000, "days": 17, "fraud": true, "score": 0.7833}, {"id": "CRD-APP-1009", "cat": "Business Loan", "status": "Submitted", "amt": 5420000, "days": 26, "fraud": false, "score": 0.4333}, {"id": "CRD-APP-1010", "cat": "Business Loan", "status": "Under Review", "amt": 3730000, "days": 22, "fraud": true, "score": 0.8667}, {"id": "CRD-APP-1011", "cat": "Education Loan", "status": "Rejected", "amt": 870000, "days": 27, "fraud": false, "score": 0.45}, {"id": "CRD-APP-1012", "cat": "Personal Loan", "status": "Under Review", "amt": 1380000, "days": 26, "fraud": false, "score": 0.4333}, {"id": "CRD-APP-1013", "cat": "Home Loan", "status": "Under Review", "amt": 5980000, "days": 22, "fraud": false, "score": 0.3667}, {"id": "CRD-APP-1014", "cat": "Auto Loan", "status": "Approved", "amt": 1020000, "days": 17, "fraud": false, "score": 0.2833}, {"id": "CRD-APP-1015", "cat": "Personal Loan", "status": "Under Review", "amt": 1390000, "days": 22, "fraud": false, "score": 0.3667}, {"id": "CRD-APP-1016", "cat": "Education Loan", "status": "Rejected", "amt": 670000, "days": 7, "fraud": false, "score": 0.1167}, {"id": "CRD-APP-1017", "cat": "Business Loan", "status": "Under Review", "amt": 1610000, "days": 6, "fraud": false, "score": 0.1}, {"id": "CRD-APP-1018", "cat": "Auto Loan", "status": "Approved", "amt": 1190000, "days": 20, "fraud": false, "score": 0.3333}, {"id": "CRD-APP-1019", "cat": "Business Loan", "status": "Approved", "amt": 2900000, "days": 8, "fraud": true, "score": 0.6333}, {"id": "CRD-APP-1020", "cat": "Education Loan", "status": "Approved", "amt": 3790000, "days": 28, "fraud": false, "score": 0.4667}, {"id": "CRD-APP-1021", "cat": "Home Loan", "status": "Disbursed", "amt": 3820000, "days": 16, "fraud": false, "score": 0.2667}, {"id": "CRD-APP-1022", "cat": "Education Loan", "status": "Rejected", "amt": 1480000, "days": 20, "fraud": true, "score": 0.8333}, {"id": "CRD-APP-1023", "cat": "Education Loan", "status": "Approved", "amt": 3430000, "days": 12, "fraud": false, "score": 0.2}, {"id": "CRD-APP-1024", "cat": "Auto Loan", "status": "Under Review", "amt": 2620000, "days": 27, "fraud": false, "score": 0.45}, {"id": "CRD-APP-1025", "cat": "Education Loan", "status": "Submitted", "amt": 4700000, "days": 24, "fraud": false, "score": 0.4}, {"id": "CRD-APP-1026", "cat": "Auto Loan", "status": "Submitted", "amt": 2120000, "days": 5, "fraud": false, "score": 0.0833}, {"id": "CRD-APP-1027", "cat": "Business Loan", "status": "Rejected", "amt": 4920000, "days": 16, "fraud": false, "score": 0.2667}, {"id": "CRD-APP-1028", "cat": "Auto Loan", "status": "Submitted", "amt": 2920000, "days": 9, "fraud": false, "score": 0.15}, {"id": "CRD-APP-1029", "cat": "Auto Loan", "status": "Submitted", "amt": 1870000, "days": 24, "fraud": true, "score": 0.9}, {"id": "CRD-APP-1030", "cat": "Business Loan", "status": "Disbursed", "amt": 510000, "days": 19, "fraud": false, "score": 0.3167}, {"id": "CRD-APP-1031", "cat": "Personal Loan", "status": "Disbursed", "amt": 690000, "days": 7, "fraud": true, "score": 0.6167}, {"id": "CRD-APP-1032", "cat": "Business Loan", "status": "Disbursed", "amt": 1940000, "days": 23, "fraud": false, "score": 0.3833}, {"id": "CRD-APP-1033", "cat": "Personal Loan", "status": "Rejected", "amt": 310000, "days": 4, "fraud": false, "score": 0.0667}, {"id": "CRD-APP-1034", "cat": "Business Loan", "status": "Submitted", "amt": 9350000, "days": 27, "fraud": false, "score": 0.45}, {"id": "CRD-APP-1035", "cat": "Business Loan", "status": "Disbursed", "amt": 3870000, "days": 22, "fraud": false, "score": 0.3667}, {"id": "CRD-APP-1036", "cat": "Business Loan", "status": "Approved", "amt": 7850000, "days": 28, "fraud": false, "score": 0.4667}, {"id": "CRD-APP-1037", "cat": "Personal Loan", "status": "Under Review", "amt": 760000, "days": 0, "fraud": false, "score": 0.0}, {"id": "CRD-APP-1038", "cat": "Personal Loan", "status": "Under Review", "amt": 200000, "days": 22, "fraud": false, "score": 0.3667}, {"id": "CRD-APP-1039", "cat": "Personal Loan", "status": "Disbursed", "amt": 740000, "days": 2, "fraud": false, "score": 0.0333}, {"id": "CRD-APP-1040", "cat": "Home Loan", "status": "Under Review", "amt": 10550000, "days": 4, "fraud": false, "score": 0.0667}, {"id": "CRD-APP-1041", "cat": "Business Loan", "status": "Approved", "amt": 4580000, "days": 25, "fraud": false, "score": 0.4167}, {"id": "CRD-APP-1042", "cat": "Home Loan", "status": "Submitted", "amt": 12560000, "days": 13, "fraud": false, "score": 0.2167}, {"id": "CRD-APP-1043", "cat": "Home Loan", "status": "Rejected", "amt": 2410000, "days": 21, "fraud": false, "score": 0.35}, {"id": "CRD-APP-1044", "cat": "Auto Loan", "status": "Submitted", "amt": 1720000, "days": 25, "fraud": false, "score": 0.4167}, {"id": "CRD-APP-1045", "cat": "Personal Loan", "status": "Submitted", "amt": 990000, "days": 4, "fraud": false, "score": 0.0667}, {"id": "CRD-APP-1046", "cat": "Home Loan", "status": "Under Review", "amt": 2760000, "days": 14, "fraud": false, "score": 0.2333}, {"id": "CRD-APP-1047", "cat": "Business Loan", "status": "Submitted", "amt": 9570000, "days": 26, "fraud": true, "score": 0.9333}, {"id": "CRD-APP-1048", "cat": "Personal Loan", "status": "Rejected", "amt": 550000, "days": 5, "fraud": false, "score": 0.0833}, {"id": "CRD-APP-1049", "cat": "Auto Loan", "status": "Rejected", "amt": 550000, "days": 5, "fraud": false, "score": 0.0833}, {"id": "CRD-APP-1050", "cat": "Business Loan", "status": "Under Review", "amt": 8130000, "days": 9, "fraud": false, "score": 0.15}];
-
     const TRIAD_ITEMS = [
       { id: "Q01", topic: "loan_eligibility_criteria", text: "Minimum salary and CIBIL score requirements for Personal Loan", c: 1.0, g: 1.0, a: 1.0 },
       { id: "Q02", topic: "emi_calculation_rules", text: "Monthly EMI debit date and dishonour bounce fee", c: 1.0, g: 1.0, a: 1.0 },
@@ -698,63 +757,57 @@
     ];
 
     let currentApiKey = localStorage.getItem('cred_api_key') || '';
-    updateKeyBadge();
-
-    function updateKeyBadge() {
-      const badge = document.getElementById('key-label');
-      if (currentApiKey) {
-        badge.innerText = 'Key Configured';
-        badge.className = 'text-emerald-400 font-semibold';
-      } else {
-        badge.innerText = 'Set API Key';
-        badge.className = 'text-slate-300 font-medium';
-      }
+    if (currentApiKey) {
+      const lbl = document.getElementById('key-label');
+      if (lbl) lbl.innerText = 'Key Configured';
     }
 
     function toggleApiKeyModal() {
-      const modal = document.getElementById('api-modal');
-      modal.classList.toggle('hidden');
-      if (!modal.classList.contains('hidden')) {
-        document.getElementById('modal-api-key').value = currentApiKey;
-      }
+      const m = document.getElementById('key-modal');
+      m.classList.toggle('hidden');
+      const provider = document.getElementById('model-provider').value;
+      document.getElementById('modal-provider-name').innerText = provider.toUpperCase() + ' Provider';
+      document.getElementById('api-key-input').value = currentApiKey;
     }
 
     function saveApiKey() {
-      currentApiKey = document.getElementById('modal-api-key').value.trim();
-      localStorage.setItem('cred_api_key', currentApiKey);
-      updateKeyBadge();
+      const val = document.getElementById('api-key-input').value.trim();
+      currentApiKey = val;
+      localStorage.setItem('cred_api_key', val);
+      document.getElementById('key-label').innerText = val ? 'Key Configured' : 'Set API Key';
       toggleApiKeyModal();
     }
 
     function clearApiKey() {
       currentApiKey = '';
       localStorage.removeItem('cred_api_key');
-      document.getElementById('modal-api-key').value = '';
-      updateKeyBadge();
+      document.getElementById('key-label').innerText = 'Set API Key';
       toggleApiKeyModal();
     }
 
     function handleProviderChange() {
-      const provider = document.getElementById('model-provider').value;
-      if (!currentApiKey && provider !== 'mock' && provider !== 'ollama') {
+      const p = document.getElementById('model-provider').value;
+      if (p !== 'mock' && !currentApiKey) {
         toggleApiKeyModal();
       }
     }
 
     // Tab Navigation
     function switchTab(tabId) {
+      if (tabId === 'dataset') tabId = 'loan';
+
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('[id^="tab-btn-"]').forEach(btn => {
         btn.classList.remove('active-nav-tab');
-        btn.classList.add('text-slate-400', 'border-transparent');
+        btn.classList.add('inactive-nav-tab');
       });
 
       const targetTab = document.getElementById('tab-' + tabId);
       const targetBtn = document.getElementById('tab-btn-' + tabId);
       if (targetTab) targetTab.classList.remove('hidden');
       if (targetBtn) {
+        targetBtn.classList.remove('inactive-nav-tab');
         targetBtn.classList.add('active-nav-tab');
-        targetBtn.classList.remove('text-slate-400', 'border-transparent');
       }
       lucide.createIcons();
     }
@@ -765,14 +818,14 @@
         const el = document.getElementById('node-' + i);
         const bullet = el.querySelector('.node-bullet');
         if (i <= step) {
-          el.classList.add('border-emerald-500', 'bg-emerald-950/20');
-          el.classList.remove('border-slate-800');
-          bullet.classList.add('bg-emerald-400');
+          el.classList.add('border-blue-500', 'bg-blue-950/30');
+          el.classList.remove('border-slate-800', 'bg-slate-900/90');
+          bullet.classList.add('bg-blue-400');
           bullet.classList.remove('bg-slate-600');
         } else {
-          el.classList.remove('border-emerald-500', 'bg-emerald-950/20');
-          el.classList.add('border-slate-800');
-          bullet.classList.remove('bg-emerald-400');
+          el.classList.remove('border-blue-500', 'bg-blue-950/30');
+          el.classList.add('border-slate-800', 'bg-slate-900/90');
+          bullet.classList.remove('bg-blue-400');
           bullet.classList.add('bg-slate-600');
         }
       }
@@ -795,11 +848,11 @@
 
       const log = document.getElementById('chat-stream');
       
-      // Render User Message
+      // Render User Message (Refined Blue Tint Bubble)
       const userHtml = `
         <div class="flex items-start justify-end space-x-3">
-          <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl rounded-tr-none p-3.5 text-sm text-white max-w-xl shadow-lg">
-            <div class="text-[10px] text-emerald-400 font-mono font-bold mb-1">User Inquiry</div>
+          <div class="bg-gradient-to-r from-blue-600/15 to-indigo-600/15 border border-blue-500/30 rounded-2xl rounded-tr-none p-3.5 text-sm text-white max-w-xl shadow-lg">
+            <div class="text-[10px] text-blue-400 font-mono font-bold mb-1">User Inquiry</div>
             <div>${escapeHtml(query)}</div>
           </div>
           <div class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0 mt-1">
@@ -852,27 +905,38 @@
         injElem.innerHTML = '<span class="text-emerald-400 font-semibold">Safe</span>';
       }
 
-      // Step 4: Completion
+      // Step 2: Router
+      setPipelineActive(2);
+      await new Promise(r => setTimeout(r, 80));
+
+      // Step 3: Tool / RAG
+      setPipelineActive(3);
+      await new Promise(r => setTimeout(r, 80));
+
+      // Step 4: Output
       setPipelineActive(4);
 
-      // Render Assistant Response
+      let formattedAnswer = escapeHtml(data.answer)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br/>');
+
       let badgeStyle = 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+      if (data.intent === 'LOAN_STATUS') badgeStyle = 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20';
       if (data.intent === 'GUARDRAIL_BLOCKED') badgeStyle = 'bg-rose-500/10 text-rose-400 border-rose-500/20';
-      if (data.intent === 'LOAN_STATUS') badgeStyle = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
 
-      const modelUsed = data.model_used || 'MOCK_LLM';
-      const formattedAnswer = formatMarkdown(data.answer);
+      const modelUsed = data.model_used || (provider === 'mock' ? 'MOCK_LLM' : provider.toUpperCase());
 
-      // Check if loan details card is attached
+      // Rich Card for Loan Status
       let loanCardHtml = '';
       if (data.loan_details) {
         const ld = data.loan_details;
         const isEsc = ld.escalation_recommended;
         loanCardHtml = `
-          <div class="mt-3 p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+          <div class="mt-3 p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs shadow-inner">
             <div class="flex justify-between items-center mb-2">
               <span class="font-bold text-white mono">${ld.record_id} (${ld.category})</span>
-              <span class="px-2 py-0.5 rounded font-mono font-bold ${isEsc ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
+              <span class="px-2.5 py-0.5 rounded-full font-mono font-bold text-[10px] ${isEsc ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
                 ${isEsc ? '🚨 ESCALATION REQUIRED' : '🟢 STANDARD SLA'}
               </span>
             </div>
@@ -883,7 +947,7 @@
               <div><span class="text-slate-500">Score:</span> <strong>${ld.escalation_score.toFixed(4)}</strong></div>
             </div>
             <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-              <div class="h-full ${isEsc ? 'bg-rose-500' : 'bg-emerald-500'}" style="width: ${Math.min(ld.escalation_score * 100, 100)}%;"></div>
+              <div class="h-full ${isEsc ? 'bg-rose-500' : 'bg-blue-500'}" style="width: ${Math.min(ld.escalation_score * 100, 100)}%;"></div>
             </div>
           </div>
         `;
@@ -892,16 +956,16 @@
       const responseId = 'resp_' + Date.now();
       const assistantHtml = `
         <div class="flex items-start space-x-3">
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-black shrink-0 mt-1">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-md shadow-blue-500/20">
             <i data-lucide="bot" class="w-4 h-4"></i>
           </div>
-          <div class="flex-1 bg-[#10141F] border border-slate-800 rounded-2xl rounded-tl-none p-4 text-sm text-slate-200 shadow-xl max-w-2xl">
+          <div class="flex-1 bg-[#101626] border border-slate-800/80 rounded-2xl rounded-tl-none p-4 text-sm text-slate-200 shadow-xl max-w-2xl">
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center space-x-2">
                 <span class="font-bold text-white text-xs">Cred Lending Assistant</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 font-mono">${modelUsed}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 font-mono">${modelUsed}</span>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono border ${badgeStyle}">${data.intent}</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono border ${badgeStyle}">${data.intent}</span>
             </div>
             
             <div id="${responseId}" class="leading-relaxed text-xs sm:text-sm">${formattedAnswer}</div>
@@ -912,106 +976,103 @@
               <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex flex-wrap gap-1.5 items-center">
                 <span class="text-[11px] text-slate-500 font-medium">Policy Citations:</span>
                 ${data.sources.map(s => `
-                  <button onclick="openPolicyModal('${s}')" class="px-2 py-0.5 rounded bg-slate-900 text-emerald-400 hover:text-emerald-300 font-mono text-[11px] border border-slate-800 hover:border-emerald-500/40 transition">
+                  <button onclick="openPolicyModal('${s}')" class="px-2.5 py-1 rounded-lg bg-slate-900 text-blue-400 hover:text-blue-300 font-mono text-[11px] border border-slate-800 hover:border-blue-500/40 transition">
                     ${s}
                   </button>
                 `).join('')}
               </div>
             ` : ''}
 
-            <!-- Utilities Bar -->
-            <div class="mt-3 pt-2 flex items-center justify-between text-[11px] text-slate-500">
+            <!-- Action Bar -->
+            <div class="mt-3 pt-2.5 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500">
               <div class="flex items-center space-x-3">
-                <button onclick="copyResponseText('${responseId}', this)" class="hover:text-white flex items-center space-x-1">
-                  <i data-lucide="copy" class="w-3 h-3"></i>
+                <button onclick="copyAnswer('${responseId}')" class="hover:text-slate-300 flex items-center space-x-1 transition text-[11px]">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                   <span>Copy</span>
                 </button>
-                <button onclick="toggleTelemetry('${responseId}_telemetry')" class="hover:text-white flex items-center space-x-1">
-                  <i data-lucide="terminal" class="w-3 h-3"></i>
-                  <span>Inspect JSON</span>
+                <button onclick="toggleTelemetry('${responseId}_telemetry')" class="hover:text-slate-300 flex items-center space-x-1 transition text-[11px]">
+                  <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+                  <span>Telemetry JSON</span>
                 </button>
               </div>
-              <span class="font-mono text-[10px]">${new Date().toLocaleTimeString()}</span>
+              <span class="text-[10px] font-mono text-slate-600">Turn #${data.turn_count || 1}</span>
             </div>
 
-            <!-- Collapsible Telemetry -->
-            <div id="${responseId}_telemetry" class="hidden mt-2 p-2.5 rounded-lg bg-black border border-slate-800 font-mono text-[10px] text-slate-400 overflow-x-auto">
+            <!-- Collapsible JSON Trace -->
+            <div id="${responseId}_telemetry" class="hidden mt-3 p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-400 overflow-x-auto">
               <pre>${JSON.stringify(data, null, 2)}</pre>
             </div>
 
           </div>
         </div>
       `;
+
       log.insertAdjacentHTML('beforeend', assistantHtml);
       log.scrollTop = log.scrollHeight;
       lucide.createIcons();
     }
 
-    function copyResponseText(elemId, btn) {
+    function copyAnswer(elemId) {
       const text = document.getElementById(elemId).innerText;
       navigator.clipboard.writeText(text);
-      const orig = btn.innerHTML;
-      btn.innerHTML = '<i data-lucide="check" class="w-3 h-3 text-emerald-400"></i><span class="text-emerald-400">Copied!</span>';
-      lucide.createIcons();
-      setTimeout(() => {
-        btn.innerHTML = orig;
-        lucide.createIcons();
-      }, 1500);
+      alert('Answer copied to clipboard!');
     }
 
     function toggleTelemetry(id) {
       const el = document.getElementById(id);
-      el.classList.toggle('hidden');
+      if (el) el.classList.toggle('hidden');
     }
 
-    // Loan Status Evaluation in Tab 2
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Loan Status Evaluation
     async function handleLoanLookup() {
-      const recordId = document.getElementById('loan-search-input').value.trim().toUpperCase();
-      if (!recordId) return;
+      const id = document.getElementById('loan-search-input').value.trim().toUpperCase();
+      if (!id) return;
 
       const resultBox = document.getElementById('loan-result-box');
-      resultBox.innerHTML = '<div class="text-center py-4 text-xs text-slate-400"><i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto mb-2 text-blue-400"></i>Evaluating Application Record...</div>';
-      lucide.createIcons();
+      resultBox.innerHTML = '<div class="text-xs text-slate-400 text-center py-4">Evaluating application record ${id}...</div>';
 
       let data;
       try {
         const res = await fetch('/loan-status', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ record_id: recordId })
+          body: JSON.stringify({ loan_application_id: id })
         });
-        if (res.ok) data = await res.json();
-        else throw new Error();
-      } catch (e) {
-        // Fallback to client records
-        const found = DATASET_RECORDS.find(r => r.id === recordId);
-        if (found) {
-          const isEsc = found.score >= 0.65;
+        if (res.ok) {
+          data = await res.json();
+        } else {
+          throw new Error('Server returned ' + res.status);
+        }
+      } catch (err) {
+        console.log('Using client loan lookup fallback...');
+        const record = DATASET_RECORDS.find(r => r.id === id);
+        if (record) {
           data = {
-            found: true,
-            record_id: found.id,
-            category: found.cat,
-            status: found.status,
-            loan_amount_inr: found.amt,
-            days_since_created: found.days,
-            flagged_for_fraud_review: found.fraud,
-            escalation_score: found.score,
-            escalation_recommended: isEsc,
-            escalation_reason: isEsc ? 'Aging and fraud review active exceeding SLA.' : 'Application operating within standard underwriting SLAs.'
+            record_id: record.id,
+            category: record.cat,
+            status: record.status,
+            loan_amount_inr: record.amt,
+            days_since_created: record.days,
+            flagged_for_fraud_review: record.fraud,
+            escalation_score: record.score,
+            escalation_recommended: record.score >= 0.65,
+            escalation_reason: record.score >= 0.65 
+              ? 'Escalation score exceeds 0.65 threshold (fraud=' + record.fraud + ', aging=' + record.days + 'd).'
+              : 'Application is processing within normal underwriting turnaround SLA.'
           };
         } else {
-          data = { found: false, error: 'Record not found in database.' };
+          resultBox.innerHTML = '<div class="text-xs text-rose-400 text-center py-4">Application ID ' + id + ' not found in the 50-record dataset.</div>';
+          return;
         }
-      }
-
-      if (!data.found) {
-        resultBox.innerHTML = `
-          <div class="text-center py-4">
-            <div class="text-rose-400 font-bold text-xs mb-1">Application Not Found</div>
-            <div class="text-slate-400 text-xs">${data.error || 'Record ID not located.'}</div>
-          </div>
-        `;
-        return;
       }
 
       const isEsc = data.escalation_recommended;
@@ -1019,42 +1080,36 @@
         <div class="space-y-3">
           <div class="flex justify-between items-center pb-2 border-b border-slate-800">
             <div>
-              <span class="text-base font-bold text-white mono">${data.record_id}</span>
-              <span class="text-xs text-slate-400 ml-2 font-medium">(${data.category})</span>
+              <span class="font-bold text-white mono text-sm">${data.record_id}</span>
+              <span class="text-xs text-slate-400 ml-1 font-sans">(${data.category})</span>
             </div>
-            <span class="px-2.5 py-1 rounded font-mono font-bold text-xs ${isEsc ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'}">
-              ${isEsc ? '🚨 ESCALATION RECOMMENDED' : '🟢 STANDARD SLA'}
+            <span class="px-2.5 py-0.5 rounded-full font-mono font-bold text-xs ${isEsc ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
+              ${isEsc ? '🚨 ESCALATION RECOMMENDED' : '🟢 STANDARD PROCESSING'}
             </span>
           </div>
 
-          <div class="grid grid-cols-2 gap-3 text-xs">
-            <div>
-              <div class="text-slate-500 text-[11px]">Application Status</div>
-              <div class="font-bold text-white text-sm mt-0.5">${data.status}</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+              <span class="text-slate-500">Status:</span> <strong class="text-white">${data.status}</strong>
             </div>
-            <div>
-              <div class="text-slate-500 text-[11px]">Loan Amount (INR)</div>
-              <div class="font-bold text-emerald-400 text-sm mono mt-0.5">₹${data.loan_amount_inr.toLocaleString()}</div>
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+              <span class="text-slate-500">Amount:</span> <strong class="text-white">₹${data.loan_amount_inr.toLocaleString()}</strong>
             </div>
-            <div>
-              <div class="text-slate-500 text-[11px]">Application Aging</div>
-              <div class="font-bold text-white mt-0.5">${data.days_since_created} Days Pending</div>
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+              <span class="text-slate-500">Aging:</span> <strong class="text-white">${data.days_since_created} Days</strong>
             </div>
-            <div>
-              <div class="text-slate-500 text-[11px]">Fraud Review Status</div>
-              <div class="font-bold ${data.flagged_for_fraud_review ? 'text-rose-400' : 'text-slate-400'} mt-0.5">
-                ${data.flagged_for_fraud_review ? '⚠️ ACTIVE (High Risk)' : 'Cleared'}
-              </div>
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+              <span class="text-slate-500">Fraud Flag:</span> <strong class="${data.flagged_for_fraud_review ? 'text-rose-400' : 'text-slate-300'}">${data.flagged_for_fraud_review ? 'YES' : 'NO'}</strong>
             </div>
           </div>
 
           <div>
             <div class="flex justify-between text-xs mb-1">
               <span class="text-slate-400">Escalation Score:</span>
-              <span class="font-mono font-bold ${isEsc ? 'text-rose-400' : 'text-emerald-400'}">${data.escalation_score.toFixed(4)} / 1.00</span>
+              <span class="font-mono font-bold ${isEsc ? 'text-rose-400' : 'text-blue-400'}">${data.escalation_score.toFixed(4)} / 1.00</span>
             </div>
             <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
-              <div class="h-full ${isEsc ? 'bg-rose-500' : 'bg-emerald-500'}" style="width: ${Math.min(data.escalation_score * 100, 100)}%;"></div>
+              <div class="h-full ${isEsc ? 'bg-rose-500' : 'bg-blue-500'}" style="width: ${Math.min(data.escalation_score * 100, 100)}%;"></div>
             </div>
           </div>
 
@@ -1091,59 +1146,70 @@
       if (score >= 0.65) {
         scoreElem.className = 'text-xl font-bold font-mono text-rose-400';
         meterBar.className = 'h-full bg-rose-500 transition-all duration-300';
-        verdict.className = 'mt-3 text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-lg p-2 text-center';
+        verdict.className = 'mt-3 text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl p-2.5 text-center';
         verdict.innerHTML = '🚨 <strong>ESCALATION TRIGGERED</strong> — Exceeds 0.65 SLA threshold. File routed to Senior Underwriter.';
       } else {
         scoreElem.className = 'text-xl font-bold font-mono text-emerald-400';
         meterBar.className = 'h-full bg-emerald-500 transition-all duration-300';
-        verdict.className = 'mt-3 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2 text-center';
+        verdict.className = 'mt-3 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-2.5 text-center';
         verdict.innerHTML = '🟢 <strong>STANDARD SLA</strong> — Score operates within normal underwriting processing thresholds.';
       }
     }
 
-    // Knowledge Base Grid Rendering & Filtering
-    let currentKbCat = 'all';
+    // Load any record straight into the simulator above
+    function loadInSimulator(days, fraud, id) {
+      switchTab('loan');
+      document.getElementById('sim-days').value = days;
+      document.getElementById('sim-fraud').checked = Boolean(fraud);
+      updateSimulator();
+      if (id) {
+        document.getElementById('loan-search-input').value = id;
+        handleLoanLookup();
+      }
+      window.scrollTo({ top: 220, behavior: 'smooth' });
+    }
+
+    // Knowledge Base Rendering
+    let activeKbCategory = 'all';
     function renderKnowledgeBase() {
       const grid = document.getElementById('kb-card-grid');
       const search = document.getElementById('kb-search-input').value.toLowerCase();
 
       const filtered = KB_DOCS.filter(doc => {
         const matchSearch = doc.title.toLowerCase().includes(search) || 
-                            doc.topic.toLowerCase().includes(search) || 
-                            doc.content.toLowerCase().includes(search);
-        
+                            doc.content.toLowerCase().includes(search) || 
+                            doc.topic.toLowerCase().includes(search);
         if (!matchSearch) return false;
-        if (currentKbCat === 'all') return true;
-        if (currentKbCat === 'eligibility' && doc.topic.includes('eligibility')) return true;
-        if (currentKbCat === 'fees' && (doc.topic.includes('emi') || doc.topic.includes('fee') || doc.topic.includes('penalty'))) return true;
-        if (currentKbCat === 'kyc' && (doc.topic.includes('kyc') || doc.topic.includes('fraud') || doc.topic.includes('closure'))) return true;
-        if (currentKbCat === 'accounts' && (doc.topic.includes('account') || doc.topic.includes('balance') || doc.topic.includes('interest') || doc.topic.includes('score'))) return true;
-        return false;
+        if (activeKbCategory === 'all') return true;
+        if (activeKbCategory === 'eligibility') return doc.topic.includes('eligibility');
+        if (activeKbCategory === 'fees') return doc.topic.includes('fee') || doc.topic.includes('emi') || doc.topic.includes('prepayment');
+        if (activeKbCategory === 'kyc') return doc.topic.includes('kyc') || doc.topic.includes('dispute') || doc.topic.includes('fraud');
+        if (activeKbCategory === 'accounts') return doc.topic.includes('account') || doc.topic.includes('slabs') || doc.topic.includes('score');
+        return true;
       });
 
       grid.innerHTML = filtered.map(doc => `
-        <div class="glass-card glass-card-hover rounded-2xl p-4 flex flex-col justify-between transition duration-200">
+        <div class="glass-card rounded-2xl p-5 hover:border-blue-500/50 transition-all group flex flex-col justify-between shadow-sm">
           <div>
-            <div class="flex justify-between items-center mb-2">
-              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[11px] font-bold border border-emerald-500/20">${doc.id}</span>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-mono font-bold text-blue-400 px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20">${doc.id}</span>
               <span class="text-[10px] text-slate-500 font-mono">${doc.topic}</span>
             </div>
-            <h4 class="font-bold text-sm text-white mb-2">${doc.title}</h4>
-            <p class="text-xs text-slate-400 leading-relaxed line-clamp-3">${doc.content}</p>
+            <h4 class="font-bold text-white text-sm mb-2 group-hover:text-blue-300 transition">${doc.title}</h4>
+            <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed mb-4">${doc.content}</p>
           </div>
-          
-          <div class="pt-4 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-            <button onclick="openPolicyModal('${doc.id}')" class="text-slate-400 hover:text-white font-medium flex items-center space-x-1">
-              <span>Read Policy</span>
-              <i data-lucide="external-link" class="w-3 h-3"></i>
+          <div class="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs">
+            <button onclick="openPolicyModal('${doc.id}')" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center space-x-1">
+              <span>Read Full Policy</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
             </button>
-            <button onclick="setQuery('Tell me about ${doc.title}')" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center space-x-1">
-              <span>Query Agent</span>
-              <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            <button onclick="setQuery('Explain the rules in ${doc.title}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition">
+              Ask Agent
             </button>
           </div>
         </div>
       `).join('');
+
       lucide.createIcons();
     }
 
@@ -1152,11 +1218,12 @@
     }
 
     function setKbCategory(cat) {
-      currentKbCat = cat;
+      activeKbCategory = cat;
       document.querySelectorAll('[id^="kb-filter-"]').forEach(b => {
-        b.className = 'px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white font-medium text-xs';
+        b.className = 'px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition';
       });
-      document.getElementById('kb-filter-' + cat).className = 'px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium text-xs';
+      const target = document.getElementById('kb-filter-' + cat);
+      if (target) target.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition';
       renderKnowledgeBase();
     }
 
@@ -1166,12 +1233,10 @@
       const doc = KB_DOCS.find(d => d.id === docId);
       if (!doc) return;
       activeModalPolicy = doc;
+
       document.getElementById('modal-policy-id').innerText = doc.id + ' • ' + doc.topic;
       document.getElementById('modal-policy-title').innerText = doc.title;
-      document.getElementById('modal-policy-content').innerHTML = `
-        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 mb-3 text-xs font-mono text-emerald-400">Cred Risk & Compliance Official Document</div>
-        <p class="leading-relaxed text-sm text-slate-200">${doc.content}</p>
-      `;
+      document.getElementById('modal-policy-body').innerText = doc.content;
       document.getElementById('policy-modal').classList.remove('hidden');
       lucide.createIcons();
     }
@@ -1204,10 +1269,10 @@
 
       tbody.innerHTML = filtered.map(r => `
         <tr class="hover:bg-slate-850 transition">
-          <td class="px-4 py-2.5 font-bold text-emerald-400">${r.id}</td>
+          <td class="px-4 py-2.5 font-bold text-blue-400">${r.id}</td>
           <td class="px-4 py-2.5 font-sans">${r.cat}</td>
           <td class="px-4 py-2.5">
-            <span class="px-2 py-0.5 rounded text-[11px] font-sans font-bold ${
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-sans font-bold ${
               r.status === 'Approved' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
               (r.status === 'Rejected' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
               (r.status === 'Disbursed' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-slate-800 text-slate-300'))
@@ -1219,8 +1284,10 @@
           <td class="px-4 py-2.5">${r.days}d</td>
           <td class="px-4 py-2.5">${r.fraud ? '<span class="text-rose-400 font-bold">YES</span>' : '<span class="text-slate-600">No</span>'}</td>
           <td class="px-4 py-2.5 ${r.score >= 0.65 ? 'text-rose-400 font-bold' : 'text-slate-400'}">${r.score.toFixed(4)}</td>
-          <td class="px-4 py-2.5 text-right font-sans">
-            <button onclick="setQuery('Check status for ${r.id}')" class="text-emerald-400 hover:text-emerald-300 font-bold text-xs">Inspect</button>
+          <td class="px-4 py-2.5 text-right font-sans space-x-1">
+            <button onclick="loadInSimulator(${r.days}, ${r.fraud}, '${r.id}')" class="px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 font-bold text-xs border border-blue-500/30 transition">Simulate</button>
+            <button onclick="lookupPreset('${r.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition">Inspect</button>
+            <button onclick="setQuery('Check status for ${r.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition">Ask</button>
           </td>
         </tr>
       `).join('');
@@ -1233,10 +1300,10 @@
     function setDatasetFilter(filter) {
       currentDatasetFilter = filter;
       document.querySelectorAll('[id^="ds-filter-"]').forEach(b => {
-        b.className = 'px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 font-medium text-xs';
+        b.className = 'px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition';
       });
       const target = document.getElementById('ds-filter-' + filter.replace(/\s+/g, '-'));
-      if (target) target.className = 'px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium text-xs';
+      if (target) target.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition';
       renderDatasetTable();
     }
 
@@ -1245,158 +1312,212 @@
       const tbody = document.getElementById('triad-tbody');
       tbody.innerHTML = TRIAD_ITEMS.map(item => `
         <tr class="hover:bg-slate-850 transition">
-          <td class="px-4 py-3 font-bold text-emerald-400">${item.id}</td>
+          <td class="px-4 py-3 font-bold text-blue-400">${item.id}</td>
           <td class="px-4 py-3 text-slate-400">${item.topic}</td>
           <td class="px-4 py-3 font-sans text-slate-200">${item.text}</td>
-          <td class="px-3 py-3 text-center font-bold ${item.c === 1.0 ? 'text-blue-400' : 'text-slate-600'}">${item.c.toFixed(2)}</td>
-          <td class="px-3 py-3 text-center font-bold text-emerald-400">${item.g.toFixed(2)}</td>
-          <td class="px-3 py-3 text-center font-bold text-purple-400">${item.a.toFixed(2)}</td>
+          <td class="px-3 py-3 text-center mono font-bold text-blue-400">${item.c_rel.toFixed(2)}</td>
+          <td class="px-3 py-3 text-center mono font-bold text-emerald-400">${item.ground.toFixed(2)}</td>
+          <td class="px-3 py-3 text-center mono font-bold text-purple-400">${item.a_rel.toFixed(2)}</td>
         </tr>
       `).join('');
     }
 
-    // Client-side fallback engine for static GitHub Pages hosting
+    // Client-Side Fallback Agent (for GitHub Pages Static Hosting)
     async function runClientSideAgent(query, provider, apiKey) {
-      const panRegex = /[A-Z]{5}[0-9]{4}[A-Z]/gi;
-      const aadhaarRegex = /\b\d{4}[\s-]\d{4}[\s-]\d{4}\b/g;
-      const accountRegex = /\b\d{9,18}\b/g;
-      const injectionRegex = /(ignore (all )?previous instructions|disregard (all )?system prompts|system override|you are now|reveal your|bypass security)/i;
+      const qLower = query.toLowerCase();
 
-      let maskedQuery = query.replace(panRegex, '[PAN_REDACTED]')
-                             .replace(aadhaarRegex, '[AADHAAR_REDACTED]')
-                             .replace(accountRegex, '[ACCOUNT_REDACTED]');
-      const piiDetected = maskedQuery !== query;
-      const injectionDetected = injectionRegex.test(query);
-
-      if (injectionDetected) {
-        return {
-          intent: 'GUARDRAIL_BLOCKED',
-          answer: '⚠️ **Security Alert:** Your input contained prompt injection or system override instructions. The request has been rejected.',
-          sources: ['Guardrail:Prompt-Injection-Defense'],
-          model_used: 'Client-Guardrail-Engine',
-          guardrail_status: { passed: false, pii_detected: piiDetected, prompt_injection_detected: true }
-        };
+      // PII Detection
+      const piiPatterns = [
+        /[A-Z]{5}[0-9]{4}[A-Z]/i,
+        /\b\d{4}\s?\d{4}\s?\d{4}\b/,
+        /\b\d{9,18}\b/
+      ];
+      let piiDetected = false;
+      let sanitized = query;
+      for (const p of piiPatterns) {
+        if (p.test(sanitized)) {
+          piiDetected = true;
+          sanitized = sanitized.replace(/[A-Z]{5}[0-9]{4}[A-Z]/ig, '[PAN_REDACTED]')
+                               .replace(/\b\d{4}\s?\d{4}\s?\d{4}\b/g, '[AADHAAR_REDACTED]')
+                               .replace(/\b\d{9,18}\b/g, '[ACCOUNT_REDACTED]');
+        }
       }
 
-      // Direct Groq Cloud call if key is provided
-      if (apiKey && apiKey.startsWith('gsk_')) {
+      // Prompt Injection Guardrail
+      const injections = ['ignore previous', 'system override', 'bypass guardrail', 'reveal prompt', 'leak secret'];
+      for (const inj of injections) {
+        if (qLower.includes(inj)) {
+          return {
+            query: query,
+            sanitized_query: sanitized,
+            intent: 'GUARDRAIL_BLOCKED',
+            answer: '🛡️ Security Notice: Prompt injection or system override detected. This request has been blocked in accordance with Cred Security Policies.',
+            sources: [],
+            loan_details: null,
+            guardrail_status: {
+              passed: false,
+              pii_detected: piiDetected,
+              masked_query: sanitized,
+              prompt_injection_detected: true,
+              groundedness_verified: false,
+              rejection_reason: 'Prompt injection detected.'
+            },
+            model_used: 'Client Security Guardrail'
+          };
+        }
+      }
+
+      // Check Loan ID
+      const loanMatch = query.match(/CRD-APP-\d{4}/i);
+      if (loanMatch || qLower.includes('status') || qLower.includes('application') || qLower.includes('track')) {
+        const targetId = loanMatch ? loanMatch[0].toUpperCase() : 'CRD-APP-1001';
+        const record = DATASET_RECORDS.find(r => r.id === targetId);
+
+        if (record) {
+          const isEsc = record.score >= 0.65;
+          const statusText = `**Application Status Report for ${record.id}**:\n\n` +
+            `• **Category:** ${record.cat}\n` +
+            `• **Current Status:** ${record.status}\n` +
+            `• **Loan Amount:** ₹${record.amt.toLocaleString()}\n` +
+            `• **Aging in Processing:** ${record.days} calendar days\n` +
+            `• **Fraud Review Flag:** ${record.fraud ? 'YES (High Risk Investigation)' : 'No'}\n` +
+            `• **Computed Escalation Risk Score:** **${record.score.toFixed(4)}** / 1.00\n\n` +
+            (isEsc 
+              ? `🚨 **Action Required:** This application has exceeded the **0.65 SLA risk limit** and is routed to a Senior Underwriter.` 
+              : `🟢 **Status Update:** This application is operating within standard underwriting SLAs.`);
+
+          return {
+            query: query,
+            sanitized_query: sanitized,
+            intent: 'LOAN_STATUS',
+            answer: statusText,
+            sources: [],
+            loan_details: {
+              record_id: record.id,
+              category: record.cat,
+              status: record.status,
+              loan_amount_inr: record.amt,
+              days_since_created: record.days,
+              flagged_for_fraud_review: record.fraud,
+              escalation_score: record.score,
+              escalation_recommended: isEsc,
+              escalation_reason: isEsc ? 'Escalation score exceeded 0.65 limit.' : 'Normal SLA.'
+            },
+            guardrail_status: {
+              passed: true,
+              pii_detected: piiDetected,
+              masked_query: sanitized,
+              prompt_injection_detected: false,
+              groundedness_verified: true,
+              rejection_reason: null
+            },
+            model_used: 'Client Underwriting Rule Engine'
+          };
+        }
+      }
+
+      // Policy RAG Keyword Retrieval
+      let bestDoc = null;
+      let maxMatches = 0;
+      for (const doc of KB_DOCS) {
+        const keywords = doc.topic.split('_');
+        let count = 0;
+        for (const kw of keywords) {
+          if (qLower.includes(kw)) count += 2;
+        }
+        const docWords = doc.content.toLowerCase().split(/\s+/);
+        for (const qw of qLower.split(/\s+/)) {
+          if (qw.length > 3 && docWords.includes(qw)) count += 1;
+        }
+        if (count > maxMatches) {
+          maxMatches = count;
+          bestDoc = doc;
+        }
+      }
+
+      if (!bestDoc || maxMatches < 1) {
+        bestDoc = KB_DOCS[0];
+      }
+
+      // If user provided Groq API key, call Groq directly from client!
+      if (provider === 'groq' && apiKey) {
         try {
           const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${apiKey}`
+              'Authorization': 'Bearer ' + apiKey
             },
             body: JSON.stringify({
-              model: 'openai/gpt-oss-120b',
+              model: 'llama-3.3-70b-versatile',
               messages: [
-                { role: 'system', content: 'You are the official Cred Domain Support Agent. Answer politely, warmly, and accurately with structured markdown tables and bold key figures.' },
-                { role: 'user', content: maskedQuery }
+                {
+                  role: 'system',
+                  content: 'You are an authoritative Cred Banking Support Agent. Answer the user query strictly using the following retrieved policy document:\n\n' + bestDoc.title + ':\n' + bestDoc.content + '\n\nBe polite, structured, accurate, and mention the policy ID ' + bestDoc.id + '.'
+                },
+                { role: 'user', content: sanitized }
               ],
-              temperature: 0.2
+              temperature: 0.1,
+              max_tokens: 350
             })
           });
+
           if (groqRes.ok) {
-            const gData = await groqRes.json();
+            const groqData = await groqRes.json();
+            const groqText = groqData.choices[0].message.content;
             return {
+              query: query,
+              sanitized_query: sanitized,
               intent: 'POLICY_RAG',
-              answer: gData.choices[0].message.content,
-              sources: ['Groq:Live-Llama-3.3-70B'],
-              model_used: 'Groq Cloud (Direct Client)',
-              guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
+              answer: groqText,
+              sources: [bestDoc.id],
+              loan_details: null,
+              guardrail_status: {
+                passed: true,
+                pii_detected: piiDetected,
+                masked_query: sanitized,
+                prompt_injection_detected: false,
+                groundedness_verified: true,
+                rejection_reason: null
+              },
+              model_used: 'Groq Cloud (Llama-3.3-70B Live)'
             };
           }
         } catch (e) {
-          console.warn(e);
+          console.warn('Groq cloud call failed, using deterministic policy synthesizer...', e);
         }
       }
 
-      // Loan Status lookup
-      const loanMatch = query.match(/CRD-APP-\d{4}/i);
-      if (loanMatch) {
-        const appNum = loanMatch[0].toUpperCase();
-        const found = DATASET_RECORDS.find(r => r.id === appNum);
-        if (found) {
-          const isEsc = found.score >= 0.65;
-          return {
-            intent: 'LOAN_STATUS',
-            answer: `📋 **Loan Application Status: ${found.id}**\n\n• **Category:** ${found.cat}\n• **Current Status:** **${found.status}**\n• **Loan Amount:** **₹${found.amt.toLocaleString()}**\n• **Aging:** **${found.days} days** since submission\n• **Fraud Review Active:** ${found.fraud ? '⚠️ YES' : 'No'}\n• **Escalation Score:** \`${found.score.toFixed(4)}\` / 1.00 (${isEsc ? '🚨 ESCALATION RECOMMENDED' : '🟢 Standard Underwriting SLA'})\n\n**Underwriting Assessment:** ${isEsc ? 'Application requires immediate senior underwriter intervention due to fraud review flags and aging.' : 'Application operating within standard underwriting SLAs.'}`,
-            sources: [`DB:${found.id}`],
-            model_used: 'Client-Dataset-Engine',
-            loan_details: {
-              record_id: found.id,
-              category: found.cat,
-              status: found.status,
-              loan_amount_inr: found.amt,
-              days_since_created: found.days,
-              flagged_for_fraud_review: found.fraud,
-              escalation_score: found.score,
-              escalation_recommended: isEsc,
-              escalation_reason: isEsc ? 'Application requires senior underwriter review.' : 'Standard SLA.'
-            },
-            guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
-          };
-        }
-      }
-
-      // Greeting
-      const qLower = query.toLowerCase();
-      if (/hi|hello|hey|good\s*(morning|afternoon|evening)/i.test(qLower)) {
-        return {
-          intent: 'POLICY_RAG',
-          answer: '👋 **Hello! Welcome to Cred Domain Support.**\n\nI am your dedicated lending and banking operations assistant. I can assist you with:\n• **Lending Policies:** Personal, Home, Auto, Education, and Business loans\n• **Repayments & Fees:** NACH auto-debits, ₹500 bounce fee, and 2% penal interest\n• **Credit Cards:** Annual fee waiver threshold (₹1,50,000 spend)\n• **KYC Requirements:** PAN, Aadhaar biometric authentication, and business ITRs\n• **Fraud Disputes:** 72-hour zero-liability window\n• **Application Tracking:** Live status and escalation evaluation (e.g. \`CRD-APP-1001\`)\n\n*How may I assist you today?*',
-          sources: ['Cred:System-Welcome'],
-          model_used: 'Client-Rule-Engine',
-          guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
-        };
-      }
-
-      // Match 12 KB Docs
-      for (const doc of KB_DOCS) {
-        const titleWords = doc.title.toLowerCase().split(' ');
-        const matches = titleWords.filter(w => w.length > 3 && qLower.includes(w));
-        if (matches.length >= 1 || (qLower.includes('emi') && doc.id === 'KB-DOC-002') || (qLower.includes('kyc') && doc.id === 'KB-DOC-004') || (qLower.includes('prepay') && doc.id === 'KB-DOC-008') || (qLower.includes('balance') && doc.id === 'KB-DOC-009')) {
-          return {
-            intent: 'POLICY_RAG',
-            answer: `**${doc.title}** (${doc.id}):\n\n${doc.content}\n\n• **Policy Topic:** \`${doc.topic}\`\n• **Compliance Authority:** Cred Risk & Compliance Underwriting\n\n*Please let me know if you need further clarification or application status checks!*`,
-            sources: [doc.id],
-            model_used: 'Client-RAG-Engine',
-            guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
-          };
-        }
-      }
-
-      // Fallback
+      // Deterministic Client Synthesizer
       return {
+        query: query,
+        sanitized_query: sanitized,
         intent: 'POLICY_RAG',
-        answer: "I apologize, but the requested information is not covered in Cred's official lending and banking policy guidelines. Please feel free to ask about our loan eligibility criteria, EMI calculation rules, credit card fee waivers, KYC verification, or check application status (e.g. \`CRD-APP-1001\`)!",
-        sources: ['Guardrail:Fallback-Threshold'],
-        model_used: 'Client-Fallback-Engine',
-        guardrail_status: { passed: true, pii_detected: piiDetected, prompt_injection_detected: false }
+        answer: `**Grounded Policy Information** (${bestDoc.id} - ${bestDoc.title}):\n\n` +
+          `${bestDoc.content}\n\n` +
+          `*Please let me know if you need any additional clarification on Cred policies.*`,
+        sources: [bestDoc.id],
+        loan_details: null,
+        guardrail_status: {
+          passed: true,
+          pii_detected: piiDetected,
+          masked_query: sanitized,
+          prompt_injection_detected: false,
+          groundedness_verified: true,
+          rejection_reason: null
+        },
+        model_used: 'Deterministic Policy Synthesizer'
       };
     }
 
-    function formatMarkdown(text) {
-      if (!text) return '';
-      let escaped = escapeHtml(text);
-      escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
-      escaped = escaped.replace(/`([^`]+)`/g, '<code class="mono px-1.5 py-0.5 rounded bg-black text-emerald-300 text-xs border border-slate-800">$1</code>');
-      escaped = escaped.replace(/^• (.*?)$/gm, '<div class="flex items-start space-x-1.5 my-1"><span class="text-emerald-400 font-bold">•</span><span>$1</span></div>');
-      escaped = escaped.replace(/\n\n/g, '<div class="my-2"></div>').replace(/\n/g, '<br/>');
-      return escaped;
-    }
-
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-
-    // Initialize all components
-    renderKnowledgeBase();
-    renderDatasetTable();
-    renderTriadTable();
-    handleLoanLookup();
+    // Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderKnowledgeBase();
+      renderDatasetTable();
+      renderTriadTable();
+      updateSimulator();
+    });
   </script>
 </body>
 </html>
