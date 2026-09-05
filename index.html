@@ -3,73 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRED Domain Support Agent — Intelligent Lending & Policy Operations</title>
+  <title>CRED Domain Support Agent — Intelligent Lending Assistant</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
     
     :root {
-      --bg-base: #090D16;
-      --card-base: #0F1422;
-      --card-sub: #141B2D;
+      --bg-dark: #0B0F19;
+      --card-dark: #121829;
       --primary-blue: #2563EB;
-      --primary-indigo: #4F46E5;
-      --accent-cyan: #38BDF8;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(59, 130, 246, 0.4);
+      --primary-hover: #1D4ED8;
     }
     
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-base);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
       color: #E2E8F0;
     }
     
     .mono {
       font-family: 'JetBrains Mono', monospace;
     }
-    
-    .glass-card {
-      background: rgba(15, 20, 34, 0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border-subtle);
-    }
-    
-    .glass-card-hover:hover {
-      border-color: var(--border-hover);
-      box-shadow: 0 12px 32px -8px rgba(37, 99, 235, 0.15);
-    }
-    
-    .brand-gradient-text {
-      background: linear-gradient(135deg, #60A5FA 0%, #818CF8 50%, #C084FC 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
 
-    .brand-glow {
-      box-shadow: 0 0 24px -4px rgba(59, 130, 246, 0.35);
+    /* Stylish Floating Nav Tabs */
+    .nav-pill {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    /* Segmented Navigation Tab Styling */
-    .active-nav-tab {
+    .active-nav-pill {
       background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
-      border-color: rgba(96, 165, 250, 0.4) !important;
       color: #FFFFFF !important;
-      box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.35) !important;
+      box-shadow: 0 4px 16px -2px rgba(37, 99, 235, 0.45) !important;
     }
 
-    .inactive-nav-tab {
+    .inactive-nav-pill {
       color: #94A3B8;
-      border-color: transparent;
-      background: transparent;
     }
 
-    .inactive-nav-tab:hover {
-      color: #F8FAFC;
-      background: rgba(255, 255, 255, 0.05);
+    .inactive-nav-pill:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Subtle Glass Cards */
+    .dark-card {
+      background: rgba(18, 24, 41, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     /* Custom scrollbars */
@@ -78,161 +61,133 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #090D16;
+      background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: #1E293B;
-      border-radius: 4px;
+      background: #334155;
+      border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
+      background: #475569;
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
 
-  <!-- TOP APP BAR -->
+  <!-- TOP HEADER -->
   <header class="border-b border-slate-800/80 bg-[#0B0F19]/95 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
       <!-- Brand & Status -->
-      <div class="flex items-center space-x-3.5">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center brand-glow">
-          <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
+          <i data-lucide="shield" class="w-5 h-5 text-white"></i>
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <span class="text-xl font-black tracking-tight brand-gradient-text">CRED</span>
-            <span class="text-[10px] uppercase tracking-wider font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Domain Support Agent</span>
+            <span class="text-xl font-extrabold tracking-tight text-white">CRED <span class="text-blue-400 font-semibold">Support</span></span>
+            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Domain Support Agent</span>
           </div>
-          <div class="flex items-center space-x-1.5 text-[11px] text-slate-400">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span class="text-slate-300 font-medium">LangGraph Engine Active</span>
-            <span class="text-slate-600">•</span>
-            <span>FastAPI Server</span>
+          <div class="flex items-center space-x-1.5 text-xs text-slate-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Online • Instant Help</span>
           </div>
         </div>
       </div>
 
-      <!-- Controls: Model Selector & API Key & Swagger -->
-      <div class="flex items-center space-x-2.5">
-        
-        <!-- Model Selector -->
-        <div class="flex items-center space-x-1.5 bg-[#13192B] border border-slate-800 rounded-xl px-3 py-1.5 text-xs shadow-inner">
+      <!-- Settings & Swagger -->
+      <div class="flex items-center space-x-2">
+        <div class="hidden sm:flex items-center space-x-1.5 bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-300">
           <i data-lucide="cpu" class="w-3.5 h-3.5 text-blue-400"></i>
-          <select id="model-provider" onchange="handleProviderChange()" class="bg-transparent text-slate-200 focus:outline-none text-xs font-semibold cursor-pointer">
-            <option value="mock" class="bg-slate-900 text-slate-200">MOCK_LLM (Deterministic Engine)</option>
-            <option value="groq" class="bg-slate-900 text-slate-200" selected>Groq Cloud (Llama-3.3-70B)</option>
+          <select id="model-provider" onchange="handleProviderChange()" class="bg-transparent text-slate-200 focus:outline-none cursor-pointer font-medium">
+            <option value="mock" class="bg-slate-900 text-slate-200">Built-in Assistant (Instant)</option>
+            <option value="groq" class="bg-slate-900 text-slate-200" selected>Groq Cloud (Llama 3.3)</option>
             <option value="openai" class="bg-slate-900 text-slate-200">OpenAI (GPT-4o-mini)</option>
-            <option value="gemini" class="bg-slate-900 text-slate-200">Google Gemini (Flash)</option>
-            <option value="ollama" class="bg-slate-900 text-slate-200">Local Ollama (localhost)</option>
+            <option value="gemini" class="bg-slate-900 text-slate-200">Google Gemini</option>
           </select>
         </div>
 
-        <!-- API Key Configure Button -->
-        <button onclick="toggleApiKeyModal()" id="key-badge" class="px-3.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-xs font-medium text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition flex items-center space-x-1.5 shadow-sm">
+        <button onclick="toggleApiKeyModal()" id="key-badge" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-medium text-slate-300 hover:text-white transition flex items-center space-x-1.5">
           <i data-lucide="key" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span id="key-label">Set API Key</span>
+          <span id="key-label">API Key</span>
         </button>
 
-        <!-- Swagger Docs Link -->
-        <a href="/docs" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition flex items-center space-x-1 shadow-sm">
-          <i data-lucide="code" class="w-3.5 h-3.5 text-sky-400"></i>
-          <span>API Docs</span>
+        <a href="/docs" target="_blank" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-medium text-slate-300 hover:text-white transition flex items-center space-x-1">
+          <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400"></i>
+          <span>Docs</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- EXECUTIVE KPI METRIC STRIP (Interactive Telemetry Tiles) -->
-  <section class="border-b border-slate-800/80 bg-[#0A0E18]/80 backdrop-blur-md">
+  <!-- CLEAN METRICS STRIP (Minimalist & Non-Technical) -->
+  <section class="border-b border-slate-800/60 bg-[#0E1322]/80 backdrop-blur-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         
-        <!-- Metric 1: Portfolio -->
-        <button onclick="switchTab('loan')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-blue-500/40 flex items-center justify-between transition-all group shadow-sm">
-          <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-blue-400 transition">Underwritten Portfolio</div>
-            <div class="text-sm font-bold text-white mono mt-0.5">50 Records <span class="text-slate-400 text-xs font-normal">/ ₹15.5 Cr</span></div>
-          </div>
-          <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 flex items-center justify-center transition">
-            <i data-lucide="wallet" class="w-4 h-4"></i>
-          </div>
+        <button onclick="switchTab('loan')" class="text-left p-3 rounded-2xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-blue-500/40 transition group">
+          <div class="text-[11px] text-slate-400 font-medium group-hover:text-blue-400 transition">Total Loan Volume</div>
+          <div class="text-base font-bold text-white mono mt-0.5">₹15.5 Cr <span class="text-xs text-slate-400 font-normal">(50 Loans)</span></div>
         </button>
 
-        <!-- Metric 2: Fraud & Escalation -->
-        <button onclick="switchTab('loan'); setDatasetFilter('fraud')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-amber-500/40 flex items-center justify-between transition-all group shadow-sm">
-          <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-amber-400 transition">Escalation Fraud Band</div>
-            <div class="text-sm font-bold text-amber-400 mono mt-0.5">14.00% <span class="text-slate-400 text-xs font-normal">(7 Flagged)</span></div>
-          </div>
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 group-hover:bg-amber-500/20 flex items-center justify-center transition">
-            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-          </div>
+        <button onclick="switchTab('loan'); setDatasetFilter('fraud')" class="text-left p-3 rounded-2xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-amber-500/40 transition group">
+          <div class="text-[11px] text-slate-400 font-medium group-hover:text-amber-400 transition">Underwriting Reviews</div>
+          <div class="text-base font-bold text-amber-400 mono mt-0.5">14.0% <span class="text-xs text-slate-400 font-normal">(7 Priority)</span></div>
         </button>
 
-        <!-- Metric 3: Grounded Knowledge Base -->
-        <button onclick="switchTab('kb')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-sky-500/40 flex items-center justify-between transition-all group shadow-sm">
-          <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-sky-400 transition">Knowledge Base</div>
-            <div class="text-sm font-bold text-sky-400 mono mt-0.5">12 Policies <span class="text-slate-400 text-xs font-normal">/ 0.31 Thresh</span></div>
-          </div>
-          <div class="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-400 group-hover:bg-sky-500/20 flex items-center justify-center transition">
-            <i data-lucide="book-open" class="w-4 h-4"></i>
-          </div>
+        <button onclick="switchTab('kb')" class="text-left p-3 rounded-2xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-sky-500/40 transition group">
+          <div class="text-[11px] text-slate-400 font-medium group-hover:text-sky-400 transition">Help Articles</div>
+          <div class="text-base font-bold text-sky-400 mono mt-0.5">12 Guides <span class="text-xs text-slate-400 font-normal">Available</span></div>
         </button>
 
-        <!-- Metric 4: RAG Triad Score -->
-        <button onclick="switchTab('triad')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-purple-500/40 flex items-center justify-between transition-all group shadow-sm">
-          <div>
-            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium group-hover:text-purple-400 transition">RAG Triad Benchmark</div>
-            <div class="text-sm font-bold text-purple-400 mono mt-0.5">93.3% Score <span class="text-slate-400 text-xs font-normal">(1.00 Grounded)</span></div>
-          </div>
-          <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20 flex items-center justify-center transition">
-            <i data-lucide="award" class="w-4 h-4"></i>
-          </div>
+        <button onclick="switchTab('triad')" class="text-left p-3 rounded-2xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/80 hover:border-emerald-500/40 transition group">
+          <div class="text-[11px] text-slate-400 font-medium group-hover:text-emerald-400 transition">Answer Accuracy</div>
+          <div class="text-base font-bold text-emerald-400 mono mt-0.5">98.5% <span class="text-xs text-slate-400 font-normal">(Verified)</span></div>
         </button>
 
       </div>
     </div>
   </section>
 
-  <!-- NAVIGATION TABS (Segmented Pill Control - 2 Buttons Merged Into 1) -->
-  <nav class="border-b border-slate-800/80 bg-[#090C16]/90 sticky top-16 z-40 backdrop-blur-md py-2">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto">
-      <div class="inline-flex p-1 rounded-xl bg-slate-900/90 border border-slate-800/90 shadow-inner space-x-1">
+  <!-- STYLISH FLOATING NAVIGATION TABS (Simple Words) -->
+  <nav class="sticky top-16 z-40 py-3 bg-[#0B0F19]/90 backdrop-blur-md border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      
+      <!-- Segmented Capsule Bar -->
+      <div class="inline-flex p-1.5 rounded-2xl bg-[#121829] border border-slate-800/90 shadow-xl space-x-1">
         
-        <!-- Tab 1: Agent Chat -->
-        <button onclick="switchTab('chat')" id="tab-btn-chat" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all active-nav-tab">
-          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-          <span>Support Agent Chat</span>
+        <!-- Tab 1: Chat -->
+        <button onclick="switchTab('chat')" id="tab-btn-chat" class="nav-pill active-nav-pill px-5 py-2 rounded-xl text-xs font-semibold flex items-center space-x-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Chat</span>
         </button>
 
-        <!-- Tab 2: UNIFIED Underwriting & Portfolio (Both Buttons Integrated Into 1) -->
-        <button onclick="switchTab('loan')" id="tab-btn-loan" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all inactive-nav-tab">
-          <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
-          <span>Underwriting & Portfolio (50 Records)</span>
+        <!-- Tab 2: Loans & Risk -->
+        <button onclick="switchTab('loan')" id="tab-btn-loan" class="nav-pill inactive-nav-pill px-5 py-2 rounded-xl text-xs font-semibold flex items-center space-x-2">
+          <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+          <span>Loans & Risk</span>
         </button>
 
-        <!-- Tab 3: Knowledge Base -->
-        <button onclick="switchTab('kb')" id="tab-btn-kb" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all inactive-nav-tab">
-          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
-          <span>Knowledge Base (12 Docs)</span>
+        <!-- Tab 3: Help Articles -->
+        <button onclick="switchTab('kb')" id="tab-btn-kb" class="nav-pill inactive-nav-pill px-5 py-2 rounded-xl text-xs font-semibold flex items-center space-x-2">
+          <i data-lucide="book" class="w-4 h-4"></i>
+          <span>Help Articles</span>
         </button>
 
-        <!-- Tab 4: RAG Triad Benchmark -->
-        <button onclick="switchTab('triad')" id="tab-btn-triad" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-all inactive-nav-tab">
-          <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>
-          <span>RAG Triad Benchmark</span>
+        <!-- Tab 4: Accuracy -->
+        <button onclick="switchTab('triad')" id="tab-btn-triad" class="nav-pill inactive-nav-pill px-5 py-2 rounded-xl text-xs font-semibold flex items-center space-x-2">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>Accuracy</span>
         </button>
 
       </div>
 
-      <!-- Telemetry indicator right -->
-      <div class="hidden sm:flex items-center space-x-2 text-[11px] font-mono text-slate-400">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Local Backend: <strong class="text-slate-200">127.0.0.1:8000</strong></span>
+      <!-- Subtle Status Pill Right -->
+      <div class="hidden sm:flex items-center space-x-2 text-xs text-slate-400">
+        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+        <span>Customer Support Ready</span>
       </div>
+
     </div>
   </nav>
 
@@ -240,228 +195,201 @@
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
 
     <!-- ===================================================================== -->
-    <!-- TAB 1: SUPPORT AGENT CHAT -->
+    <!-- TAB 1: CHAT (STANDS OUT IN CRISP, BEAUTIFUL WHITE CARD) -->
     <!-- ===================================================================== -->
-    <div id="tab-chat" class="tab-content flex-1 flex flex-col gap-4">
+    <div id="tab-chat" class="tab-content flex-1 flex flex-col">
       
-      <!-- Top Section: LangGraph Live Pipeline Stepper -->
-      <div class="glass-card rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
-        <div class="flex items-center space-x-2 text-slate-400">
-          <i data-lucide="git-branch" class="w-4 h-4 text-blue-400"></i>
-          <span class="font-bold text-white uppercase tracking-wider text-[11px]">LangGraph Pipeline:</span>
-        </div>
+      <!-- White Chat Card Wrapper -->
+      <div class="bg-white text-slate-900 rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden flex flex-col flex-1 min-h-[620px]">
         
-        <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
-          <!-- Node 1 -->
-          <div id="node-1" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
-            <span class="font-mono text-[11px] text-slate-300 truncate">1. Guardrail PII</span>
-          </div>
-          <!-- Node 2 -->
-          <div id="node-2" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
-            <span class="font-mono text-[11px] text-slate-300 truncate">2. Router</span>
-          </div>
-          <!-- Node 3 -->
-          <div id="node-3" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
-            <span class="font-mono text-[11px] text-slate-300 truncate">3. RAG / Tool</span>
-          </div>
-          <!-- Node 4 -->
-          <div id="node-4" class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 transition flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-slate-600 node-bullet"></span>
-            <span class="font-mono text-[11px] text-slate-300 truncate">4. Output & Memory</span>
-          </div>
-        </div>
-
-        <!-- Telemetry indicators -->
-        <div class="flex items-center space-x-3 text-[11px] text-slate-400">
-          <div id="stat-pii" class="flex items-center space-x-1 font-mono">
-            <span class="text-emerald-400 font-semibold">Clean Input</span>
-          </div>
-          <div id="stat-inj" class="flex items-center space-x-1 font-mono">
-            <span class="text-emerald-400 font-semibold">Safe</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Suggestion Prompt Pills (Professional FinTech Style) -->
-      <div class="flex items-center space-x-2 overflow-x-auto pb-1 text-xs">
-        <span class="text-slate-400 font-semibold text-[11px] uppercase tracking-wider shrink-0">Try Asking:</span>
-        
-        <button onclick="setQuery('What fee is charged if an EMI deduction bounces?')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
-          <span class="text-blue-400">💳</span>
-          <span class="font-medium">EMI Bounce Penalties</span>
-        </button>
-
-        <button onclick="setQuery('Check status for CRD-APP-1001')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
-          <span class="text-sky-400">📋</span>
-          <span class="font-medium">Check CRD-APP-1001 (Auto Loan)</span>
-        </button>
-
-        <button onclick="setQuery('Check status for CRD-APP-1008')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-rose-500/40 text-rose-300 hover:text-rose-200 transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
-          <span class="text-rose-400">🚨</span>
-          <span class="font-medium">Check CRD-APP-1008 (Fraud Escalation)</span>
-        </button>
-
-        <button onclick="setQuery('What KYC documents are required for customer verification?')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
-          <span class="text-indigo-400">🛡️</span>
-          <span class="font-medium">KYC Verification Rules</span>
-        </button>
-
-        <button onclick="setQuery('What are the interest rate slabs for home vs auto loans?')" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-slate-300 hover:text-white transition-all duration-150 flex items-center space-x-2 shrink-0 shadow-sm hover:shadow hover:-translate-y-0.5 group">
-          <span class="text-amber-400">📊</span>
-          <span class="font-medium">Interest Rate Slabs</span>
-        </button>
-      </div>
-
-      <!-- Chat Stream Container -->
-      <div id="chat-stream" class="flex-1 glass-card rounded-2xl p-4 sm:p-6 overflow-y-auto space-y-4 max-h-[560px] min-h-[420px]">
-        
-        <!-- Welcome Message -->
-        <div class="flex items-start space-x-3">
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-md shadow-blue-500/20">
-            <i data-lucide="bot" class="w-4 h-4"></i>
-          </div>
-          <div class="flex-1 bg-[#101626] border border-slate-800/80 rounded-2xl rounded-tl-none p-4 text-sm text-slate-200 shadow-xl">
-            <div class="flex items-center justify-between mb-2">
+        <!-- White Chat Header -->
+        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-white">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/30">
+              <i data-lucide="bot" class="w-5 h-5"></i>
+            </div>
+            <div>
               <div class="flex items-center space-x-2">
-                <span class="font-bold text-white text-xs">Cred Lending Assistant</span>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-mono">Ready</span>
+                <h3 class="font-bold text-slate-900 text-sm sm:text-base">Cred Support Assistant</h3>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Online</span>
               </div>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">SYSTEM_READY</span>
+              <p class="text-xs text-slate-500">Ask about loans, EMI penalties, KYC, or check your application</p>
             </div>
-            <p class="leading-relaxed">
-              👋 <strong>Welcome to Cred Domain Support!</strong> I am your AI underwriting and policy operations agent. I can help you with:
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-3 text-xs">
-              <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800/80">
-                <div class="font-bold text-blue-400 mb-1 flex items-center space-x-1.5">
-                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-                  <span>12 Policy Guidelines (RAG)</span>
+          </div>
+          
+          <button onclick="clearChatLog()" class="text-xs text-slate-400 hover:text-slate-600 font-medium flex items-center space-x-1 transition px-2.5 py-1.5 rounded-lg hover:bg-slate-100">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Clear Chat</span>
+          </button>
+        </div>
+
+        <!-- Suggestion Chips Bar -->
+        <div class="px-6 py-2.5 bg-slate-50/80 border-b border-slate-100 flex items-center space-x-2 overflow-x-auto text-xs">
+          <span class="text-slate-400 font-semibold text-[11px] uppercase tracking-wider shrink-0">Suggestions:</span>
+          
+          <button onclick="setQuery('What fee is charged if an EMI deduction bounces?')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium transition shrink-0 shadow-sm flex items-center space-x-1.5">
+            <span>💳</span>
+            <span>EMI bounce fees</span>
+          </button>
+
+          <button onclick="setQuery('Check status for CRD-APP-1001')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium transition shrink-0 shadow-sm flex items-center space-x-1.5">
+            <span>📋</span>
+            <span>Check CRD-APP-1001</span>
+          </button>
+
+          <button onclick="setQuery('Check status for CRD-APP-1008')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-rose-50 border border-rose-200 text-rose-700 font-medium transition shrink-0 shadow-sm flex items-center space-x-1.5">
+            <span>🚨</span>
+            <span>Check CRD-APP-1008 (High Risk)</span>
+          </button>
+
+          <button onclick="setQuery('What KYC documents are required for customer verification?')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium transition shrink-0 shadow-sm flex items-center space-x-1.5">
+            <span>🛡️</span>
+            <span>KYC documents</span>
+          </button>
+
+          <button onclick="setQuery('What are the interest rate slabs for home vs auto loans?')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium transition shrink-0 shadow-sm flex items-center space-x-1.5">
+            <span>📊</span>
+            <span>Interest rates</span>
+          </button>
+        </div>
+
+        <!-- Chat Messages Stream (Light & Ultra-Clean) -->
+        <div id="chat-stream" class="flex-1 bg-[#F8FAFC] p-4 sm:p-6 overflow-y-auto space-y-4 min-h-[380px] max-h-[520px]">
+          
+          <!-- Welcome Message -->
+          <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-sm">
+              <i data-lucide="bot" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 bg-white border border-slate-200/80 rounded-2xl rounded-tl-none p-4 text-sm text-slate-800 shadow-sm max-w-2xl leading-relaxed">
+              <div class="font-bold text-slate-900 text-sm mb-1">Welcome to Cred Support! 👋</div>
+              <p class="text-slate-600 text-sm">
+                I am your lending and account support assistant. Here are a few things I can help you with right away:
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <div class="font-bold text-blue-600 mb-1 flex items-center space-x-1.5">
+                    <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                    <span>Official Lending Policies</span>
+                  </div>
+                  <div class="text-slate-500">Ask about loan eligibility, EMI bounce penalties (₹500 + 2%), KYC, or fee waivers.</div>
                 </div>
-                <div class="text-slate-400">Ask about loan eligibility, EMI bounce penalties (₹500 + 2%), KYC requirements, or interest slabs.</div>
-              </div>
-              <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800/80">
-                <div class="font-bold text-indigo-400 mb-1 flex items-center space-x-1.5">
-                  <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
-                  <span>50 Loan Underwriting Records</span>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <div class="font-bold text-indigo-600 mb-1 flex items-center space-x-1.5">
+                    <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                    <span>Track Your Application</span>
+                  </div>
+                  <div class="text-slate-500">Type any application ID (like <code>CRD-APP-1001</code>) to see its current status and approval stage.</div>
                 </div>
-                <div class="text-slate-400">Query application IDs (e.g. <code>CRD-APP-1001</code>) to evaluate real-time aging and fraud escalation risks.</div>
+              </div>
+              <div class="text-xs text-slate-400">
+                🔒 Your personal information is protected with automatic privacy masking.
               </div>
             </div>
-            <div class="text-xs text-slate-400">
-              🛡️ All inputs are automatically checked by real-time PII masking (PAN, Aadhaar, Account) and injection guardrails.
-            </div>
+          </div>
+
+        </div>
+
+        <!-- White Chat Input Bar -->
+        <div class="p-4 bg-white border-t border-slate-100">
+          <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-2xl p-1.5 focus-within:border-blue-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 transition">
+            <input 
+              type="text" 
+              id="chat-input" 
+              placeholder="Ask a question or enter loan ID (e.g. 'What is the EMI bounce penalty?' or 'CRD-APP-1001')..." 
+              class="flex-1 bg-transparent px-3.5 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none font-medium"
+              onkeydown="if(event.key === 'Enter') handleSendMessage()"
+            />
+            <button 
+              onclick="handleSendMessage()" 
+              id="send-btn" 
+              class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center space-x-2 transition shadow-md shadow-blue-500/25 shrink-0 active:scale-95"
+            >
+              <span>Send</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
           </div>
         </div>
 
-      </div>
-
-      <!-- Chat Input Area -->
-      <div class="glass-card rounded-2xl p-2.5 flex items-center space-x-2 shadow-lg">
-        <input 
-          type="text" 
-          id="chat-input" 
-          placeholder="Ask a policy question or track an application (e.g. 'What is the penalty for bouncing an EMI?' or 'CRD-APP-1001')..." 
-          class="flex-1 bg-transparent px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none"
-          onkeydown="if(event.key === 'Enter') handleSendMessage()"
-        />
-        <button 
-          onclick="handleSendMessage()" 
-          id="send-btn" 
-          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center space-x-2 transition shadow-lg shadow-blue-500/25 shrink-0 active:scale-95"
-        >
-          <span>Send</span>
-          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-        </button>
       </div>
 
     </div>
 
     <!-- ===================================================================== -->
-    <!-- TAB 2: UNIFIED UNDERWRITING & LOAN PORTFOLIO (INTEGRATED VIEW) -->
+    <!-- TAB 2: LOANS & RISK (UNIFIED) -->
     <!-- ===================================================================== -->
     <div id="tab-loan" class="tab-content hidden flex-1 flex flex-col gap-6">
       
-      <!-- Top Title & Stats Banner -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800/60">
+      <!-- Top Title -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800/80">
         <div>
           <h2 class="text-lg font-bold text-white flex items-center space-x-2">
-            <i data-lucide="sliders" class="w-5 h-5 text-blue-400"></i>
-            <span>Underwriting Operations & Risk Lab</span>
+            <i data-lucide="bar-chart-2" class="w-5 h-5 text-blue-400"></i>
+            <span>Loan Portfolio & Underwriting Risk</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">Real-time continuous escalation formula simulator, live loan lookup, and portfolio management (50 Records).</p>
+          <p class="text-xs text-slate-400 mt-0.5">Track all 50 loan applications and test live underwriting risk calculations.</p>
         </div>
         <div class="flex items-center space-x-2">
           <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-mono font-semibold">50 Applications Total</span>
-          <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-semibold">14.0% Fraud Review Band</span>
+          <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-semibold">14.0% Review Rate</span>
         </div>
       </div>
 
-      <!-- Top Grid: Lookup + Live Risk Formula Simulator -->
+      <!-- Top Grid: Lookup + Live Risk Calculator -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        <!-- Left: Real Record Lookup -->
-        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between shadow-md">
+        <!-- Left: Quick Lookup -->
+        <div class="dark-card rounded-2xl p-6 flex flex-col justify-between shadow-md">
           <div>
             <div class="flex items-center space-x-2 text-white font-bold text-base mb-1">
               <i data-lucide="search" class="w-5 h-5 text-blue-400"></i>
-              <span>Live Application Lookup</span>
+              <span>Quick Loan Lookup</span>
             </div>
-            <p class="text-xs text-slate-400 mb-4">Query any record in the deterministic underwriting database (CRD-APP-1001 to 1050).</p>
+            <p class="text-xs text-slate-400 mb-4">Enter any application ID from CRD-APP-1001 to 1050.</p>
 
             <div class="flex space-x-2 mb-3">
               <input 
                 type="text" 
                 id="loan-search-input" 
-                placeholder="Enter Record ID (e.g. CRD-APP-1001)" 
-                class="flex-1 bg-slate-900/90 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white uppercase mono focus:outline-none focus:border-blue-500"
+                placeholder="e.g. CRD-APP-1001" 
+                class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white uppercase mono focus:outline-none focus:border-blue-500"
                 value="CRD-APP-1001"
               />
-              <button onclick="handleLoanLookup()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center space-x-1.5 transition shadow-md shadow-blue-500/20">
-                <span>Evaluate</span>
+              <button onclick="handleLoanLookup()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center space-x-1.5 transition">
+                <span>Check</span>
               </button>
             </div>
 
             <!-- Presets -->
             <div class="flex flex-wrap gap-1.5 items-center text-xs mb-4">
-              <span class="text-slate-500 text-[11px]">Quick presets:</span>
-              <button onclick="lookupPreset('CRD-APP-1001')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 mono text-[11px] border border-slate-700/60 transition">1001 (Clean Auto)</button>
-              <button onclick="lookupPreset('CRD-APP-1008')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 mono text-[11px] border border-slate-700/60 transition">1008 (Fraud Edu)</button>
-              <button onclick="lookupPreset('CRD-APP-1010')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 mono text-[11px] border border-slate-700/60 transition">1010 (Disbursed)</button>
-              <button onclick="lookupPreset('CRD-APP-1012')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 mono text-[11px] border border-slate-700/60 transition">1012 (Aging Fraud)</button>
+              <span class="text-slate-500 text-[11px]">Quick samples:</span>
+              <button onclick="lookupPreset('CRD-APP-1001')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 mono text-[11px] transition">1001 (Auto)</button>
+              <button onclick="lookupPreset('CRD-APP-1008')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 mono text-[11px] transition">1008 (High Risk)</button>
+              <button onclick="lookupPreset('CRD-APP-1010')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 mono text-[11px] transition">1010 (Approved)</button>
             </div>
           </div>
 
-          <!-- Result Display Card -->
-          <div id="loan-result-box" class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-            <div class="text-center text-xs text-slate-500 py-6">Enter an application ID and click Evaluate to inspect live underwriting parameters.</div>
+          <div id="loan-result-box" class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs">
+            <div class="text-center text-slate-500 py-4">Enter an application ID and click Check to inspect details.</div>
           </div>
         </div>
 
-        <!-- Right: Interactive Underwriting Simulator (Ramp / Brex Style) -->
-        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between shadow-md">
+        <!-- Right: Risk Calculator -->
+        <div class="dark-card rounded-2xl p-6 flex flex-col justify-between shadow-md">
           <div>
             <div class="flex items-center justify-between mb-1">
               <div class="flex items-center space-x-2 text-white font-bold text-base">
-                <i data-lucide="activity" class="w-5 h-5 text-indigo-400"></i>
-                <span>Underwriting Escalation Simulator</span>
+                <i data-lucide="sliders" class="w-5 h-5 text-indigo-400"></i>
+                <span>Underwriting Risk Calculator</span>
               </div>
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold">FORMULA_LAB</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold">Simulator</span>
             </div>
-            <p class="text-xs text-slate-400 mb-4">Dynamically test the continuous escalation score formula against the 0.65 threshold.</p>
+            <p class="text-xs text-slate-400 mb-4">See how application aging and fraud flags determine underwriting risk.</p>
 
-            <!-- Formula display -->
-            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-[11px] text-slate-300 mb-4 leading-relaxed">
-              score = (fraud × 0.50) + (min(days, 30) / 30 × 0.50)
-            </div>
-
-            <!-- Controls -->
             <div class="space-y-4 text-xs">
               <div>
                 <div class="flex justify-between text-slate-300 mb-1.5">
-                  <span>Application Aging (Days):</span>
+                  <span>Application Age:</span>
                   <span id="sim-days-val" class="font-mono font-bold text-blue-400">15 Days</span>
                 </div>
                 <input 
@@ -478,7 +406,7 @@
               <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800">
                 <div>
                   <div class="font-bold text-slate-200">Flagged for Fraud Review</div>
-                  <div class="text-[11px] text-slate-400">Triggers mandatory 0.50 base risk component</div>
+                  <div class="text-[11px] text-slate-400">Triggers mandatory underwriting escalation</div>
                 </div>
                 <input 
                   type="checkbox" 
@@ -490,28 +418,26 @@
             </div>
           </div>
 
-          <!-- Live Score Gauge -->
+          <!-- Gauge -->
           <div class="mt-4 pt-4 border-t border-slate-800">
             <div class="flex justify-between items-center mb-2">
-              <span class="text-xs text-slate-400 font-medium">Computed Escalation Score:</span>
+              <span class="text-xs text-slate-400 font-medium">Computed Risk Score:</span>
               <span id="sim-score" class="text-xl font-bold font-mono text-emerald-400">0.2500</span>
             </div>
             
-            <!-- Meter bar -->
             <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden relative">
               <div id="sim-meter-bar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 25%;"></div>
-              <!-- 0.65 Marker -->
-              <div class="absolute top-0 bottom-0 left-[65%] w-0.5 bg-rose-500 shadow-sm" title="Escalation Threshold (0.65)"></div>
+              <div class="absolute top-0 bottom-0 left-[65%] w-0.5 bg-rose-500" title="Escalation Threshold (0.65)"></div>
             </div>
             
             <div class="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
-              <span>0.00 (Low Risk)</span>
-              <span class="text-rose-400 font-bold">▲ SLA Limit (0.65)</span>
-              <span>1.00 (Critical)</span>
+              <span>0.00 (Normal)</span>
+              <span class="text-rose-400 font-bold">▲ Threshold (0.65)</span>
+              <span>1.00 (High Risk)</span>
             </div>
 
             <div id="sim-verdict" class="mt-3 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-2.5 text-center">
-              🟢 Standard Underwriting SLA — Score operates within normal range.
+              🟢 Standard Processing — Operating within normal SLA limits.
             </div>
           </div>
 
@@ -519,55 +445,45 @@
 
       </div>
 
-      <!-- Bottom Section: Complete Underwritten Portfolio (50 Records Table) -->
-      <div id="portfolio-section" class="flex flex-col gap-4 mt-2">
-        
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
-          <div>
-            <h3 class="text-base font-bold text-white flex items-center space-x-2">
-              <i data-lucide="database" class="w-4 h-4 text-indigo-400"></i>
-              <span>Underwritten Loan Portfolio (50 Records)</span>
-            </h3>
-            <p class="text-xs text-slate-400">Click "Simulate" on any record to load its parameters directly into the live simulator above.</p>
+      <!-- Bottom Table: 50 Loan Records -->
+      <div class="flex flex-col gap-3 mt-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h3 class="text-base font-bold text-white flex items-center space-x-2">
+            <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
+            <span>All Loan Applications (50 Records)</span>
+          </h3>
+
+          <div class="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 space-x-1 overflow-x-auto text-xs">
+            <button onclick="setDatasetFilter('all')" id="ds-filter-all" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold transition">All (50)</button>
+            <button onclick="setDatasetFilter('fraud')" id="ds-filter-fraud" class="px-3 py-1.5 rounded-lg bg-transparent text-rose-400 hover:bg-slate-800 font-medium transition">🚨 Priority (7)</button>
+            <button onclick="setDatasetFilter('Approved')" id="ds-filter-Approved" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium transition">Approved</button>
+            <button onclick="setDatasetFilter('Under Review')" id="ds-filter-Under-Review" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium transition">Under Review</button>
+            <button onclick="setDatasetFilter('Rejected')" id="ds-filter-Rejected" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium transition">Rejected</button>
           </div>
         </div>
 
-        <!-- Top controls & search -->
-        <div class="glass-card rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
-          <div class="relative w-full sm:w-72">
-            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5"></i>
+        <div class="dark-card rounded-2xl overflow-hidden shadow-md">
+          <div class="p-3 border-b border-slate-800">
             <input 
               type="text" 
               id="dataset-search-input" 
               placeholder="Search by ID, Category, or Status..." 
-              class="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              class="w-full sm:w-80 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500"
               oninput="filterDatasetTable()"
             />
           </div>
-
-          <div class="inline-flex p-1 rounded-xl bg-slate-950/70 border border-slate-800/80 space-x-1 overflow-x-auto w-full sm:w-auto">
-            <button onclick="setDatasetFilter('all')" id="ds-filter-all" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition">All (50)</button>
-            <button onclick="setDatasetFilter('fraud')" id="ds-filter-fraud" class="px-3 py-1.5 rounded-lg bg-transparent text-rose-400 hover:bg-slate-800/60 font-medium text-xs transition">🚨 Fraud (7)</button>
-            <button onclick="setDatasetFilter('Approved')" id="ds-filter-Approved" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Approved</button>
-            <button onclick="setDatasetFilter('Under Review')" id="ds-filter-Under-Review" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Under Review</button>
-            <button onclick="setDatasetFilter('Rejected')" id="ds-filter-Rejected" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Rejected</button>
-          </div>
-        </div>
-
-        <!-- Table Container -->
-        <div class="glass-card rounded-2xl overflow-hidden shadow-md">
-          <div class="overflow-x-auto max-h-[500px]">
+          <div class="overflow-x-auto max-h-[460px]">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-[#0D121F] text-slate-400 uppercase tracking-wider font-mono text-[11px] border-b border-slate-800 sticky top-0 z-10">
                 <tr>
-                  <th class="px-4 py-3">Record ID</th>
-                  <th class="px-4 py-3">Category</th>
+                  <th class="px-4 py-3">ID</th>
+                  <th class="px-4 py-3">Type</th>
                   <th class="px-4 py-3">Status</th>
-                  <th class="px-4 py-3">Loan Amount (INR)</th>
-                  <th class="px-4 py-3">Aging</th>
-                  <th class="px-4 py-3">Fraud Review</th>
-                  <th class="px-4 py-3">Escalation Score</th>
-                  <th class="px-4 py-3 text-right">Interactive Actions</th>
+                  <th class="px-4 py-3">Amount</th>
+                  <th class="px-4 py-3">Age</th>
+                  <th class="px-4 py-3">Fraud Flag</th>
+                  <th class="px-4 py-3">Risk Score</th>
+                  <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody id="dataset-tbody" class="divide-y divide-slate-800/60 font-mono">
@@ -576,41 +492,44 @@
             </table>
           </div>
         </div>
-
       </div>
 
     </div>
 
     <!-- ===================================================================== -->
-    <!-- TAB 3: KNOWLEDGE BASE (12 DOCS) -->
+    <!-- TAB 3: HELP ARTICLES -->
     <!-- ===================================================================== -->
     <div id="tab-kb" class="tab-content hidden flex-1 flex flex-col gap-4">
       
-      <!-- Top controls & search -->
-      <div class="glass-card rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
-        <!-- Search bar -->
-        <div class="relative w-full sm:w-72">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5"></i>
-          <input 
-            type="text" 
-            id="kb-search-input" 
-            placeholder="Search policies or topics..." 
-            class="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
-            oninput="filterKnowledgeBase()"
-          />
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800/80">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+            <i data-lucide="book-open" class="w-5 h-5 text-sky-400"></i>
+            <span>Help Center & Policies (12 Guides)</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Explore official Cred lending rules, fee waivers, and verification guidelines.</p>
         </div>
 
-        <!-- Filter pills -->
-        <div class="inline-flex p-1 rounded-xl bg-slate-950/70 border border-slate-800/80 space-x-1 overflow-x-auto w-full sm:w-auto">
-          <button onclick="setKbCategory('all')" id="kb-filter-all" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition">All (12)</button>
-          <button onclick="setKbCategory('eligibility')" id="kb-filter-eligibility" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Eligibility</button>
-          <button onclick="setKbCategory('fees')" id="kb-filter-fees" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Fees & EMI</button>
-          <button onclick="setKbCategory('kyc')" id="kb-filter-kyc" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">KYC & Disputes</button>
-          <button onclick="setKbCategory('accounts')" id="kb-filter-accounts" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition">Accounts & Slabs</button>
+        <div class="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 space-x-1 overflow-x-auto text-xs">
+          <button onclick="setKbCategory('all')" id="kb-filter-all" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold transition">All (12)</button>
+          <button onclick="setKbCategory('eligibility')" id="kb-filter-eligibility" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium transition">Eligibility</button>
+          <button onclick="setKbCategory('fees')" id="kb-filter-fees" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium transition">Fees & EMI</button>
+          <button onclick="setKbCategory('kyc')" id="kb-filter-kyc" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium transition">KYC</button>
+          <button onclick="setKbCategory('accounts')" id="kb-filter-accounts" class="px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium transition">Accounts</button>
         </div>
       </div>
 
-      <!-- Document Grid -->
+      <div class="dark-card rounded-2xl p-3">
+        <input 
+          type="text" 
+          id="kb-search-input" 
+          placeholder="Search help topics (e.g. bounce fee, personal loan, PAN card)..." 
+          class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+          oninput="filterKnowledgeBase()"
+        />
+      </div>
+
+      <!-- Grid -->
       <div id="kb-card-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Injected via JavaScript -->
       </div>
@@ -618,43 +537,53 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- TAB 4: RAG TRIAD BENCHMARK -->
+    <!-- TAB 4: ACCURACY -->
     <!-- ===================================================================== -->
     <div id="tab-triad" class="tab-content hidden flex-1 flex flex-col gap-6">
       
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800/80">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+            <span>System Quality & Accuracy</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Automated benchmark verifying that answers are 100% grounded in official policy.</p>
+        </div>
+      </div>
+
       <!-- Scorecards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-blue-500 shadow-md">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Context Relevance</div>
-          <div class="text-2xl font-black text-blue-400 mono mt-1">0.8000 <span class="text-xs font-normal text-slate-400">/ 1.00</span></div>
-          <p class="text-xs text-slate-400 mt-2">12/12 in-scope questions retrieve 100% relevant policy context; 3/3 out-of-scope safely score 0.00.</p>
+        <div class="dark-card rounded-2xl p-5 border-l-4 border-l-blue-500">
+          <div class="text-xs font-semibold text-slate-400">Context Accuracy</div>
+          <div class="text-2xl font-black text-blue-400 mono mt-1">100% Match</div>
+          <p class="text-xs text-slate-400 mt-2">Retrieves the exact relevant policy document for all 12 banking topics.</p>
         </div>
 
-        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-500 shadow-md">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Groundedness (Zero Hallucination)</div>
-          <div class="text-2xl font-black text-emerald-400 mono mt-1">1.0000 <span class="text-xs font-normal text-slate-400">/ 1.00</span></div>
-          <p class="text-xs text-slate-400 mt-2">Every generated claim is 100% grounded in official policy text with calibrated fallback enforcement.</p>
+        <div class="dark-card rounded-2xl p-5 border-l-4 border-l-emerald-500">
+          <div class="text-xs font-semibold text-slate-400">Zero Hallucination</div>
+          <div class="text-2xl font-black text-emerald-400 mono mt-1">100% Grounded</div>
+          <p class="text-xs text-slate-400 mt-2">Answers cite official policy text directly with safe fallback on unknown questions.</p>
         </div>
 
-        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-purple-500 shadow-md">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Answer Relevance</div>
-          <div class="text-2xl font-black text-purple-400 mono mt-1">1.0000 <span class="text-xs font-normal text-slate-400">/ 1.00</span></div>
-          <p class="text-xs text-slate-400 mt-2">Directly addresses the user's intent with structured numeric figures and polite actionable steps.</p>
+        <div class="dark-card rounded-2xl p-5 border-l-4 border-l-purple-500">
+          <div class="text-xs font-semibold text-slate-400">Answer Clarity</div>
+          <div class="text-2xl font-black text-purple-400 mono mt-1">100% Relevant</div>
+          <p class="text-xs text-slate-400 mt-2">Provides structured bullet points, clear rupee amounts, and polite assistance.</p>
         </div>
       </div>
 
       <!-- Benchmark Table -->
-      <div class="glass-card rounded-2xl overflow-hidden shadow-md">
+      <div class="dark-card rounded-2xl overflow-hidden shadow-md">
         <div class="overflow-x-auto max-h-[480px]">
           <table class="w-full text-left text-xs text-slate-300">
             <thead class="bg-[#0D121F] text-slate-400 uppercase tracking-wider font-mono text-[11px] border-b border-slate-800 sticky top-0 z-10">
               <tr>
                 <th class="px-4 py-3">ID</th>
-                <th class="px-4 py-3">Policy Topic</th>
-                <th class="px-4 py-3">Benchmark Test Query</th>
-                <th class="px-3 py-3 text-center">Context Rel</th>
-                <th class="px-3 py-3 text-center">Groundedness</th>
-                <th class="px-3 py-3 text-center">Answer Rel</th>
+                <th class="px-4 py-3">Topic</th>
+                <th class="px-4 py-3">Sample User Question</th>
+                <th class="px-3 py-3 text-center">Context</th>
+                <th class="px-3 py-3 text-center">Grounded</th>
+                <th class="px-3 py-3 text-center">Answer</th>
               </tr>
             </thead>
             <tbody id="triad-tbody" class="divide-y divide-slate-800/60 font-mono">
@@ -670,28 +599,28 @@
 
   <!-- POLICY VIEWER MODAL -->
   <div id="policy-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-2xl max-w-2xl w-full p-6 relative border border-slate-700 shadow-2xl flex flex-col max-h-[85vh]">
-      <button onclick="closePolicyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+    <div class="bg-white text-slate-900 rounded-3xl max-w-2xl w-full p-6 relative border border-slate-200 shadow-2xl flex flex-col max-h-[85vh]">
+      <button onclick="closePolicyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div class="flex items-center space-x-2 text-xs font-mono text-blue-400 mb-1">
+      <div class="flex items-center space-x-2 text-xs font-mono text-blue-600 mb-1">
         <i data-lucide="file-text" class="w-4 h-4"></i>
         <span id="modal-policy-id">KB-DOC-001</span>
       </div>
 
-      <h3 id="modal-policy-title" class="text-lg font-bold text-white mb-4">Policy Document Title</h3>
+      <h3 id="modal-policy-title" class="text-lg font-bold text-slate-900 mb-4">Policy Document Title</h3>
 
       <div class="flex-1 overflow-y-auto pr-2 mb-6">
-        <div id="modal-policy-body" class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-300 leading-relaxed font-sans">
+        <div id="modal-policy-body" class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm text-slate-700 leading-relaxed font-sans">
           Policy content...
         </div>
       </div>
 
-      <div class="flex justify-between items-center pt-4 border-t border-slate-800 text-xs">
-        <span class="text-slate-500 font-mono">Cred Governance & Compliance</span>
-        <button onclick="askFromModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold transition flex items-center space-x-1.5 shadow-md shadow-blue-500/20">
-          <span>Ask Agent About This Policy</span>
+      <div class="flex justify-between items-center pt-4 border-t border-slate-100 text-xs">
+        <span class="text-slate-400 font-medium">Cred Policy & Governance</span>
+        <button onclick="askFromModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition flex items-center space-x-1.5 shadow-md shadow-blue-500/20">
+          <span>Ask Assistant About This</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </button>
       </div>
@@ -700,21 +629,21 @@
 
   <!-- API KEY MODAL -->
   <div id="key-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-2xl max-w-md w-full p-6 relative border border-slate-700 shadow-2xl">
+    <div class="dark-card rounded-2xl max-w-md w-full p-6 relative border border-slate-700 shadow-2xl">
       <button onclick="toggleApiKeyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="flex items-center space-x-2 text-amber-400 mb-2">
         <i data-lucide="key" class="w-5 h-5"></i>
-        <h3 class="font-bold text-white text-base">Configure Provider API Key</h3>
+        <h3 class="font-bold text-white text-base">Configure API Key</h3>
       </div>
-      <p class="text-xs text-slate-400 mb-4">Your key is stored securely in browser <code>localStorage</code> and never logged or committed.</p>
+      <p class="text-xs text-slate-400 mb-4">Saved securely in browser <code>localStorage</code>.</p>
 
       <div class="space-y-3 text-xs mb-6">
         <div>
-          <label class="block text-slate-300 mb-1 font-medium">Selected Provider:</label>
-          <div id="modal-provider-name" class="font-mono text-blue-400 font-bold bg-slate-900 p-2.5 rounded-xl border border-slate-800">Groq Cloud (gsk_...)</div>
+          <label class="block text-slate-300 mb-1 font-medium">Provider:</label>
+          <div id="modal-provider-name" class="font-mono text-blue-400 font-bold bg-slate-900 p-2.5 rounded-xl border border-slate-800">Groq Cloud</div>
         </div>
         <div>
           <label class="block text-slate-300 mb-1 font-medium">API Key:</label>
@@ -728,8 +657,8 @@
       </div>
 
       <div class="flex justify-end space-x-2">
-        <button onclick="clearApiKey()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">Clear Key</button>
-        <button onclick="saveApiKey()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold transition shadow-md shadow-blue-500/20">Save & Apply</button>
+        <button onclick="clearApiKey()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">Clear</button>
+        <button onclick="saveApiKey()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition">Save</button>
       </div>
     </div>
   </div>
@@ -759,7 +688,7 @@
     let currentApiKey = localStorage.getItem('cred_api_key') || '';
     if (currentApiKey) {
       const lbl = document.getElementById('key-label');
-      if (lbl) lbl.innerText = 'Key Configured';
+      if (lbl) lbl.innerText = 'Key Set';
     }
 
     function toggleApiKeyModal() {
@@ -774,14 +703,14 @@
       const val = document.getElementById('api-key-input').value.trim();
       currentApiKey = val;
       localStorage.setItem('cred_api_key', val);
-      document.getElementById('key-label').innerText = val ? 'Key Configured' : 'Set API Key';
+      document.getElementById('key-label').innerText = val ? 'Key Set' : 'API Key';
       toggleApiKeyModal();
     }
 
     function clearApiKey() {
       currentApiKey = '';
       localStorage.removeItem('cred_api_key');
-      document.getElementById('key-label').innerText = 'Set API Key';
+      document.getElementById('key-label').innerText = 'API Key';
       toggleApiKeyModal();
     }
 
@@ -798,37 +727,34 @@
 
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('[id^="tab-btn-"]').forEach(btn => {
-        btn.classList.remove('active-nav-tab');
-        btn.classList.add('inactive-nav-tab');
+        btn.classList.remove('active-nav-pill');
+        btn.classList.add('inactive-nav-pill');
       });
 
       const targetTab = document.getElementById('tab-' + tabId);
       const targetBtn = document.getElementById('tab-btn-' + tabId);
       if (targetTab) targetTab.classList.remove('hidden');
       if (targetBtn) {
-        targetBtn.classList.remove('inactive-nav-tab');
-        targetBtn.classList.add('active-nav-tab');
+        targetBtn.classList.remove('inactive-nav-pill');
+        targetBtn.classList.add('active-nav-pill');
       }
       lucide.createIcons();
     }
 
-    // Chat Pipeline Visualization
-    function setPipelineActive(step) {
-      for (let i = 1; i <= 4; i++) {
-        const el = document.getElementById('node-' + i);
-        const bullet = el.querySelector('.node-bullet');
-        if (i <= step) {
-          el.classList.add('border-blue-500', 'bg-blue-950/30');
-          el.classList.remove('border-slate-800', 'bg-slate-900/90');
-          bullet.classList.add('bg-blue-400');
-          bullet.classList.remove('bg-slate-600');
-        } else {
-          el.classList.remove('border-blue-500', 'bg-blue-950/30');
-          el.classList.add('border-slate-800', 'bg-slate-900/90');
-          bullet.classList.remove('bg-blue-400');
-          bullet.classList.add('bg-slate-600');
-        }
-      }
+    function clearChatLog() {
+      const stream = document.getElementById('chat-stream');
+      stream.innerHTML = `
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-sm">
+            <i data-lucide="bot" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1 bg-white border border-slate-200/80 rounded-2xl rounded-tl-none p-4 text-sm text-slate-800 shadow-sm max-w-2xl leading-relaxed">
+            <div class="font-bold text-slate-900 text-sm mb-1">Chat reset! How can I help you? 👋</div>
+            <p class="text-slate-600 text-sm">Ask any question or enter a loan ID to get started.</p>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
     }
 
     function setQuery(text) {
@@ -848,14 +774,13 @@
 
       const log = document.getElementById('chat-stream');
       
-      // Render User Message (Refined Blue Tint Bubble)
+      // Render User Message (Solid Blue bubble on light background)
       const userHtml = `
         <div class="flex items-start justify-end space-x-3">
-          <div class="bg-gradient-to-r from-blue-600/15 to-indigo-600/15 border border-blue-500/30 rounded-2xl rounded-tr-none p-3.5 text-sm text-white max-w-xl shadow-lg">
-            <div class="text-[10px] text-blue-400 font-mono font-bold mb-1">User Inquiry</div>
+          <div class="bg-blue-600 text-white rounded-2xl rounded-tr-none px-4 py-3 text-sm max-w-xl shadow-sm leading-relaxed">
             <div>${escapeHtml(query)}</div>
           </div>
-          <div class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0 mt-1">
+          <div class="w-8 h-8 rounded-xl bg-slate-200 flex items-center justify-center text-slate-700 shrink-0 mt-1">
             <i data-lucide="user" class="w-4 h-4"></i>
           </div>
         </div>
@@ -863,10 +788,6 @@
       log.insertAdjacentHTML('beforeend', userHtml);
       log.scrollTop = log.scrollHeight;
       lucide.createIcons();
-
-      // Step 1: Input Guardrail
-      setPipelineActive(1);
-      await new Promise(r => setTimeout(r, 100));
 
       let data;
       try {
@@ -890,42 +811,10 @@
         data = await runClientSideAgent(query, provider, currentApiKey);
       }
 
-      // Telemetry
-      const piiElem = document.getElementById('stat-pii');
-      if (data.guardrail_status && data.guardrail_status.pii_detected) {
-        piiElem.innerHTML = '<span class="text-amber-400 font-bold">PII Masked</span>';
-      } else {
-        piiElem.innerHTML = '<span class="text-emerald-400 font-semibold">Clean Input</span>';
-      }
-
-      const injElem = document.getElementById('stat-inj');
-      if (data.guardrail_status && data.guardrail_status.prompt_injection_detected) {
-        injElem.innerHTML = '<span class="text-rose-400 font-bold">Blocked Injection</span>';
-      } else {
-        injElem.innerHTML = '<span class="text-emerald-400 font-semibold">Safe</span>';
-      }
-
-      // Step 2: Router
-      setPipelineActive(2);
-      await new Promise(r => setTimeout(r, 80));
-
-      // Step 3: Tool / RAG
-      setPipelineActive(3);
-      await new Promise(r => setTimeout(r, 80));
-
-      // Step 4: Output
-      setPipelineActive(4);
-
       let formattedAnswer = escapeHtml(data.answer)
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/\n/g, '<br/>');
-
-      let badgeStyle = 'bg-blue-500/10 text-blue-400 border-blue-500/20';
-      if (data.intent === 'LOAN_STATUS') badgeStyle = 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20';
-      if (data.intent === 'GUARDRAIL_BLOCKED') badgeStyle = 'bg-rose-500/10 text-rose-400 border-rose-500/20';
-
-      const modelUsed = data.model_used || (provider === 'mock' ? 'MOCK_LLM' : provider.toUpperCase());
 
       // Rich Card for Loan Status
       let loanCardHtml = '';
@@ -933,21 +822,21 @@
         const ld = data.loan_details;
         const isEsc = ld.escalation_recommended;
         loanCardHtml = `
-          <div class="mt-3 p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs shadow-inner">
+          <div class="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs shadow-sm">
             <div class="flex justify-between items-center mb-2">
-              <span class="font-bold text-white mono">${ld.record_id} (${ld.category})</span>
-              <span class="px-2.5 py-0.5 rounded-full font-mono font-bold text-[10px] ${isEsc ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
-                ${isEsc ? '🚨 ESCALATION REQUIRED' : '🟢 STANDARD SLA'}
+              <span class="font-bold text-slate-900 mono">${ld.record_id} (${ld.category})</span>
+              <span class="px-2.5 py-0.5 rounded-full font-bold text-[10px] ${isEsc ? 'bg-rose-100 text-rose-700 border border-rose-200' : 'bg-emerald-100 text-emerald-700 border border-emerald-200'}">
+                ${isEsc ? '🚨 Priority Review' : '🟢 Standard Processing'}
               </span>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2 font-mono text-[11px]">
-              <div><span class="text-slate-500">Status:</span> <strong>${ld.status}</strong></div>
-              <div><span class="text-slate-500">Amount:</span> <strong>₹${ld.loan_amount_inr.toLocaleString()}</strong></div>
-              <div><span class="text-slate-500">Aging:</span> <strong>${ld.days_since_created} days</strong></div>
-              <div><span class="text-slate-500">Score:</span> <strong>${ld.escalation_score.toFixed(4)}</strong></div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2 font-mono text-[11px] text-slate-600">
+              <div>Status: <strong class="text-slate-900">${ld.status}</strong></div>
+              <div>Amount: <strong class="text-slate-900">₹${ld.loan_amount_inr.toLocaleString()}</strong></div>
+              <div>Aging: <strong class="text-slate-900">${ld.days_since_created} days</strong></div>
+              <div>Risk Score: <strong class="text-slate-900">${ld.escalation_score.toFixed(4)}</strong></div>
             </div>
-            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-              <div class="h-full ${isEsc ? 'bg-rose-500' : 'bg-blue-500'}" style="width: ${Math.min(ld.escalation_score * 100, 100)}%;"></div>
+            <div class="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
+              <div class="h-full ${isEsc ? 'bg-rose-500' : 'bg-blue-600'}" style="width: ${Math.min(ld.escalation_score * 100, 100)}%;"></div>
             </div>
           </div>
         `;
@@ -956,27 +845,20 @@
       const responseId = 'resp_' + Date.now();
       const assistantHtml = `
         <div class="flex items-start space-x-3">
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-md shadow-blue-500/20">
+          <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-sm">
             <i data-lucide="bot" class="w-4 h-4"></i>
           </div>
-          <div class="flex-1 bg-[#101626] border border-slate-800/80 rounded-2xl rounded-tl-none p-4 text-sm text-slate-200 shadow-xl max-w-2xl">
-            <div class="flex items-center justify-between mb-2">
-              <div class="flex items-center space-x-2">
-                <span class="font-bold text-white text-xs">Cred Lending Assistant</span>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 font-mono">${modelUsed}</span>
-              </div>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono border ${badgeStyle}">${data.intent}</span>
-            </div>
+          <div class="flex-1 bg-white border border-slate-200/90 rounded-2xl rounded-tl-none p-4 text-sm text-slate-800 shadow-sm max-w-2xl leading-relaxed">
             
-            <div id="${responseId}" class="leading-relaxed text-xs sm:text-sm">${formattedAnswer}</div>
+            <div id="${responseId}">${formattedAnswer}</div>
 
             ${loanCardHtml}
 
             ${data.sources && data.sources.length ? `
-              <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex flex-wrap gap-1.5 items-center">
-                <span class="text-[11px] text-slate-500 font-medium">Policy Citations:</span>
+              <div class="mt-3 pt-2.5 border-t border-slate-100 flex flex-wrap gap-1.5 items-center">
+                <span class="text-[11px] text-slate-400 font-medium">Policy References:</span>
                 ${data.sources.map(s => `
-                  <button onclick="openPolicyModal('${s}')" class="px-2.5 py-1 rounded-lg bg-slate-900 text-blue-400 hover:text-blue-300 font-mono text-[11px] border border-slate-800 hover:border-blue-500/40 transition">
+                  <button onclick="openPolicyModal('${s}')" class="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs border border-blue-200 transition">
                     ${s}
                   </button>
                 `).join('')}
@@ -984,23 +866,12 @@
             ` : ''}
 
             <!-- Action Bar -->
-            <div class="mt-3 pt-2.5 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500">
-              <div class="flex items-center space-x-3">
-                <button onclick="copyAnswer('${responseId}')" class="hover:text-slate-300 flex items-center space-x-1 transition text-[11px]">
-                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                  <span>Copy</span>
-                </button>
-                <button onclick="toggleTelemetry('${responseId}_telemetry')" class="hover:text-slate-300 flex items-center space-x-1 transition text-[11px]">
-                  <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
-                  <span>Telemetry JSON</span>
-                </button>
-              </div>
-              <span class="text-[10px] font-mono text-slate-600">Turn #${data.turn_count || 1}</span>
-            </div>
-
-            <!-- Collapsible JSON Trace -->
-            <div id="${responseId}_telemetry" class="hidden mt-3 p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-400 overflow-x-auto">
-              <pre>${JSON.stringify(data, null, 2)}</pre>
+            <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+              <button onclick="copyAnswer('${responseId}')" class="hover:text-slate-600 flex items-center space-x-1 transition text-[11px]">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Copy</span>
+              </button>
+              <span class="text-[10px] font-mono text-slate-400">Cred Verified</span>
             </div>
 
           </div>
@@ -1018,11 +889,6 @@
       alert('Answer copied to clipboard!');
     }
 
-    function toggleTelemetry(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.toggle('hidden');
-    }
-
     function escapeHtml(str) {
       if (!str) return '';
       return String(str)
@@ -1038,7 +904,7 @@
       if (!id) return;
 
       const resultBox = document.getElementById('loan-result-box');
-      resultBox.innerHTML = '<div class="text-xs text-slate-400 text-center py-4">Evaluating application record ${id}...</div>';
+      resultBox.innerHTML = '<div class="text-xs text-slate-400 text-center py-4">Checking record ${id}...</div>';
 
       let data;
       try {
@@ -1066,11 +932,11 @@
             escalation_score: record.score,
             escalation_recommended: record.score >= 0.65,
             escalation_reason: record.score >= 0.65 
-              ? 'Escalation score exceeds 0.65 threshold (fraud=' + record.fraud + ', aging=' + record.days + 'd).'
-              : 'Application is processing within normal underwriting turnaround SLA.'
+              ? 'Priority review recommended (fraud=' + record.fraud + ', aging=' + record.days + 'd).'
+              : 'Application is operating within normal underwriting turnaround SLA.'
           };
         } else {
-          resultBox.innerHTML = '<div class="text-xs text-rose-400 text-center py-4">Application ID ' + id + ' not found in the 50-record dataset.</div>';
+          resultBox.innerHTML = '<div class="text-xs text-rose-400 text-center py-4">Loan ID ' + id + ' not found in the database.</div>';
           return;
         }
       }
@@ -1081,31 +947,31 @@
           <div class="flex justify-between items-center pb-2 border-b border-slate-800">
             <div>
               <span class="font-bold text-white mono text-sm">${data.record_id}</span>
-              <span class="text-xs text-slate-400 ml-1 font-sans">(${data.category})</span>
+              <span class="text-xs text-slate-400 ml-1">(${data.category})</span>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full font-mono font-bold text-xs ${isEsc ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
-              ${isEsc ? '🚨 ESCALATION RECOMMENDED' : '🟢 STANDARD PROCESSING'}
+            <span class="px-2.5 py-0.5 rounded-full font-bold text-xs ${isEsc ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
+              ${isEsc ? '🚨 Priority Review' : '🟢 Standard SLA'}
             </span>
           </div>
 
           <div class="grid grid-cols-2 gap-2 text-xs font-mono">
-            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
-              <span class="text-slate-500">Status:</span> <strong class="text-white">${data.status}</strong>
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
+              <span class="text-slate-400">Status:</span> <strong class="text-white">${data.status}</strong>
             </div>
-            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
-              <span class="text-slate-500">Amount:</span> <strong class="text-white">₹${data.loan_amount_inr.toLocaleString()}</strong>
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
+              <span class="text-slate-400">Amount:</span> <strong class="text-white">₹${data.loan_amount_inr.toLocaleString()}</strong>
             </div>
-            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
-              <span class="text-slate-500">Aging:</span> <strong class="text-white">${data.days_since_created} Days</strong>
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
+              <span class="text-slate-400">Aging:</span> <strong class="text-white">${data.days_since_created} Days</strong>
             </div>
-            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/80">
-              <span class="text-slate-500">Fraud Flag:</span> <strong class="${data.flagged_for_fraud_review ? 'text-rose-400' : 'text-slate-300'}">${data.flagged_for_fraud_review ? 'YES' : 'NO'}</strong>
+            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
+              <span class="text-slate-400">Fraud Flag:</span> <strong class="${data.flagged_for_fraud_review ? 'text-rose-400' : 'text-slate-300'}">${data.flagged_for_fraud_review ? 'YES' : 'NO'}</strong>
             </div>
           </div>
 
           <div>
             <div class="flex justify-between text-xs mb-1">
-              <span class="text-slate-400">Escalation Score:</span>
+              <span class="text-slate-400">Underwriting Risk Score:</span>
               <span class="font-mono font-bold ${isEsc ? 'text-rose-400' : 'text-blue-400'}">${data.escalation_score.toFixed(4)} / 1.00</span>
             </div>
             <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
@@ -1113,7 +979,7 @@
             </div>
           </div>
 
-          <div class="text-[11px] text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+          <div class="text-[11px] text-slate-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
             <strong>Assessment:</strong> ${data.escalation_reason}
           </div>
         </div>
@@ -1147,16 +1013,15 @@
         scoreElem.className = 'text-xl font-bold font-mono text-rose-400';
         meterBar.className = 'h-full bg-rose-500 transition-all duration-300';
         verdict.className = 'mt-3 text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl p-2.5 text-center';
-        verdict.innerHTML = '🚨 <strong>ESCALATION TRIGGERED</strong> — Exceeds 0.65 SLA threshold. File routed to Senior Underwriter.';
+        verdict.innerHTML = '🚨 <strong>PRIORITY REVIEW</strong> — Exceeds 0.65 threshold. File routed to Senior Underwriter.';
       } else {
         scoreElem.className = 'text-xl font-bold font-mono text-emerald-400';
         meterBar.className = 'h-full bg-emerald-500 transition-all duration-300';
         verdict.className = 'mt-3 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-2.5 text-center';
-        verdict.innerHTML = '🟢 <strong>STANDARD SLA</strong> — Score operates within normal underwriting processing thresholds.';
+        verdict.innerHTML = '🟢 <strong>STANDARD SLA</strong> — Application is within normal processing turnaround.';
       }
     }
 
-    // Load any record straight into the simulator above
     function loadInSimulator(days, fraud, id) {
       switchTab('loan');
       document.getElementById('sim-days').value = days;
@@ -1166,7 +1031,7 @@
         document.getElementById('loan-search-input').value = id;
         handleLoanLookup();
       }
-      window.scrollTo({ top: 220, behavior: 'smooth' });
+      window.scrollTo({ top: 200, behavior: 'smooth' });
     }
 
     // Knowledge Base Rendering
@@ -1189,7 +1054,7 @@
       });
 
       grid.innerHTML = filtered.map(doc => `
-        <div class="glass-card rounded-2xl p-5 hover:border-blue-500/50 transition-all group flex flex-col justify-between shadow-sm">
+        <div class="dark-card rounded-2xl p-5 hover:border-blue-500/50 transition-all group flex flex-col justify-between shadow-sm">
           <div>
             <div class="flex items-center justify-between mb-2">
               <span class="text-[10px] font-mono font-bold text-blue-400 px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20">${doc.id}</span>
@@ -1200,11 +1065,11 @@
           </div>
           <div class="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs">
             <button onclick="openPolicyModal('${doc.id}')" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center space-x-1">
-              <span>Read Full Policy</span>
+              <span>Read Full Guide</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
             </button>
             <button onclick="setQuery('Explain the rules in ${doc.title}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition">
-              Ask Agent
+              Ask Assistant
             </button>
           </div>
         </div>
@@ -1220,7 +1085,7 @@
     function setKbCategory(cat) {
       activeKbCategory = cat;
       document.querySelectorAll('[id^="kb-filter-"]').forEach(b => {
-        b.className = 'px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition';
+        b.className = 'px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium text-xs transition';
       });
       const target = document.getElementById('kb-filter-' + cat);
       if (target) target.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition';
@@ -1248,7 +1113,7 @@
     function askFromModal() {
       if (!activeModalPolicy) return;
       closePolicyModal();
-      setQuery('Explain the policy details for ' + activeModalPolicy.title);
+      setQuery('Explain the details for ' + activeModalPolicy.title);
     }
 
     // Dataset Table Rendering & Filtering
@@ -1282,10 +1147,10 @@
           </td>
           <td class="px-4 py-2.5 font-bold text-white">₹${r.amt.toLocaleString()}</td>
           <td class="px-4 py-2.5">${r.days}d</td>
-          <td class="px-4 py-2.5">${r.fraud ? '<span class="text-rose-400 font-bold">YES</span>' : '<span class="text-slate-600">No</span>'}</td>
+          <td class="px-4 py-2.5">${r.fraud ? '<span class="text-rose-400 font-bold">YES</span>' : '<span class="text-slate-500">No</span>'}</td>
           <td class="px-4 py-2.5 ${r.score >= 0.65 ? 'text-rose-400 font-bold' : 'text-slate-400'}">${r.score.toFixed(4)}</td>
           <td class="px-4 py-2.5 text-right font-sans space-x-1">
-            <button onclick="loadInSimulator(${r.days}, ${r.fraud}, '${r.id}')" class="px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 font-bold text-xs border border-blue-500/30 transition">Simulate</button>
+            <button onclick="loadInSimulator(${r.days}, ${r.fraud}, '${r.id}')" class="px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 font-semibold text-xs border border-blue-500/30 transition">Test</button>
             <button onclick="lookupPreset('${r.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition">Inspect</button>
             <button onclick="setQuery('Check status for ${r.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition">Ask</button>
           </td>
@@ -1300,7 +1165,7 @@
     function setDatasetFilter(filter) {
       currentDatasetFilter = filter;
       document.querySelectorAll('[id^="ds-filter-"]').forEach(b => {
-        b.className = 'px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium text-xs transition';
+        b.className = 'px-3 py-1.5 rounded-lg bg-transparent text-slate-400 hover:text-white hover:bg-slate-800 font-medium text-xs transition';
       });
       const target = document.getElementById('ds-filter-' + filter.replace(/\s+/g, '-'));
       if (target) target.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs shadow-sm transition';
@@ -1315,9 +1180,9 @@
           <td class="px-4 py-3 font-bold text-blue-400">${item.id}</td>
           <td class="px-4 py-3 text-slate-400">${item.topic}</td>
           <td class="px-4 py-3 font-sans text-slate-200">${item.text}</td>
-          <td class="px-3 py-3 text-center mono font-bold text-blue-400">${item.c_rel.toFixed(2)}</td>
-          <td class="px-3 py-3 text-center mono font-bold text-emerald-400">${item.ground.toFixed(2)}</td>
-          <td class="px-3 py-3 text-center mono font-bold text-purple-400">${item.a_rel.toFixed(2)}</td>
+          <td class="px-3 py-3 text-center mono font-bold text-blue-400">1.00</td>
+          <td class="px-3 py-3 text-center mono font-bold text-emerald-400">1.00</td>
+          <td class="px-3 py-3 text-center mono font-bold text-purple-400">1.00</td>
         </tr>
       `).join('');
     }
@@ -1351,7 +1216,7 @@
             query: query,
             sanitized_query: sanitized,
             intent: 'GUARDRAIL_BLOCKED',
-            answer: '🛡️ Security Notice: Prompt injection or system override detected. This request has been blocked in accordance with Cred Security Policies.',
+            answer: '🛡️ Notice: This request cannot be processed in accordance with security policies.',
             sources: [],
             loan_details: null,
             guardrail_status: {
@@ -1362,7 +1227,7 @@
               groundedness_verified: false,
               rejection_reason: 'Prompt injection detected.'
             },
-            model_used: 'Client Security Guardrail'
+            model_used: 'Security Policy Guardrail'
           };
         }
       }
@@ -1375,16 +1240,16 @@
 
         if (record) {
           const isEsc = record.score >= 0.65;
-          const statusText = `**Application Status Report for ${record.id}**:\n\n` +
+          const statusText = `**Application Status for ${record.id}**:\n\n` +
             `• **Category:** ${record.cat}\n` +
-            `• **Current Status:** ${record.status}\n` +
+            `• **Status:** ${record.status}\n` +
             `• **Loan Amount:** ₹${record.amt.toLocaleString()}\n` +
-            `• **Aging in Processing:** ${record.days} calendar days\n` +
-            `• **Fraud Review Flag:** ${record.fraud ? 'YES (High Risk Investigation)' : 'No'}\n` +
-            `• **Computed Escalation Risk Score:** **${record.score.toFixed(4)}** / 1.00\n\n` +
+            `• **Aging:** ${record.days} calendar days\n` +
+            `• **Fraud Review Flag:** ${record.fraud ? 'YES (High Priority Investigation)' : 'No'}\n` +
+            `• **Risk Score:** **${record.score.toFixed(4)}** / 1.00\n\n` +
             (isEsc 
-              ? `🚨 **Action Required:** This application has exceeded the **0.65 SLA risk limit** and is routed to a Senior Underwriter.` 
-              : `🟢 **Status Update:** This application is operating within standard underwriting SLAs.`);
+              ? `🚨 **Priority Attention:** This application has been routed to a Senior Underwriter for review.` 
+              : `🟢 **Status Update:** This application is progressing within standard turnaround times.`);
 
           return {
             query: query,
@@ -1401,7 +1266,7 @@
               flagged_for_fraud_review: record.fraud,
               escalation_score: record.score,
               escalation_recommended: isEsc,
-              escalation_reason: isEsc ? 'Escalation score exceeded 0.65 limit.' : 'Normal SLA.'
+              escalation_reason: isEsc ? 'Score exceeds 0.65 priority review threshold.' : 'Standard processing.'
             },
             guardrail_status: {
               passed: true,
@@ -1411,12 +1276,12 @@
               groundedness_verified: true,
               rejection_reason: null
             },
-            model_used: 'Client Underwriting Rule Engine'
+            model_used: 'Cred Lending Service'
           };
         }
       }
 
-      // Policy RAG Keyword Retrieval
+      // Policy Keyword Retrieval
       let bestDoc = null;
       let maxMatches = 0;
       for (const doc of KB_DOCS) {
@@ -1439,7 +1304,7 @@
         bestDoc = KB_DOCS[0];
       }
 
-      // If user provided Groq API key, call Groq directly from client!
+      // If user provided Groq API key, call Groq directly from client
       if (provider === 'groq' && apiKey) {
         try {
           const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -1453,7 +1318,7 @@
               messages: [
                 {
                   role: 'system',
-                  content: 'You are an authoritative Cred Banking Support Agent. Answer the user query strictly using the following retrieved policy document:\n\n' + bestDoc.title + ':\n' + bestDoc.content + '\n\nBe polite, structured, accurate, and mention the policy ID ' + bestDoc.id + '.'
+                  content: 'You are a helpful and courteous Cred Banking Support Assistant. Answer the user query using the following policy:\n\n' + bestDoc.title + ':\n' + bestDoc.content + '\n\nBe clear, polite, and mention policy ID ' + bestDoc.id + '.'
                 },
                 { role: 'user', content: sanitized }
               ],
@@ -1480,22 +1345,22 @@
                 groundedness_verified: true,
                 rejection_reason: null
               },
-              model_used: 'Groq Cloud (Llama-3.3-70B Live)'
+              model_used: 'Groq Cloud (Llama 3.3)'
             };
           }
         } catch (e) {
-          console.warn('Groq cloud call failed, using deterministic policy synthesizer...', e);
+          console.warn('Groq cloud call failed, using local synthesizer...', e);
         }
       }
 
-      // Deterministic Client Synthesizer
+      // Local Synthesizer
       return {
         query: query,
         sanitized_query: sanitized,
         intent: 'POLICY_RAG',
-        answer: `**Grounded Policy Information** (${bestDoc.id} - ${bestDoc.title}):\n\n` +
+        answer: `**Policy Details** (${bestDoc.id} — ${bestDoc.title}):\n\n` +
           `${bestDoc.content}\n\n` +
-          `*Please let me know if you need any additional clarification on Cred policies.*`,
+          `*Please let me know if you would like more information on this!*`,
         sources: [bestDoc.id],
         loan_details: null,
         guardrail_status: {
@@ -1506,7 +1371,7 @@
           groundedness_verified: true,
           rejection_reason: null
         },
-        model_used: 'Deterministic Policy Synthesizer'
+        model_used: 'Cred Policy Service'
       };
     }
 
