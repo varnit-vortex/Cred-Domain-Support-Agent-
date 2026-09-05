@@ -227,6 +227,11 @@
         <div class="px-6 py-2.5 bg-slate-50/80 border-b border-slate-100 flex items-center space-x-2 overflow-x-auto text-xs">
           <span class="text-slate-400 font-semibold text-[11px] uppercase tracking-wider shrink-0">Suggestions:</span>
           
+          <button onclick="setQuery('What are your capabilities?')" class="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-medium transition shrink-0 shadow-sm flex items-center space-x-1.5">
+            <span>✨</span>
+            <span>Capabilities</span>
+          </button>
+
           <button onclick="setQuery('What fee is charged if an EMI deduction bounces?')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium transition shrink-0 shadow-sm flex items-center space-x-1.5">
             <span>💳</span>
             <span>EMI bounce fees</span>
@@ -290,20 +295,20 @@
 
         </div>
 
-        <!-- White Chat Input Bar -->
-        <div class="p-4 bg-white border-t border-slate-100">
-          <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-2xl p-1.5 focus-within:border-blue-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 transition">
+        <!-- Dark Chat Input Bar -->
+        <div class="p-4 bg-white border-t border-slate-100 rounded-b-3xl">
+          <div class="flex items-center space-x-2 bg-slate-900 border border-slate-800 rounded-2xl p-1.5 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/25 shadow-inner transition">
             <input 
               type="text" 
               id="chat-input" 
-              placeholder="Ask a question or enter loan ID (e.g. 'What is the EMI bounce penalty?' or 'CRD-APP-1001')..." 
-              class="flex-1 bg-transparent px-3.5 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none font-medium"
+              placeholder="Type Here to Know Capabilities" 
+              class="flex-1 bg-transparent px-4 py-2.5 text-sm text-slate-100 placeholder-slate-400 focus:outline-none font-medium"
               onkeydown="if(event.key === 'Enter') handleSendMessage()"
             />
             <button 
               onclick="handleSendMessage()" 
               id="send-btn" 
-              class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center space-x-2 transition shadow-md shadow-blue-500/25 shrink-0 active:scale-95"
+              class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center space-x-2 transition shadow-md shadow-blue-500/25 shrink-0 active:scale-95"
             >
               <span>Send</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -766,8 +771,10 @@
     // Main Chat Execution
     async function handleSendMessage() {
       const input = document.getElementById('chat-input');
-      const query = input.value.trim();
-      if (!query) return;
+      let query = input.value.trim();
+      if (!query) {
+        query = "What are your capabilities?";
+      }
 
       const provider = document.getElementById('model-provider').value;
       input.value = '';
@@ -1230,6 +1237,31 @@
             model_used: 'Security Policy Guardrail'
           };
         }
+      }
+
+      // Capability Guidance Guardrail & Help
+      if (qLower.includes('capabilit') || qLower.includes('what can you do') || qLower.includes('features') || qLower.includes('type here') || qLower.includes('know capabilit')) {
+        return {
+          query: query,
+          sanitized_query: sanitized,
+          intent: 'POLICY_RAG',
+          answer: `**Cred Support Capabilities & Features**:\n\n` +
+            `1. **📋 Loan Status & Underwriting Risk**: Enter any Application ID (e.g. \`CRD-APP-1001\` or \`CRD-APP-1008\`) to check real-time approval stages, aging, risk scores, and fraud review SLA.\n` +
+            `2. **📖 Official Banking Policies**: Instant answers on EMI bounce fees (₹500 + 2%), KYC verification rules, personal vs home loan interest rates, and foreclosure penalties.\n` +
+            `3. **🛡️ Data Privacy & Safety**: Automatic regex masking of PAN, Aadhaar, and bank account numbers, along with prompt injection defense.\n\n` +
+            `*Feel free to click any suggestion above or type a loan ID to get started!*`,
+          sources: ['CRED-SUPPORT-CAPABILITIES'],
+          loan_details: null,
+          guardrail_status: {
+            passed: true,
+            pii_detected: piiDetected,
+            masked_query: sanitized,
+            prompt_injection_detected: false,
+            groundedness_verified: true,
+            rejection_reason: null
+          },
+          model_used: 'Cred Assistant'
+        };
       }
 
       // Check Loan ID
